@@ -30,15 +30,15 @@ max-width: 400px;
 #somun_logo{
 width: fit-content;
 margin: auto;
-margin-top: 80px; 
+margin-top: 20px;
 padding: 25px;
 }
 #somun_logo img{
 width:128px;
 }
 .login_btn{
-width: 297px;
-height: 48px;
+width: 300px;
+height: 50px;
 line-height: 48px;
 text-align: center;
 background-color: #52b2ff;
@@ -103,8 +103,6 @@ width: 297px;
 height: 48px;
 line-height: 48px;
 text-align: center;
-background-color: #1bd136;
-color: white;
 border-radius: 5px;
 font-size: 17px;
 margin: 16px auto;
@@ -115,6 +113,16 @@ font-size: 28px;
 }
 .social_login_btn a{
 color:white;
+}
+.button-login {
+	display: flex;
+	border-radius: 10px;
+}
+.button-login img{
+	width: 300px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 10px;
 }
 #signup, #signin{
 cursor: pointer;
@@ -176,7 +184,7 @@ session.setAttribute("state", state);
 %>
 <body>
 <div id="container">
-	<div id="somun_logo"><a href="index.jsp"><img src="img/somunlogo.png"></a></div>
+	<div id="somun_logo"><a href="https://somoonhouse.com"><img src="https://somoonhouse.com/img/somunlogo.png"></a></div>
 	<form action="_general_login.jsp" method="POST">
 		<div class="input_wrapper"><input type="text" placeholder="ID" id="input_id" name="id"></div>
 		<div class="input_wrapper"><input type="password" placeholder="PW" id="input_pw" name="pw"></div>
@@ -191,11 +199,41 @@ session.setAttribute("state", state);
 		<div class="divider_text">소셜계정으로 로그인</div>
 		<div class="divider_line"></div>
 	</div>
-	<div class="social_login_btn"><a href="<%=apiURL%>"><span>N</span>네이버 아이디로 로그인</a></div>
+	<div class="social_login_btn">
+		<div class="button-login">
+			<a href="<%=apiURL%>">
+				<img src="img/naver.png">
+			</a>
+		</div>
+		<div class="button-login">
+			<a href="https://kauth.kakao.com/oauth/authorize?client_id=c57cf346b8e76104ef374f98e734254b&redirect_uri=http://localhost:8080/somoonhouse_war_exploded/callback_test.jsp&response_type=code">
+				<img src="img/kakao.png"/>
+			</a>
+		</div>
+	</div>
 	<div id="naver_id_login"></div>
 <script type="text/javascript"
 		src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
 		charset="utf-8"></script>
+<script src = "https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type='text/javascript'>
+		fetch("https://kauth.kakao.com/oauth/authorize?client_id=c57cf346b8e76104ef374f98e734254b&redirect_uri=http://localhost:8080/somoonhouse_war_exploded/callback_test.jsp&response_type=code", {
+			method: "GET",
+			headers: {
+				"Access-Control-Allow-Origin" : "*"
+			}
+		})
+				.then((res) => {
+					return res.json();
+				})
+				.then((res) => {
+					alert(res);
+				})
+				.catch((err) => {
+					console.log(err);
+				})
+
+</script>
 </div>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>

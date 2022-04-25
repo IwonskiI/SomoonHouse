@@ -161,7 +161,10 @@
                 <div class="text_area">
                     <span class="upper_text"><%=coupon.get("name")%>
                         <%if(coupon.get("origin")!=null && !coupon.get("origin").equals("null")) {
-                            out.print("(" + coupon.get("origin") + " + " + coupon.get("extra"));
+                            int origin = Integer.parseInt((String) coupon.get("origin"));
+                            int extra = Integer.parseInt((String) coupon.get("extra"));
+                            int total = origin + extra;
+                            out.print("(" + total + "건)");
                         }
                         %>
                     </span>
@@ -170,7 +173,7 @@
                     <span class="mid_text">기간 <span class="mid_date_text"><%=coupon.get("issued_date")%> ~ <%=coupon.get("expiration_date")%></span></span>
                 </div>
                 <div class="text_area">
-                    <span class="lower_text">배분 <%=coupon.get("stock")%>건/<%=coupon.get("quantity")%>건</span>
+                    <span class="lower_text">배분 <%=coupon.get("stock")%>건 / <%=coupon.get("quantity")%>건</span>
                 </div>
             </div>
             <%}%>

@@ -341,6 +341,7 @@
     <script src="./homepage_banner.js"></script>
     <script src="./consultReviewData.js"></script>
 <script>
+    console.log("sid= <%=s_id%>")
     const createEle = (sortOfElement, className, idName) => {
         let nameOfElement = document.createElement(sortOfElement);
         if (className !== undefined) nameOfElement.className = className;
@@ -600,6 +601,7 @@
         }
 
         partnerInfoContainer.href = "https://somoonhouse.com/interior_info.jsp?id=" + prop.id;
+        console.log("https://somoonhouse.com/interior_info.jsp?id=" + prop.id);
         firTitle.innerHTML = comName;
         thrTitleSub.innerHTML = "상담 " + counseling + "건";
         upperFirstImg.src = img1;
