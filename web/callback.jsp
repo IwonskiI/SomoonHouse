@@ -56,10 +56,9 @@
   <%
     String clientId = "G8MVoxXfGciyZW5dF4p1";//애플리케이션 클라이언트 아이디값";
     String clientSecret = "bqjKbGP1j4";//애플리케이션 클라이언트 시크릿값";
-    String uri = request.getParameter("uri");
     String code = request.getParameter("code");
     String state = request.getParameter("state");
-    String redirectURI = URLEncoder.encode("http://somoonhouse.com/callback.jsp", "UTF-8");
+    String redirectURI = URLEncoder.encode("https://somoonhouse.com/callback.jsp", "UTF-8");
     String apiURL;
     apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
     apiURL += "client_id=" + clientId;
@@ -101,86 +100,65 @@
         String token_type = object.get("token_type").getAsString();
         //String expire_in = object.get("expire_in").getAsString();
         auth = "Bearer "+access_token;
-        
+  %><script>console.log(`<%=auth%>`)</script><%
       }
     }catch (Exception e) {
-        System.out.println(e);
-      }
-	
+      System.out.println(e);
+    }
+
     try{
-        response.setHeader("Pragma", "No-cache");
-        response.addHeader("Authorization", auth);
-        //out.println(auth);
-		String str="";
-		String profile_url;
-		profile_url = "https://openapi.naver.com/v1/nid/me";
-				
-        URL url = new URL(profile_url);
-        HttpURLConnection con = (HttpURLConnection)url.openConnection();
-        con.setRequestMethod("GET");
-        con.setRequestProperty("Authorization", auth);
-        int responseCode = con.getResponseCode();
-        BufferedReader br;
-        //System.out.print("responseCode="+responseCode);
-        
-        if(responseCode==200){
-            br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        } else {  // 에러 발생
-            br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-        }
-        String inputLine;
-        StringBuffer res = new StringBuffer();
-        while ((inputLine = br.readLine()) != null) {
-          res.append(inputLine);
-        }
-        br.close();
-        out.println(res.toString());
-        if(responseCode==200) {
-          str = res.toString();
-          /*사용자프로필정보 파싱*/
-		  JsonParser jsonParser = new JsonParser();
-		  JsonObject respon = (JsonObject) jsonParser.parse(str);
-          String message = respon.get("message").getAsString();
-          JsonObject prof = (JsonObject)respon.get("response");
-          String id = prof.get("id").getAsString() + "";
-          String birthday = "";
-          String age = "";
-          String gender = "N";
-          String email = "";
-          String name = "";
-          String birthyear = "";
-          if(prof.get("birthday") != null){
-        	  birthday = prof.get("birthday").getAsString() + "";
-          }
+      response.setHeader("Pragma", "No-cache");
+      response.addHeader("Authorization", auth);
+      //out.println(auth);
+      String str="";
+      String profile_url;
+      profile_url = "https://openapi.naver.com/v1/nid/me";
 
-          if(prof.get("age") != null){
-        	  age = prof.get("age").getAsString() + "";
-          }
-          
-          if(prof.get("gender") != null){
-        	  gender = prof.get("gender").getAsString() + "";
-          }
+      URL url = new URL(profile_url);
+      HttpURLConnection con = (HttpURLConnection)url.openConnection();
+      con.setRequestMethod("GET");
+      con.setRequestProperty("Authorization", auth);
+      int responseCode = con.getResponseCode();
+      BufferedReader br;
+      //System.out.print("responseCode="+responseCode);
 
-          if(prof.get("email") != null) {
-        	  email = prof.get("email").getAsString() + "";
-          }
-
-          if(prof.get("name") != null) {
-        	  name = prof.get("name").getAsString() + "";
-          }
-          
-          if(prof.get("birthyear") != null) {
-        	  name = prof.get("birthyear").getAsString() + "";
-          }
-          %>
-          <script>
-		  var s = encodeURI("_"+"signup.jsp"+"?sns_id=<%=id%>&gender=<%=gender%>&email=<%=email%>&name=<%=name%>&age=<%=age%>&birthday=<%=birthday%>&year=<%=birthyear%>&sns_type=naver");
-		  document.location.href = s;
-          </script>
-          <%
-      	}
-      } catch(Exception e){
-    	  System.out.println(e);
+      if(responseCode==200){
+        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+      } else {  // 에러 발생
+        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+      }
+      String inputLine;
+      StringBuffer res = new StringBuffer();
+      while ((inputLine = br.readLine()) != null) {
+        res.append(inputLine);
+      }
+      br.close();
+      //out.println(res.toString());
+      if(responseCode==200) {
+        str = res.toString();
+  %><script>console.log(`<%=str%>`)</script><%
+        /*사용자프로필정보 파싱*/
+        JsonParser jsonParser2 = new JsonParser();
+        JsonObject respon = (JsonObject) jsonParser2.parse(str);
+        JsonObject prof = (JsonObject)respon.get("response");
+        String id = prof.get("id").getAsString();
+        String birthday = prof.get("birthday").getAsString();
+        String birthyear = prof.get("birthyear").getAsString();
+        String age = prof.get("age").getAsString();
+        String gender = prof.get("gender").getAsString();
+        String email = prof.get("email").getAsString();
+        String name = prof.get("name").getAsString();
+  %><script>console.log("<%=respon%>")</script><%
+        //out.println(name);
+  %>
+  <script>
+    var s = encodeURI("_"+"signup.jsp"+"?sns_id=<%=id%>&gender=<%=gender%>&email=<%=email%>&name=<%=name%>&age=<%=age%>&birthday=<%=birthday%>&birthyear=<%=birthyear%>&sns_type=naver");
+    document.location.href = s;
+  </script>
+  <%
+      }
+    } catch(Exception e){
+      System.out.println(e);
     }
   %>
   </body>

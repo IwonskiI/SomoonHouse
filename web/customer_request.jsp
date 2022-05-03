@@ -544,7 +544,7 @@ conn.close();
             location.href = "_customer_request_state.jsp?apply_num=" + "<%=applymap.get("number")%>";
         })
         $('.company_cont').click(function () {
-            location.href = "https://somoonhouse.com/interior_info.jsp?id=" + $(this).attr('id');
+            location.href = "https://somoonhouse.com/interior_info.jsp?id=" + $(this)[0].parentElement.id;
         })
 
         window.onload = function () {
