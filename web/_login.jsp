@@ -1,123 +1,19 @@
-<%@ page import="java.net.URLEncoder" %>
-<%@ page import="java.net.URL" %>
-<%@ page import="java.net.HttpURLConnection" %>
-<%@ page import="java.io.BufferedReader" %>
-<%@ page import="java.io.InputStreamReader" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
-<%@ page import="org.json.simple.JSONArray"%>
-<%@ page import="org.json.simple.JSONObject"%>
-<%@ page import="com.google.gson.*"%>
-  <%
-    String clientId = "G8MVoxXfGciyZW5dF4p1";//애플리케이션 클라이언트 아이디값";
-    String clientSecret = "bqjKbGP1j4";//애플리케이션 클라이언트 시크릿값";
-    String code = request.getParameter("code");
-    String state = request.getParameter("state");
-    String redirectURI = URLEncoder.encode("http://somoonhouse.com/callback.jsp", "UTF-8");
-    String apiURL;
-    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
-    apiURL += "client_id=" + clientId;
-    apiURL += "&client_secret=" + clientSecret;
-    apiURL += "&redirect_uri=" + redirectURI;
-    apiURL += "&code=" + code;
-    apiURL += "&state=" + state;
-    String access_token = "";
-    String refresh_token = "";
-    System.out.println("apiURL="+apiURL);
-    try {
-      String str = "";
-      URL url = new URL(apiURL);
-      HttpURLConnection con = (HttpURLConnection)url.openConnection();
-      con.setRequestMethod("GET");
-      int responseCode = con.getResponseCode();
-      BufferedReader br;
-      System.out.print("responseCode="+responseCode);
-      if(responseCode==200) { // 정상 호출
-        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-      } else {  // 에러 발생
-        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-      }
-      String inputLine;
-      StringBuffer res = new StringBuffer();
-      while ((inputLine = br.readLine()) != null) {
-        res.append(inputLine);
-      }
-      br.close();
-      if(responseCode==200) {
-        out.println(res.toString());
-        str = res.toString();
-        /*접근토큰정보 파싱*/
-        JsonParser jsonParser = new JsonParser();
-        JsonObject object = (JsonObject) jsonParser.parse(str);
-        access_token = object.get("access_token").getAsString();
-        refresh_token = object.get("refresh_token").getAsString();
-        String token_type = object.get("token_type").getAsString();
-        //String expire_in = object.get("expire_in").getAsString();
-        auth = "Bearer "+access_token;
-      }
-    } catch (Exception e) {
-      System.out.println(e);
-    }
-    
-
-    try{
-        response.setHeader("Pragma", "No-cache");
-        response.addHeader("Authorization", auth);
-        //out.println(auth);
-		String str="";
-		String profile_url;
-		profile_url = "https://openapi.naver.com/v1/nid/me";
-				
-        URL url = new URL(profile_url);
-        HttpURLConnection con = (HttpURLConnection)url.openConnection();
-        con.setRequestMethod("GET");
-        con.setRequestProperty("Authorization", auth);
-        int responseCode = con.getResponseCode();
-        BufferedReader br;
-        //System.out.print("responseCode="+responseCode);
-        
-        if(responseCode==200){
-            br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        } else {  // 에러 발생
-            br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-        }
-        String inputLine;
-        StringBuffer res = new StringBuffer();
-        while ((inputLine = br.readLine()) != null) {
-          res.append(inputLine);
-        }
-        br.close();
-        //out.println(res.toString());
-        if(responseCode==200) {
-          str = res.toString();
-          /*사용자프로필정보 파싱*/
-		  JsonParser jsonParser = new JsonParser();
-		  JsonObject respon = (JsonObject) jsonParser.parse(str);
-          String message = respon.get("message").getAsString();
-          JsonObject prof = (JsonObject)respon.get("response");
-          String id = prof.get("id").getAsString();
-          String email = prof.get("email").getAsString();
-          String gender = prof.get("gender").getAsString();
-          String name = prof.get("name").getAsString();
-          String birthday = prof.get("birthday").getAsString();
-          String birthyear = prof.get("birthyear").getAsString();
-          String sns_type = "naver";
-          out.println(str);
-          %>
-          <script>
-		  var s = encodeURI("_"+"signup.jsp"+"?sns_id=<%=id%>&gender=<%=gender%>&email=<%=email%>&name=<%=name%>&birthyear=<%=birthyear%>&birthday=<%=birthday%>&sns_type=naver");
-		  //document.location.href = s;
-          </script>
-          <%
-      	}
-      } catch(Exception e){
-    	  System.out.println(e);
-    }
-    
-  %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.text.*,java.sql.*,java.util.Calendar,java.security.SecureRandom" %>
+<%@ page language="java" import="myPackage.*" %>
+<%@ page import="com.sun.xml.internal.ws.developer.ValidationErrorHandler" %>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<% request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>네이버 로그인</title>
+    <style type="text/css">
+        body{
+            margin : 0px;
+        }
+    </style>
+    <title></title>
     <!-- 사용자 행동 정보 수집 코드 시작 - Meta, GA -->
     <!-- 모든 페이지에 하나씩만 포함되어 있어야 합니다. 위치는 </head> 바로 위로 통일 -->
     <!-- Meta Pixel Code -->
@@ -156,7 +52,240 @@
     <!-- 사용자 행동 정보 수집 코드 끝 - Meta, GA -->
 </head>
 <body>
-네이버로그인
+<%!
+    public String unicodeConvert(String str){
+        StringBuilder sb = new StringBuilder();
+        char ch;
+        int len = str.length();
+        for(int i = 0; i < len; i++){
+            ch = str.charAt(i);
+            if(ch == '\\' && str.charAt(i+1) == 'u'){
+                sb.append((char) Integer.parseInt(str.substring(i+2, i+6), 16));
+                i+=5;
+            }
+            sb.append(ch);
+        }
+        return sb.toString();
+    }
+%>
+<ul class="navbar">
+</ul>
+<%!/*
+	public class Password {
+	  	// Define the BCrypt workload to use when generating password hashes. 10-31 is a valid value.
+		private static int workload = 12;
+
+
+		 * This method can be used to generate a string representing an account password
+		 * suitable for storing in a database. It will be an OpenBSD-style crypt(3) formatted
+		 * hash string of length=60
+		 * The bcrypt workload is specified in the above static variable, a value from 10 to 31.
+		 * A workload of 12 is a very reasonable safe default as of 2013.
+		 * This automatically handles secure 128-bit salt generation and storage within the hash.
+		 * @param password_plaintext The account's plaintext password as provided during account creation,
+		 *			     or when changing an account's password.
+		 * @return String - a string of length 60 that is the bcrypt hashed password in crypt(3) format.
+
+		public String hashPassword(String password_plaintext) {
+			String salt = BCrypt.gensalt(workload);
+			String hashed_password = BCrypt.hashpw(password_plaintext, salt);
+
+			return(hashed_password);
+		}*/
+%>
+<%
+    Connection conn = DBUtil.getMySQLConnection();
+    ResultSet rs = null;
+    Statement stmt = null;
+    String query = "select case when count(*)=0 then 1 else max(ID) + 1 end as num FROM USERS";
+    stmt = conn.createStatement();
+    rs = stmt.executeQuery(query);
+    int num = 0;
+    int error = 0;
+    while(rs.next()){
+        num = rs.getInt("num");
+    }
+    String id = request.getParameter("id");
+    String pw = request.getParameter("pw");
+    String name = request.getParameter("name");
+    String nickname = request.getParameter("nickname");
+    String sns_id = request.getParameter("sns_id");
+    String sns_type = request.getParameter("sns_type");
+    String gender = request.getParameter("gender");
+    String email= request.getParameter("email");
+    String birthday = request.getParameter("birthday");
+    String birthyear = request.getParameter("birthyear");
+    String age = request.getParameter("age");
+
+    //out.println(name);
+    if(sns_id != "" && sns_id != null && !sns_id.equals("-1") && !sns_id.equals("null")){
+        /*생일포맷수정*/
+        age = age.replaceAll("-","");
+        birthday = birthday.replaceAll("-","");
+
+        /*중복가입정보가 있는 지?*/
+        String sql = "SELECT *, COUNT(*) AS exist FROM USERS WHERE SNS_ID = \'"+sns_id
+                +"\' AND SNS_TYPE = \'"+sns_type+"\'";
+        rs.close();stmt.close();
+        stmt=conn.createStatement();
+        rs=stmt.executeQuery(sql);
+        String username = "";
+        int exist = 0;
+        int index = 0;
+        while(rs.next()){
+            exist = rs.getInt("exist");
+            index = rs.getInt("ID");
+            username = rs.getString("USERNAME");
+        }
+        if(exist != 0){
+%><script>alert("로그인되었습니다!")</script><%
+        session.setAttribute("page", "");
+        session.setAttribute("home_id", index);
+        session.setAttribute("home_name", username);
+        error++;
+%><script>document.location.href="homepage.jsp"</script><%
+    }
+    else if(gender == "" || gender == null){
+        gender = "NULL";
+    }
+}
+else if(id == "" || id == null){%>
+<script>
+    alert('아이디는 필수입력정보입니다.');
+    history.back();
+</script>
+<%
+    error++;
+}
+else if(pw == "" || pw == null){%>
+<script>
+    alert('비밀번호는 필수입력정보입니다.');
+    history.back();
+</script>
+<%
+    error++;
+}
+else if(birthday.length()<8 || birthday.length()>8)
+{%>
+<script>
+    alert('생일은 8자리 숫자로 입력해주세요 ex)19891028');
+    alert("<%=birthday%>");
+    history.back();
+</script>
+<%
+    error++;
+}
+else{
+    try{
+        Integer.parseInt(birthday);
+        birthyear = birthday.substring(0,4);
+        birthday = birthday.substring(4);
+    }
+    catch(NumberFormatException e){
+%>
+<script>
+    alert('생년월일은 숫자만 입력 가능합니다.');
+    history.back();
+</script><%
+            error++;
+        }
+    }
+
+    if(error == 0){%>
+<script>
+    if(confirm('위의 정보가 정확합니까?'))
+    {
+</script>
+<%
+    /*
+    +-------------+--------------+------+-----+---------+----------------+
+    | Field       | Type         | Null | Key | Default | Extra          |
+    +-------------+--------------+------+-----+---------+----------------+
+    | ID          | int(11)      | NO   | PRI | NULL    | auto_increment |
+    | SITE_ID     | varchar(20)  | YES  |     | NULL    |                |
+    | PW          | varchar(120) | YES  |     | NULL    |                |
+    | USERNAME    | varchar(50)  | YES  | MUL | NULL    |                |
+    | EMAIL       | varchar(50)  | YES  | MUL | NULL    |                |
+    | NICKNAME    | varchar(50)  | YES  |     | NULL    |                |
+    | SNS_ID      | varchar(255) | YES  | MUL | NULL    |                |
+    | SNS_TYPE    | varchar(10)  | YES  |     | NULL    |                |
+    | CREATE_DATE | datetime     | YES  |     | NULL    |                |
+    | MODIFY_DATE | datetime     | YES  |     | NULL    |                |
+    | BIRTHDAY    | varchar(9)   | YES  |     | NULL    |                |
+    | GENDER      | char(1)      | YES  |     | NULL    |                |
+    | POINT       | int(11)      | YES  |     | 0       |                |
+    | GRADE       | varchar(50)  | YES  |     | silver  |                |
+    +-------------+--------------+------+-----+---------+----------------+
+    14 rows in set (0.00 sec)
+    */
+    PreparedStatement pstmt = null;
+    String sql = "INSERT INTO USERS VALUES" + "(?,?,password(?),?,?,null,null,?,?,?,?,?,?,?,?,?,default,default, default, NULL)";
+    /*현재날짜 받아오기*/
+    Calendar cal = Calendar.getInstance();
+    String year = Integer.toString(cal.get(Calendar.YEAR));
+
+
+    String month = Integer.toString(cal.get(Calendar.MONTH)+1);
+    String date = Integer.toString(cal.get(Calendar.DATE));
+    String todayformat = year+"-"+month+"-"+date;
+    Date d = Date.valueOf(todayformat);
+    /*비밀번호 보안저장*/
+			/*SecureRandom random = new SecureRandom();
+			int salt_size = 60;
+			String salt = "";
+			for(int i=0;i<salt_size;i++){
+				salt += random.nextInt(10);
+			}
+			String password = salt + pw;
+			*/
+
+    pstmt = conn.prepareStatement(sql);
+    pstmt.setInt(1, num);
+    pstmt.setString(2, id);
+    pstmt.setString(3, pw);
+    pstmt.setString(4, name);
+    pstmt.setString(5, email);
+    pstmt.setString(6, nickname);
+    pstmt.setString(7, sns_id);
+    pstmt.setString(8, sns_type);
+    pstmt.setDate(9, d);
+    pstmt.setDate(10, d);
+    pstmt.setString(11, birthday);
+    pstmt.setString(12, birthyear);
+    pstmt.setString(13, age);
+    pstmt.setString(14, gender);
+
+    out.println(pstmt);
+    try{
+        pstmt.executeUpdate();
+    }catch(SQLException e){
+%>
+<script>
+    alert('신청에 실패했습니다.');
+    history.back();
+</script>
+<%
+        out.println(e);
+    }
+    //out.println(pstmt);
+    pstmt.close();
+    stmt.close();
+    conn.close();
+    rs.close();
+    session.setAttribute("page", "");
+    session.setAttribute("s_id", "");
+    session.setAttribute("name", "");
+%>
+<script>
+    document.location.href="homepage.jsp";
+</script>
+<script>
+    }
+    else{
+        history.back();
+    }
+</script>
+<%
+    }%>
 </body>
 </html>
-

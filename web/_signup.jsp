@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.text.*,java.sql.*,java.util.Calendar,java.security.SecureRandom" %>
 <%@ page language="java" import="myPackage.*" %>
+<%@ page import="com.sun.xml.internal.ws.developer.ValidationErrorHandler" %>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
 <% request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
@@ -68,7 +69,6 @@
   }
   %>
 	<ul class="navbar">
-  	<li><a href="lounge.jsp">뒤로가기</a></li> 
 	</ul>
 	<%!/*
 	public class Password {
@@ -114,9 +114,7 @@
 	String gender = request.getParameter("gender");
 	String email= request.getParameter("email");
 	String birthday = request.getParameter("birthday");
-	String birthyear = request.getParameter("year");
-	String birthmonth = request.getParameter("month");
-	String birthdate = request.getParameter("date");
+	String birthyear = request.getParameter("birthyear");
 	String age = request.getParameter("age");
 	
 	//out.println(name);
@@ -141,11 +139,9 @@
 		}
 		if(exist != 0){
 		%><script>alert("로그인되었습니다!")</script><%
-		}
-		if(exist != 0){
 		session.setAttribute("page", "");
-		session.setAttribute("s_id", index);
-		session.setAttribute("name", username);
+		session.setAttribute("home_id", index);
+		session.setAttribute("home_name", username);
 		error++;
 
 		Calendar cal = Calendar.getInstance();
@@ -160,8 +156,7 @@
 		pstmt.setDate(1, d);	
 		pstmt.setInt(2, index);
 		pstmt.executeUpdate();
-		
-		response.sendRedirect("https://somoonhouse.com/company_request.jsp");
+		%><script>document.location.href="homepage.jsp"</script><%
 		}
 		else if(gender == "" || gender == null){
 			gender = "NULL";
@@ -193,9 +188,7 @@
 	<%
 	error++;
 	}
-	else{	
-		//네이버가 아닐경우
-		birthday = birthyear + birthmonth + birthdate;
+	else{
 		try{
 			Integer.parseInt(birthday);
 			birthyear = birthday.substring(0,4);
@@ -239,8 +232,7 @@
 14 rows in set (0.00 sec)
 */			
 			PreparedStatement pstmt = null;
-			String sql = "INSERT INTO USERS VALUES"
-				+ "(?,?,password(?),?,?,null,null,?,?,?,?,?,?,?,?,?,default,default, default, NULL)";
+			String sql = "INSERT INTO USERS VALUES" + "(?,?,password(?),?,?,null,null,?,?,?,?,?,?,?,?,?,default,default, default, NULL)";
 			/*현재날짜 받아오기*/
 			Calendar cal = Calendar.getInstance();
 			String year = Integer.toString(cal.get(Calendar.YEAR));
@@ -298,7 +290,7 @@
 			session.setAttribute("name", "");
 			%>
 			<script>
-			document.location.href="index.jsp";
+			document.location.href="homepage.jsp";
 			</script>
 			<script>
 		}

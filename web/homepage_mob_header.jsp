@@ -30,6 +30,8 @@
 
     // 세션 가져오기 get session
     String s_id = session.getAttribute("s_id")+"";// 현재 사용자 current user
+    String home_id = session.getAttribute("home_id")+"";
+    String home_name = session.getAttribute("home_name")+"";
 
     //파라미터 가져오기
     String param = request.getParameter("param");
@@ -132,6 +134,14 @@
 <div class="menu_slide" id="menu_slide">
     <div class="close_btn" onclick="close_slide()">
         <img src="https://somoonhouse.com/otherimg/assets/X.png?raw=true" />
+    </div>
+    <div class="header_login">
+        <%if(home_id==null || home_id.equals("") || home_id.equals("null")){%>
+        <a id="loginplz" href="login.jsp">로그인</a>해주세요.
+        <%}else{%>
+        <span><b><%=home_name%></b>님 환영합니다!</span>
+        <span><a href="_logout.jsp">로그아웃</a></span>
+        <%} %>
     </div>
     <span class="head">대구 경북 인테리어<br>전문가를 만나보세요.</span>
     <a class="cons" href="https://somoonhouse.com/remodeling_form.jsp?item_num=0">견적 상담</a>

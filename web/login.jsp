@@ -1,7 +1,7 @@
 <%@ page import="java.net.URLEncoder" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page language="java" import="java.text.*,java.sql.*,java.util.*,java.security.*,java.math.BigInteger" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page language="java" import="myPackage.*" %>
 <% request.setCharacterEncoding("UTF-8"); %>
 <% session.setAttribute("page", "login.jsp"); %>
@@ -30,15 +30,15 @@ max-width: 400px;
 #somun_logo{
 width: fit-content;
 margin: auto;
-margin-top: 80px; 
+margin-top: 20px;
 padding: 25px;
 }
 #somun_logo img{
 width:128px;
 }
 .login_btn{
-width: 297px;
-height: 48px;
+width: 300px;
+height: 50px;
 line-height: 48px;
 text-align: center;
 background-color: #52b2ff;
@@ -103,8 +103,6 @@ width: 297px;
 height: 48px;
 line-height: 48px;
 text-align: center;
-background-color: #1bd136;
-color: white;
 border-radius: 5px;
 font-size: 17px;
 margin: 16px auto;
@@ -115,6 +113,16 @@ font-size: 28px;
 }
 .social_login_btn a{
 color:white;
+}
+.button-login {
+	display: flex;
+	border-radius: 10px;
+}
+.button-login img{
+	width: 300px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 10px;
 }
 #signup, #signin{
 cursor: pointer;
@@ -164,23 +172,24 @@ text-align: center;
 	<!-- 사용자 행동 정보 수집 코드 끝 - Meta, GA -->
 </head>
 <%
-String clientId = "G8MVoxXfGciyZW5dF4p1";//애플리케이션 클라이언트 아이디값";
-String redirectURI = URLEncoder.encode("http://somoonhouse.com/callback.jsp", "UTF-8");
-SecureRandom random = new SecureRandom();
-String state = new BigInteger(130, random).toString();
-String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-apiURL += "&client_id=" + clientId;
-apiURL += "&redirect_uri=" + redirectURI;
-apiURL += "&state=" + state;
-session.setAttribute("state", state);
+	String clientId = "G8MVoxXfGciyZW5dF4p1";//애플리케이션 클라이언트 아이디값";
+	String redirectURI = URLEncoder.encode("https://somoonhouse.com/callback.jsp", "UTF-8");
+	SecureRandom random = new SecureRandom();
+	String state = new BigInteger(130, random).toString();
+	String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+	apiURL += "&client_id=" + clientId;
+	apiURL += "&redirect_uri=" + redirectURI;
+	apiURL += "&state=" + state;
+	session.setAttribute("state", state);
 %>
+
 <body>
 <div id="container">
-	<div id="somun_logo"><a href="index.jsp"><img src="img/somunlogo.png"></a></div>
+	<div id="somun_logo"><a href="https://somoonhouse.com"><img src="https://somoonhouse.com/img/somunlogo.png"></a></div>
 	<form action="_general_login.jsp" method="POST">
 		<div class="input_wrapper"><input type="text" placeholder="ID" id="input_id" name="id"></div>
 		<div class="input_wrapper"><input type="password" placeholder="PW" id="input_pw" name="pw"></div>
-		<input type="submit" class="login_btn" value="로그인">
+		<input type="button" id="login_btn" class="login_btn" value="로그인">
 		<div class="signin_action">
 			<!-- a>비밀번호 재설정</a-->
 			<a id="signup">회원가입</a>
@@ -191,16 +200,50 @@ session.setAttribute("state", state);
 		<div class="divider_text">소셜계정으로 로그인</div>
 		<div class="divider_line"></div>
 	</div>
-	<div class="social_login_btn"><a href="<%=apiURL%>"><span>N</span>네이버 아이디로 로그인</a></div>
+	<div class="social_login_btn">
+		<div class="button-login">
+			<a href="<%=apiURL%>">
+				<img src="img/naver.png">
+			</a>
+		</div>
+<%--		<div class="button-login">--%>
+<%--			<a href="https://kauth.kakao.com/oauth/authorize?client_id=c57cf346b8e76104ef374f98e734254b&redirect_uri=http://localhost:8080/somoonhouse_war_exploded/callback_test.jsp&response_type=code">--%>
+<%--				<img src="img/kakao.png"/>--%>
+<%--			</a>--%>
+<%--		</div>--%>
+	</div>
 	<div id="naver_id_login"></div>
 <script type="text/javascript"
 		src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
 		charset="utf-8"></script>
+<%--<script src = "https://developers.kakao.com/sdk/js/kakao.min.js"></script>--%>
+<%--<script type='text/javascript'>--%>
+<%--		fetch("https://kauth.kakao.com/oauth/authorize?client_id=c57cf346b8e76104ef374f98e734254b&redirect_uri=http://localhost:8080/somoonhouse_war_exploded/callback_test.jsp&response_type=code", {--%>
+<%--			method: "GET",--%>
+<%--			headers: {--%>
+<%--				"Access-Control-Allow-Origin" : '*'--%>
+<%--			}--%>
+<%--		})--%>
+<%--				.then((res) => {--%>
+<%--					return res.json();--%>
+<%--				})--%>
+<%--				.then((res) => {--%>
+<%--					alert(res);--%>
+<%--				})--%>
+<%--				.catch((err) => {--%>
+<%--					console.log(err);--%>
+<%--				})--%>
+
+<%--</script>--%>
 </div>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
 $("#signup").click(function(){
-	location.href="signup.jsp";
+	alert("현재는 네이버 아이디로만 로그인이 가능합니다. 불편을 드려서 죄송합니다.");
+	// location.href="signup.jsp";
+})
+$("#login_btn").click(function(){
+	alert("현재는 네이버 아이디로만 로그인이 가능합니다. 불편을 드려서 죄송합니다.");
 })
 </script>
 </body>

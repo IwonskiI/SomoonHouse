@@ -50,7 +50,7 @@
     <div class="body_footer">
         <div class="text_container">
             <div class="text">
-                <span class="value">밀리무드 ( 소문난집 )</span>
+                <span class="value">패스트웨이</span>
             </div>
             <div class="text">
                 <span class="key">대표</span><span class="value">길영민</span>

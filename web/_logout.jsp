@@ -6,9 +6,9 @@
 <script>alert("로그아웃 되었습니다!")</script>
 <%
 		session.setAttribute("page", "");
-		session.setAttribute("s_id", "");
-		session.setAttribute("name", "");
-		response.sendRedirect("index.jsp");
+		session.setAttribute("home_id", "");
+		session.setAttribute("home_name", "");
+%><script>document.location.href="homepage.jsp"</script><%
 %>
 <!-- 사용자 행동 정보 수집 코드 시작 - Meta, GA -->
 <!-- 모든 페이지에 하나씩만 포함되어 있어야 합니다. 위치는 </head> 바로 위로 통일 -->
