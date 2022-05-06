@@ -292,7 +292,7 @@
         if(data[0].counseling != 0){
             titleSub.innerHTML = "상담 " + data[0].counseling + "건";
         }
-        if(data[0].represent_img1 !== "https://somoonhouse.com/sources/noprofile1.jpg"){
+        if(data[0].represent_img1 !== "https://somoonhouse.com/sources/noprofile1.png"){
             infoImg.src = data[0].represent_img1;
         }
         else{
