@@ -115,8 +115,12 @@
         String item_calling = rs.getString("Calling")+"";
         String item_assigned_time = rs.getString("Assigned_time")+"";
         String item_remark = "";
+        String item_reason = "";
         if(rs.getString("remark")!=null) {
             item_remark = rs.getString("remark") + "";
+        }
+        if(rs.getString("reason")!=null) {
+            item_reason = rs.getString("reason") + "";
         }
         LinkedList statelist = new LinkedList<HashMap<String, String>>();
 
@@ -189,6 +193,7 @@
         itemmap.put("calling", item_calling);
         itemmap.put("assigned_time", item_assigned_time);
         itemmap.put("remark", item_remark);
+        itemmap.put("reason", item_reason);
 
         totalstatemap.put(item_number.toString(), statelist);
         itemlist.add(itemmap);
@@ -366,6 +371,7 @@
                                             <%}}%></table>
                                     </div>
                                     <div class="info"><span>예산</span> <%out.println(hm.get("budget"));%></div>
+                                    <div class="info"><span>신청 이유</span> <%out.println(hm.get("reason"));%></div>
                                     <div class="info"><span>방문상담</span> <%if(hm.get("consulting").equals("1")) out.println("예"); else out.println("아니오");%></div>
                                     <div class="info"><span>비교견적</span> <%if(hm.get("compare").equals("1")) out.println("예"); else out.println("아니오");%></div>
                                     <div class="info"><span>신청날짜</span> <%out.println(hm.get("applydate"));%></div>

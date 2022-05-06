@@ -276,6 +276,7 @@
             <div class="form_content">
                 <div class="item"><span class="nametag">성함</span><input type="text" name="name" class="block"></div>
                 <div class="item"><span class="nametag">휴대폰</span><input type="number" name="phone" class="block"></div>
+                <div class="item"><span class="nametag">신청 이유(선택 사항)</span><input type="text" name="reason" class="block"></div>
                 <!-- div class="item"><span class="nametag">휴대폰</span><input type="text" class="cert_input" name="phone"><input type="button" class="cert_btn" id="cert_start" value="인증"></div>
                 <div class="item"><span class="nametag">인증번호</span><input type="text" class="cert_input" name="certificate_num"><input type="button" class="cert_btn" id="cert_ok" value="확인"></div-->
                 <input type="checkbox" name="agree" class="block"> 개인정보 활용동의
