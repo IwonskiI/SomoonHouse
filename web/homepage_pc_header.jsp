@@ -30,7 +30,9 @@
      */
 
     // 세션 가져오기 get session
-    String s_id = session.getAttribute("s_id")+"";// 현재 사용자 current user
+    String s_id = session.getAttribute("s_id")+"";
+    String home_id = session.getAttribute("home_id")+"";// 현재 사용자 current user
+    String home_name = session.getAttribute("home_name")+"";
 
     //파라미터 가져오기
     String param = request.getParameter("param");
@@ -107,6 +109,14 @@
                 <span>파트너스</span>
             </a>
         </div>
+        <div class="header_login" id="header_login">
+                <%if(home_id==null || home_id.equals("") || home_id.equals("null")){%>
+            <a id="loginplz" href="login.jsp">로그인</a>해주세요.
+                <%}else{%>
+            <span><b><%=home_name%></b>님 환영합니다!</span>
+            <span><a href="_logout.jsp">로그아웃</a></span>
+                <%} %>
+        </div>
     </div>
     <div class="underline"></div>
 </div>
@@ -141,6 +151,7 @@
     const isCustomerRequest = location.href.indexOf("customer") !== -1;
     if(!isRemodelingForm && !isCustomerRequest ){
         document.getElementById("fixed_button").style.display = "flex";
+        document.getElementById("header_login").style.display = "flex";
     }
 </script>
 </body>

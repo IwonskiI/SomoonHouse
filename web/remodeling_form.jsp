@@ -276,6 +276,7 @@
             <div class="form_content">
                 <div class="item"><span class="nametag">성함</span><input type="text" name="name" class="block"></div>
                 <div class="item"><span class="nametag">휴대폰</span><input type="number" name="phone" class="block"></div>
+                <div class="item"><span class="nametag">신청 이유(선택 사항)</span><input type="text" name="reason" class="block"></div>
                 <!-- div class="item"><span class="nametag">휴대폰</span><input type="text" class="cert_input" name="phone"><input type="button" class="cert_btn" id="cert_start" value="인증"></div>
                 <div class="item"><span class="nametag">인증번호</span><input type="text" class="cert_input" name="certificate_num"><input type="button" class="cert_btn" id="cert_ok" value="확인"></div-->
                 <input type="checkbox" name="agree" class="block"> 개인정보 활용동의
@@ -304,7 +305,7 @@
             <%--				 style="display: none"--%>
             <div class="not" id="notnext" style="display: none">다음</div>
             <div class="reset">
-                <div>다음에 신청할게요</div>
+                <div>업체 더 둘러보기</div>
             </div>
         </div>
         <div class="estimate_navigator" id="navigator3" style="display:none;">
@@ -313,13 +314,13 @@
             <%--			style="display: none">--%>
             <div class="not" id="notfinish" style="display: none">완료</div>
             <div class="reset">
-                <div>다음에 신청할게요</div>
+                <div>업체 더 둘러보기</div>
             </div>
         </div>
         <div class="estimate_navigator" id="navigator4" style="display:none;">
-            <input type="button" class="start" id="yesquit" value="다음에 신청할게요" onclick="return quitRsn(this.form);">
+            <input type="button" class="start" id="yesquit" value="업체 더 둘러보기" onclick="return quitRsn(this.form);">
             <%--				   style="display: none">--%>
-            <div class="not" id="notquit" style="display: none">다음에 신청할게요</div>
+            <div class="not" id="notquit" style="display: none">업체 더 둘러보기</div>
         </div>
     </form>
 </div>

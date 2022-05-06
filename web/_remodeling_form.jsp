@@ -44,6 +44,7 @@
 	String due = request.getParameter("due");
 	String budget = request.getParameter("budget");
 	String div1 = request.getParameter("division1");
+	String reason = request.getParameter("reason");
 	ArrayList<String> div2 = new ArrayList<String>();
 	//String consulting = request.getParameter("consulting");
 	//String compare = request.getParameter("compare");
@@ -117,7 +118,7 @@
 	d = java.sql.Date.valueOf(todayformat);
 
 	//업데이트하기
-	sql = "INSERT INTO REMODELING_APPLY (Number, Item_num, Name, Phone, Address, Building_type, Area, Due, Budget, Apply_date, State, Calling, Pw, Assigned_time) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, password(?), default)";
+	sql = "INSERT INTO REMODELING_APPLY (Number, Item_num, Name, Phone, Address, Building_type, Area, Due, Budget, Apply_date, State, Calling, Pw, Assigned_time, reason) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, password(?), default, ?)";
 	pstmt = conn.prepareStatement(sql);
 	pstmt.setInt(1, num);
 	pstmt.setString(2, item_num);
@@ -132,6 +133,7 @@
 	pstmt.setString(11, state);
 	pstmt.setString(12, call);
 	pstmt.setString(13, password);
+	pstmt.setString(14, reason);
 	
 	if(error == 0){
 		pstmt.executeUpdate();
