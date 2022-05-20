@@ -403,7 +403,7 @@
     height: 100%;
     object-fit: fill;
 }
-@media (min-width: 701px) {
+@media (min-width: 951px) {
     .upper_fixed_pc{
         width: 100%;
         height: 61px;
@@ -425,7 +425,7 @@
         display: none !important;
     }
 }
-@media (max-width: 700px) {
+@media (max-width: 950px) {
     .fixed_button{
         display: none !important;
     }

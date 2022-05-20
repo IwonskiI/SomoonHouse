@@ -236,11 +236,13 @@ input[type="submit"], input[type="button"] {
     width: 55%;
 }
 
-.start, .not {
-    width: 100% !important;
+#save {
+    width: 30%;
+    margin-top: 10px;
 }
 
 .not {
+    width: 100% !important;
     background-color: #efefef !important;
     color: #b5b5b5;
     cursor: default !important;

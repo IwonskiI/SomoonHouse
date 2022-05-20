@@ -19,6 +19,7 @@
     String now = session.getAttribute("page") + ""; // 현재 페이지 current page
     String s_id = session.getAttribute("s_id") + "";// 현재 사용자 current user
     String name = session.getAttribute("name") + "";
+    String home_id = session.getAttribute("home_id")+"";
 //DB개체들 가져오기
     conn = DBUtil.getMySQLConnection();
     rs = null;
@@ -304,6 +305,7 @@
             <div class="next" id="yesnext">다음</div>
             <%--				 style="display: none"--%>
             <div class="not" id="notnext" style="display: none">다음</div>
+            <input type="button" class="next" id="save" value="신청서 저장하기" onclick="return saveform(this.form);">
             <div class="reset">
                 <div>업체 더 둘러보기</div>
             </div>
@@ -313,14 +315,17 @@
             <input type="submit" id="yesfinish" value="완료">
             <%--			style="display: none">--%>
             <div class="not" id="notfinish" style="display: none">완료</div>
+            <input type="button" class="next" id="save" value="신청서 저장하기" onclick="return saveform(this.form);">
             <div class="reset">
                 <div>업체 더 둘러보기</div>
             </div>
         </div>
         <div class="estimate_navigator" id="navigator4" style="display:none;">
+            <div class="prev" id="stop_quit">뒤로</div>
             <input type="button" class="start" id="yesquit" value="업체 더 둘러보기" onclick="return quitRsn(this.form);">
             <%--				   style="display: none">--%>
             <div class="not" id="notquit" style="display: none">업체 더 둘러보기</div>
+            <input type="hidden" id="home_id" value="<%=home_id%>">
         </div>
     </form>
 </div>
@@ -340,6 +345,9 @@ conn.close();
 */
 %>
 <script>
+
+    var quit_num = 0;
+
     $('document').ready(function () {
         function nowform() {
             var num;
@@ -499,6 +507,8 @@ conn.close();
         $('.reset').click(function () {
             $('.form_mini').each(function () {
                 if ($(this).css('display') == 'block') {
+                    quit_num = $(this).attr('id').replace(/form/g, '');
+                    quit_num = parseInt(quit_num);
                     $(this).css('display', 'none');
                 }
             })
@@ -509,6 +519,23 @@ conn.close();
 
             //form_vaild()
         })
+        $('#stop_quit').off().on('click', function () {
+            $(this).parent().css('display', 'none');
+            if (quit_num == 1) {
+                $('#navigator1').css('display', 'block');
+            }
+            else if (quit_num == 8) {
+                $('#navigator3').css('display', 'block');
+            }
+            else{
+                if (quit_num == 6)
+                    partly();
+                $('#navigator2').css('display', 'block');
+            }
+            $('#form9').css('display', 'none');
+            $('#form' + quit_num).css('display', 'block');
+        })
+        $('#save').off()
 
         function partly() {
             var num;
@@ -551,6 +578,20 @@ conn.close();
             frm.submit();
         }
         return true;
+    }
+
+    function saveform(frm) {
+        console.log(<%=home_id%>)
+        var home_id = document.getElementById("home_id").value
+        if(home_id == null || home_id === "null"){
+            alert("견적서 저장은 로그인이 필요한 서비스 입니다.");
+            location.href='login.jsp'
+        }
+        else {
+            frm.action = '_remodeling_form_save.jsp';
+            frm.submit();
+            return true;
+        }
     }
 
 
