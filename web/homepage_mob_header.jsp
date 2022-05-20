@@ -141,6 +141,7 @@
         <%}else{%>
         <span><b><%=home_name%></b>님 환영합니다!</span>
         <span><a href="_logout.jsp">로그아웃</a></span>
+        <span><button onclick="location.href = 'mypage.jsp'">마이페이지</button></span>
         <%} %>
     </div>
     <span class="head">대구 경북 인테리어<br>전문가를 만나보세요.</span>
