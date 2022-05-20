@@ -132,7 +132,7 @@ body{
     .interior_info_box .background{
         width: 100%;
         height: 250px;
-        background: #888;
+        background: #EEEEEE;
     }
     .interior_info_box .info_title{
         display: flex;

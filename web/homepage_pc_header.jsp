@@ -1,6 +1,6 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <%@ page language="java" import="java.text.*,java.sql.*,java.util.*,java.security.*,java.math.BigInteger" %>
 <%@ page language="java" import="myPackage.*" %>
 <% request.setCharacterEncoding("UTF-8"); %>
@@ -30,9 +30,9 @@
      */
 
     // 세션 가져오기 get session
-    String s_id = session.getAttribute("s_id")+"";
-    String home_id = session.getAttribute("home_id")+"";// 현재 사용자 current user
-    String home_name = session.getAttribute("home_name")+"";
+    String s_id = session.getAttribute("s_id") + "";
+    String home_id = session.getAttribute("home_id") + "";// 현재 사용자 current user
+    String home_name = session.getAttribute("home_name") + "";
 
     //파라미터 가져오기
     String param = request.getParameter("param");
@@ -62,24 +62,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="SHORTCUT ICON" href="https://somoonhouse.com/img/favicon.ico" />
+    <link rel="SHORTCUT ICON" href="https://somoonhouse.com/img/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/homepage_header.css"/>
     <meta charset="UTF-8">
-    <meta name="viewport" con   tent="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="viewport" con tent="width=device-width, initial-scale=1, user-scalable=no"/>
     <title>소문난집</title>
 </head>
 <body>
 <div class="fixed_button" id="fixed_button">
     <span id="topBtn">top</span>
-    <a href="remodeling_form.jsp?item_num=0" id="applyBtn"><div>상담<br>신청</div></a>
+    <a href="remodeling_form.jsp?item_num=0" id="applyBtn">
+        <div>상담<br>신청</div>
+    </a>
 </div>
 <div class="upper_fixed_pc"></div>
 <div class="body_container_header">
     <div class="header_pc">
         <div class="header_left">
             <a href="homepage.jsp" target="_self">
-                <img src="https://somoonhouse.com/otherimg/index/somunlogo.jpg" />
+                <img src="https://somoonhouse.com/otherimg/index/somunlogo.jpg"/>
             </a>
         </div>
         <div class="header_right">
@@ -110,19 +112,20 @@
             </a>
         </div>
         <div class="header_login" id="header_login">
-                <%if(home_id==null || home_id.equals("") || home_id.equals("null")){%>
+            <%if (home_id == null || home_id.equals("") || home_id.equals("null")) {%>
             <a id="loginplz" href="login.jsp">로그인</a>해주세요.
-                <%}else{%>
+            <%} else {%>
+            <span><button onclick="location.href = 'mypage.jsp'">마이페이지</button></span>
             <span><b><%=home_name%></b>님 환영합니다!</span>
             <span><a href="_logout.jsp">로그아웃</a></span>
-                <%} %>
+            <%} %>
         </div>
     </div>
     <div class="underline"></div>
 </div>
 
 <%
-    if(pstmt != null) {
+    if (pstmt != null) {
         pstmt.close();
         rs.close();
         query = "";
@@ -149,7 +152,7 @@
     //상담신청페이지 버튼삭제
     const isRemodelingForm = location.href.indexOf("remodeling_form.jsp") !== -1;
     const isCustomerRequest = location.href.indexOf("customer") !== -1;
-    if(!isRemodelingForm && !isCustomerRequest ){
+    if (!isRemodelingForm && !isCustomerRequest) {
         document.getElementById("fixed_button").style.display = "flex";
         document.getElementById("header_login").style.display = "flex";
     }

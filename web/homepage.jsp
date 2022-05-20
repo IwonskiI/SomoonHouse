@@ -570,20 +570,6 @@
             upperSecondImgBox, upperSecondImg, lowerTextFir, lowerTextThr,
             firTitle, thrTitleSub;
         let firBox = [], firSub = [];
-
-        partnerInfoContainer = createEle("a", "partner_info_container");
-        partnerInfoBox = createEle("div", "box");
-        boxUpper = createEle("div", "box_upper");
-        boxLower = createEle("div", "box_lower");
-        upperFirstImgBox = createEle("div", "imgBox");
-        upperFirstImg = createEle("img");
-        upperSecondImgBox = createEle("div", "imgBox secondImg");
-        upperSecondImg = createEle("img");
-        lowerTextFir = createEle("div", "txt fir", prop.id);
-        lowerTextThr = createEle("div", "txt thr");
-        firTitle = createEle("span", "fir_title");
-        thrTitleSub = createEle("span", "title_sub");
-
         const war = prop.as_warranty,
             badge = prop.SPECIALIZEDs,
             counseling = prop.counseling,
@@ -591,6 +577,28 @@
             img1 = prop.represent_img1,
             img2 = prop.represent_img2,
             comName = prop.name;
+
+        partnerInfoContainer = createEle("a", "partner_info_container");
+        partnerInfoBox = createEle("div", "box");
+        boxUpper = createEle("div", "box_upper");
+        boxLower = createEle("div", "box_lower");
+        if(img1 !== 'https://somoonhouse.com/sources/noprofile1.png'){
+            upperFirstImgBox = createEle("div", "imgBox");
+            upperFirstImg = createEle("img", "yes");
+            upperSecondImgBox = createEle("div", "imgBox secondImg");
+            upperSecondImg = createEle("img", "yes");
+        }
+        else{
+            upperFirstImgBox = createEle("div", "imgBox");
+            upperFirstImg = createEle("img", "non");
+            upperSecondImgBox = createEle("div", "imgBox secondImg");
+            upperSecondImg = createEle("img", "non");
+        }
+        lowerTextFir = createEle("div", "txt fir", prop.id);
+        lowerTextThr = createEle("div", "txt thr");
+        firTitle = createEle("span", "fir_title");
+        thrTitleSub = createEle("span", "title_sub");
+
         let count = 0;
         if(war != null){
             firBox[count] = createEle("div", "fir_box");

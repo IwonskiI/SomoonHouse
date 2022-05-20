@@ -72,19 +72,18 @@
 	<%
 	error++;
 	}
-	else if(name == null || 
-			phone == null || 
-			address == null || 
-			building_type == null || 
-			area == null || 
-			due == null || 
-			budget == null ||
-			div1 == null ||
-			call == null){
+	else if(name == null || name.equals("") ||
+			phone == null || phone.equals("") ||
+			address == null || address.equals("") ||
+			building_type == null || building_type.equals("") ||
+			area == null || area.equals("") ||
+			due == null || due.equals("") ||
+			budget == null || budget.equals("") ||
+			div1 == null || div1.equals("")){
 		%>
 		<script>
 		alert('모든항목에 답변 해주세요.');
-		//alert("<%=name%><%=phone%><%=address%><%=building_type%><%=area%><%=due%><%=budget%><%=div1%><%=call%>")
+		//alert("<%=name%> <%=phone%> <%=address%> <%=building_type%> <%=area%> <%=due%> <%=budget%> <%=div1%> <%=call%>")
 		</script>
 	<%	
 	error++;
