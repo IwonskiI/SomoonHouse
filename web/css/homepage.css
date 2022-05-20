@@ -234,8 +234,11 @@ body{
     content: "";
     display: block;
 }
-.body_container .partner_info .partner_info_container .box .box_upper .imgBox img{
+.body_container .partner_info .partner_info_container .box .box_upper .imgBox .yes{
     object-fit: cover;
+}
+.body_container .partner_info .partner_info_container .box .box_upper .imgBox .non{
+    object-fit: contain;
 }
 .body_container .partner_info .partner_info_container .box .box_lower{
     position: absolute;
@@ -971,6 +974,7 @@ body{
         padding-bottom: 50%;
     }
     .body_container .partner_info .partner_info_container .box .box_upper .imgBox{
+        background: #EEEEEE;
         border-radius: 4px;
         width: 45%;
     }

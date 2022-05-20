@@ -1,0 +1,238 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.body_container{
+    width: 1000px;
+    margin: 30px;
+}
+.content{
+    margin: 30px 0;
+}
+.head{
+    margin: 20px 0;
+}
+.info_main{
+    display: grid;
+    grid-template-rows: 30px 30px 30px 30px;
+    border-radius: 10px;
+    background: lightgray;
+    padding: 20px;
+    gap: 10px;
+}
+.info_content{
+    display: grid;
+    grid-template-columns: 150px 1fr;
+}
+.info_content_title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid;
+    border-width: 0 1px 0 0;
+    margin: 0 10px;
+}
+.info_content_info{
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+.contract{
+    display: grid;
+    grid-template-rows: 30px 1fr;
+    width: 100%;
+    margin: 1%;
+    border-radius: 5px;
+    padding: 10px;
+    background: #fbfbfb;
+    box-shadow: 0px 0px 6px #e2e2e2;
+    transition: 0.2s;
+}
+.contract:hover{
+    cursor: pointer;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+.contract .item_header{
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+    height:20px;
+}
+.contract .item_header .no{
+    display: inline-block;
+    color: #909090;
+    font-size: 15pt;
+    font-weight: bold;
+}
+.contract .item_header .info span{
+    width:25%;
+    font-size:9pt;
+    color:gray;
+}
+.item .item_header .state{
+    display:inline-block;
+    float:right;
+}
+.item .info{
+    display: block;
+}
+.contract .item_wrapper{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    width: 100%;
+    gap: 5px;
+}
+.contract .item_wrapper2{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+}
+.contract .item_wrapper .info{
+    align-items: center;
+    width:100%;
+    height:100%;
+}
+.contract .item_wrapper .info span{
+    width:25%;
+}
+.phone :after{
+    content:"";
+}
+.item_wrapper span{
+    display: block;
+    font-size:9pt;
+    color:gray;
+}
+
+.modal_item{
+    display:flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    left:0;
+    top:0;
+    width:100%;
+    height:100vh;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.modal_item .modal{
+    display:flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 420px;
+    height: 850px;
+    background-color: #FAFAFA;
+    overflow: auto;
+    overflow-x:hidden;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+.modal_item .modal .modal_content{
+    margin: auto;
+    width:100%;
+    height:100%;
+}
+.modal_item .modal .modal_content .no{
+    display:flex;
+    position: relative;
+    align-items: center;
+    width:100%;
+    height:50px;
+}
+.modal_item .modal .modal_content .item_wrapper{
+    display:flex;
+    position: relative;
+    width: 100%;
+    flex-direction: column;
+}
+.modal_item .modal .modal_content .modal_text{
+    display:flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+.modal_item .modal .modal_content .modal_text .info{
+    margin-top: 12px;
+}
+.modal_item .modal .modal_content .modal_text a{
+    color: black;
+    margin-right: 10px;
+}
+.modal_item .modal .modal_content .modal_text .info span{
+    margin-bottom: 2px;
+}
+.modal_item .modal .modal_content .modal_text .info .text{
+    border: none;
+    border-bottom: 1px solid #d2d2d2;
+    height: 25px;
+}
+.modal_item .modal .modal_content .modal_text .info #name{
+    width: 150px;
+}
+.modal_item .modal .modal_content .modal_text .info #phone{
+    width: 150px;
+}
+.modal_item .modal .modal_content .modal_text .info #address{
+    width: 95%;
+}
+.modal_item .modal .modal_content .modal_text .info #area{
+    width: 50px;
+}
+.modal_item .modal .modal_content .modal_text .info #reason{
+    width: 100%;
+    height: 100px;
+    resize: none;
+}
+.modal_item .modal .modal_content .modal_text .button_container{
+    float: right;
+}
+.modal_item .modal .modal_content .close_modal_btn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    z-index: 2;
+}
+.modal_item .modal .modal_content .close_modal_btn .close_modal{
+    width:100%;
+    height: 100%;
+    cursor: pointer;
+    background: none;
+    border:none;
+}
+.modal_item .modal .modal_content .close_modal_btn .close_modal .close_modal_img{
+    width:100%;
+    height: 100%;
+    object-fit: cover;
+}
+@media (max-width : 950px){
+    /*반응형*/
+    .info_content_title {
+        margin: 0;
+    }
+    .info_content{
+        grid-template-columns: 100px 1fr;
+    }
+    .contract {
+        width: 93%;
+    }
+    .contract .item_wrapper2{
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+    .modal_item .modal{
+        width: 85%;
+        height: 65%;
+    }
+}
