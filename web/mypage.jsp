@@ -293,12 +293,14 @@
                     <div class="info_content_title">성함</div>
                     <div class="info_content_info"><%out.println(user.get("name"));%></div>
                 </div>
-                <%if(user.get("phone")!=null){%>
                 <div class="info_content">
                     <div class="info_content_title">전화번호</div>
+                    <%if(user.get("phone")!=null){%>
                     <div class="info_content_info"><%out.println(user.get("phone"));%></div>
+                    <%} else {%>
+                    <div class="info_content_info">전화번호가 등록되어 있지 않습니다.</div>
+                    <%}%>
                 </div>
-                <%}%>
                 <div class="info_content">
                     <div class="info_content_title">이메일</div>
                     <div class="info_content_info"><%out.println(user.get("email"));%></div>
@@ -376,7 +378,8 @@
                                         <div class="info privacy"><span>이름</span><span>전화번호</span>
                                             <input type="text" id="name" name="name" class="text"
                                             <%if(hm.get("name").equals("")){%> value="<%out.println(user.get("name"));%>"<%}else{%> value="<%out.println(hm.get("name"));%>"<%}%>>
-                                            <input type="text" id="phone" name="phone" class="text" value="<%out.println(hm.get("phone"));%>">
+                                            <input type="text" id="phone" name="phone" class="text"
+                                            <%if(hm.get("phone").equals("")){%> value="<%out.println(user.get("phone"));%>"<%}else{%> value="<%out.println(hm.get("phone"));%>"<%}%>>
                                         </div>
                                         <div class="info"><span>주소</span><input type="text" id="address" name="address" class="text" value="<%out.println(hm.get("address"));%>">
                                         </div>
