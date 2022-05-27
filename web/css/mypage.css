@@ -15,7 +15,7 @@
 }
 .info_main{
     display: grid;
-    grid-template-rows: 30px 30px 30px 30px;
+    grid-template-rows: 30px 30px 30px 30px 30px;
     border-radius: 10px;
     background: lightgray;
     padding: 20px;

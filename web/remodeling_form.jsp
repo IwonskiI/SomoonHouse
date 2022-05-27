@@ -20,6 +20,7 @@
     String s_id = session.getAttribute("s_id") + "";// 현재 사용자 current user
     String name = session.getAttribute("name") + "";
     String home_id = session.getAttribute("home_id")+"";
+    if (home_id == null) {home_id = "0";}
 //DB개체들 가져오기
     conn = DBUtil.getMySQLConnection();
     rs = null;
@@ -60,6 +61,16 @@
             hm.put(rs.getInt("Id"), rs.getString("Name"));
         }
         division2.put(i, hm);
+    }
+
+    query = "select * from USERS where ID = ?";
+    pstmt = conn.prepareStatement(query);
+    pstmt.setInt(1, Integer.valueOf(home_id));
+    rs = pstmt.executeQuery();
+    HashMap<String, String> user = new HashMap<String, String>();
+    while (rs.next()) {
+        user.put("name", rs.getString("USERNAME"));
+        user.put("phone", rs.getString("PHONE"));
     }
 
 %>
@@ -275,8 +286,8 @@
             <!-- 이름, 연락처정보 + 개인정보동의 -->
             <div class="form_title">상담을 위해 정보를 입력해주세요.</div>
             <div class="form_content">
-                <div class="item"><span class="nametag">성함</span><input type="text" name="name" class="block"></div>
-                <div class="item"><span class="nametag">휴대폰</span><input type="number" name="phone" class="block"></div>
+                <div class="item"><span class="nametag">성함</span><input type="text" name="name" class="block"<%if(user.get("name")!=null){%> value="<%=user.get("name")%>"<%}%>></div>
+                <div class="item"><span class="nametag">휴대폰</span><input type="number" name="phone" class="block"<%if(user.get("phone")!=null){%> value="<%=user.get("phone")%>"<%}%>></div>
                 <div class="item"><span class="nametag">신청 이유(선택 사항)</span><input type="text" name="reason" class="block"></div>
                 <!-- div class="item"><span class="nametag">휴대폰</span><input type="text" class="cert_input" name="phone"><input type="button" class="cert_btn" id="cert_start" value="인증"></div>
                 <div class="item"><span class="nametag">인증번호</span><input type="text" class="cert_input" name="certificate_num"><input type="button" class="cert_btn" id="cert_ok" value="확인"></div-->
