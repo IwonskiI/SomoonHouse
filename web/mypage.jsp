@@ -54,6 +54,7 @@
     String s_id = session.getAttribute("s_id") + "";// 현재 사용자 current user
     String name = session.getAttribute("name") + "";
     String home_id = session.getAttribute("home_id") + "";// 현재 사용자 current user
+    home_id = String.valueOf(1);
     String home_name = session.getAttribute("home_name") + "";
 
     String type = "";
@@ -66,6 +67,7 @@
     while (rs.next()) {
         user.put("name", rs.getString("USERNAME"));
         user.put("email", rs.getString("EMAIL"));
+        user.put("phone", rs.getString("PHONE"));
         user.put("grade", rs.getString("GRADE"));
         type = rs.getString("SNS_TYPE");
         //SNS타입 한글로 변경
@@ -292,6 +294,12 @@
                     <div class="info_content_title">성함</div>
                     <div class="info_content_info"><%out.println(user.get("name"));%></div>
                 </div>
+                <%if(user.get("phone")!=null){%>
+                <div class="info_content">
+                    <div class="info_content_title">전화번호</div>
+                    <div class="info_content_info"><%out.println(user.get("phone"));%></div>
+                </div>
+                <%}%>
                 <div class="info_content">
                     <div class="info_content_title">이메일</div>
                     <div class="info_content_info"><%out.println(user.get("email"));%></div>
@@ -350,7 +358,12 @@
                      onclick="modal_container_click()">
                     <div class="modal" onclick="modal_click()">
                         <div class="modal_content">
-                            <div class="no">no.<%out.println(hm.get("number"));%></div>
+                            <div class="modal_header">
+                                <div class="no">No.<%out.println(idx+1);%></div>
+                                <div class="info"><span>최종 수정 날짜</span>
+                                    <div id="applydate"><%out.println(hm.get("applydate"));%></div>
+                                </div>
+                            </div>
                             <div class="item_wrapper">
                                 <div class="modal_text">
                                     <form>
@@ -361,42 +374,40 @@
                                         %>
                                         <input type="hidden" name="number" id="delnum" value="<%=hm.get("number")%>">
                                         <input type="hidden" name="item_num" id="delnum" value="<%=hm.get("itemnum")%>">
-                                        <div class="info"><span>이름</span><input type="text" id="name" name="name" class="text"
+                                        <div class="info privacy"><span>이름</span><span>전화번호</span>
+                                            <input type="text" id="name" name="name" class="text"
                                             <%if(hm.get("name").equals("")){%> value="<%out.println(user.get("name"));%>"<%}else{%> value="<%out.println(hm.get("name"));%>"<%}%>>
-                                        </div>
-                                        <div class="info phone"><span>전화번호</span><input type="text" id="phone" name="phone" class="text" value="<%out.println(hm.get("phone"));%>">
+                                            <input type="text" id="phone" name="phone" class="text" value="<%out.println(hm.get("phone"));%>">
                                         </div>
                                         <div class="info"><span>주소</span><input type="text" id="address" name="address" class="text" value="<%out.println(hm.get("address"));%>">
                                         </div>
-                                        <div class="info">
-                                            <span>건물종류</span>
+                                        <div class="info house">
+                                            <span>건물종류</span><span>평수</span><span>예정일</span>
                                             <select name="building_type">
                                                 <option selected></option>
                                                 <% for (int i = 0; i < building_types.length; i++) { %>
                                                 <option value ="<%=i%>" <%if(hm.get("building") == building_types[i]){%>selected<%}%>><%=building_types[i]%><%}%>
                                             </select>
-                                        </div>
-                                        <div class="info"><span>평수</span><input type="text" id="area" name="area" class="text" value="<%out.println(hm.get("area"));%>">평
-                                        </div>
-                                        <div class="info">
-                                            <span>예정일</span>
+                                            <div><input type="text" id="area" name="area" class="text" value="<%out.println(hm.get("area"));%>">평</div>
                                             <select name="due">
                                                 <option selected></option>
                                                 <% for (int i = 0; i < due_type.length; i++) { %>
                                                 <option value="<%=due_type[i]%>" <%if(hm.get("due").equals(due_type[i])){%>selected<%}%>><%=due_type[i]%></option><%}%>
                                             </select>
                                         </div>
-                                        <div class="info"><span>상세시공</span>
-                                            <%for(int r1 =0; r1 < rmdl1.size(); r1++){ HashMap<String, String> rmdls1 = rmdl1.get(r1);%>
-                                            <span>
-                                                <input type="checkbox" id="<%=hm.get("number")%>rmdlin<%=r1%>" name="division1"  onclick="toggle_selbox(this)" value="<%=rmdls1.get("id")%>" <%for(int r1c =0; r1c < rmdl1.size(); r1c++){if (detail.get(rmdl1.get(r1c).get("name")) != null && Objects.equals(rmdl1.get(r1c).get("name"), rmdls1.get("name"))){%>checked<%break;}}%>><%=rmdls1.get("name")%>
-                                                <select id="<%=hm.get("number")%>rmdlsel<%=r1%>" name="division2-<%=r1%>" disabled>
-                                                    <option selected></option>
-                                                    <%for(int r2 = 0; r2 < rmdl2.size(); r2++){HashMap<String, String> rmdls2 = rmdl2.get(r2); if(Objects.equals(rmdls2.get("pid"), rmdls1.get("id"))){%>
-                                                    <option value="<%=rmdls2.get("id")%>" <%for(int r2c = 0; r2c < rmdl1.size(); r2c++){if(rmdls2.get("name").equals(detail.get(rmdl1.get(r2c).get("name"))) && rmdls2.get("pid").equals(rmdl1.get(r2c).get("id"))){%>selected<%break;}}%>><%=rmdls2.get("name")%></option><%}}%>
-                                                </select>
-                                            </span>
-                                            <%}%>
+                                        <div class="info details"><span>상세시공</span>
+                                            <div class="detail_box">
+                                                <%for(int r1 =0; r1 < rmdl1.size(); r1++){ HashMap<String, String> rmdls1 = rmdl1.get(r1);%>
+                                                <span class="detail">
+                                                    <input type="checkbox" id="<%=hm.get("number")%>rmdlin<%=r1%>" name="division1"  onclick="toggle_selbox(this)" value="<%=rmdls1.get("id")%>" <%for(int r1c =0; r1c < rmdl1.size(); r1c++){if (detail.get(rmdl1.get(r1c).get("name")) != null && Objects.equals(rmdl1.get(r1c).get("name"), rmdls1.get("name"))){%>checked<%break;}}%>><%=rmdls1.get("name")%>
+                                                    <select id="<%=hm.get("number")%>rmdlsel<%=r1%>" name="division2-<%=r1%>" hidden>
+                                                        <option selected></option>
+                                                        <%for(int r2 = 0; r2 < rmdl2.size(); r2++){HashMap<String, String> rmdls2 = rmdl2.get(r2); if(Objects.equals(rmdls2.get("pid"), rmdls1.get("id"))){%>
+                                                        <option value="<%=rmdls2.get("id")%>" <%for(int r2c = 0; r2c < rmdl1.size(); r2c++){if(rmdls2.get("name").equals(detail.get(rmdl1.get(r2c).get("name"))) && rmdls2.get("pid").equals(rmdl1.get(r2c).get("id"))){%>selected<%break;}}%>><%=rmdls2.get("name")%></option><%}}%>
+                                                    </select>
+                                                </span>
+                                                <%}%>
+                                            </div>
                                         </div>
                                         <div class="info">
                                             <span>예산</span>
@@ -407,11 +418,8 @@
                                         </div>
                                         <div class="info"><span>신청 이유</span><textarea id="reason" class="text"><%out.println(hm.get("reason"));%></textarea>
                                         </div>
-                                        <div class="info"><span>최종 수정 날짜</span>
-                                            <div id="applydate"><%out.println(hm.get("applydate"));%></div>
-                                        </div>
                                         <div class="info"><span>개인정보 활용 동의</span>
-                                            <a href="personal.html" target="_blank">전문보기</a><input type="checkbox" name="agree" id="agree">
+                                            <input type="checkbox" name="agree" id="agree"><a href="personal.html" target="_blank">전문보기</a>
                                         </div>
                                         <div class="button_container">
                                             <input type="button" value="삭제하기" onclick="return delform(this.form);">
@@ -448,7 +456,7 @@
             var inputid = det[i].id.slice(-1)
             var inputnum = det[i].id.slice(-100,-7)
             const selectElem = document.getElementById(inputnum+'rmdlsel'+inputid);
-            selectElem.disabled = false
+            selectElem.hidden = false
         }
     }
 
@@ -456,7 +464,7 @@
         var id = checkbox.id.slice(-1)
         var num = checkbox.id.slice(-100,-7)
         const select_elem = document.getElementById(num+'rmdlsel'+id);
-        select_elem.disabled = checkbox.checked ? false : true;
+        select_elem.hidden = checkbox.checked ? false : true;
     }
     var remem_modal_id;
     var form_id;
