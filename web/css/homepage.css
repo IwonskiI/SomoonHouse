@@ -229,6 +229,7 @@ body{
     position: relative;
     flex-direction: row;
     overflow: hidden;
+    background: #EEEEEE;
 }
 .body_container .partner_info .partner_info_container .box .box_upper .imgBox:after{
     content: "";
@@ -974,7 +975,6 @@ body{
         padding-bottom: 50%;
     }
     .body_container .partner_info .partner_info_container .box .box_upper .imgBox{
-        background: #EEEEEE;
         border-radius: 4px;
         width: 45%;
     }
