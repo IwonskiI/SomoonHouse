@@ -69,6 +69,7 @@
     String access_token = "";
     String refresh_token = "";
     String auth = "";
+  %><script>console.log("<%=code%>")</script><%
     //System.out.println("apiURL="+apiURL);
     try {
       String str = "";
@@ -148,11 +149,12 @@
         String gender = prof.get("gender").getAsString();
         String email = prof.get("email").getAsString();
         String name = prof.get("name").getAsString();
+        String mobile = prof.get("mobile").getAsString();
   %><script>console.log("<%=respon%>")</script><%
         //out.println(name);
   %>
   <script>
-    var s = encodeURI("_"+"signup.jsp"+"?sns_id=<%=id%>&gender=<%=gender%>&email=<%=email%>&name=<%=name%>&age=<%=age%>&birthday=<%=birthday%>&birthyear=<%=birthyear%>&sns_type=naver");
+    var s = encodeURI("_"+"signup.jsp"+"?sns_id=<%=id%>&gender=<%=gender%>&email=<%=email%>&phone=<%=mobile%>&name=<%=name%>&age=<%=age%>&birthday=<%=birthday%>&birthyear=<%=birthyear%>&sns_type=naver");
     document.location.href = s;
   </script>
   <%

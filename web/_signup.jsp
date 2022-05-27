@@ -112,7 +112,8 @@
 	String sns_id = request.getParameter("sns_id");
 	String sns_type = request.getParameter("sns_type");
 	String gender = request.getParameter("gender");
-	String email= request.getParameter("email");
+	String email = request.getParameter("email");
+	String phone = request.getParameter("phone");
 	String birthday = request.getParameter("birthday");
 	String birthyear = request.getParameter("birthyear");
 	String age = request.getParameter("age");
@@ -122,6 +123,7 @@
 		/*생일포맷수정*/
 		age = age.replaceAll("-","");
 		birthday = birthday.replaceAll("-","");
+		phone = phone.replaceAll("-","");
 		
 		/*중복가입정보가 있는 지?*/
 		String sql = "SELECT *, COUNT(*) AS exist FROM USERS WHERE SNS_ID = \'"+sns_id
@@ -232,7 +234,7 @@
 14 rows in set (0.00 sec)
 */			
 			PreparedStatement pstmt = null;
-			String sql = "INSERT INTO USERS VALUES" + "(?,?,password(?),?,?,null,null,?,?,?,?,?,?,?,?,?,default,default, default, NULL)";
+			String sql = "INSERT INTO USERS VALUES" + "(?,?,password(?),?,?,null,?,?,?,?,?,?,?,?,?,?,default,default, default, NULL)";
 			/*현재날짜 받아오기*/
 			Calendar cal = Calendar.getInstance();
 			String year = Integer.toString(cal.get(Calendar.YEAR));
@@ -258,15 +260,16 @@
 			pstmt.setString(3, pw);
 			pstmt.setString(4, name);
 			pstmt.setString(5, email);
-			pstmt.setString(6, nickname);
-			pstmt.setString(7, sns_id);
-			pstmt.setString(8, sns_type);
-			pstmt.setDate(9, d);
+			pstmt.setString(6, phone);
+			pstmt.setString(7, nickname);
+			pstmt.setString(8, sns_id);
+			pstmt.setString(9, sns_type);
 			pstmt.setDate(10, d);
-			pstmt.setString(11, birthday);
-			pstmt.setString(12, birthyear);
-			pstmt.setString(13, age);
-			pstmt.setString(14, gender);
+			pstmt.setDate(11, d);
+			pstmt.setString(12, birthday);
+			pstmt.setString(13, birthyear);
+			pstmt.setString(14, age);
+			pstmt.setString(15, gender);
 
 			out.println(pstmt);
 			try{
@@ -288,6 +291,10 @@
 			session.setAttribute("page", "");
 			session.setAttribute("s_id", "");
 			session.setAttribute("name", "");
+			%><script>alert("로그인되었습니다!")</script><%
+	  		session.setAttribute("page", "");
+			session.setAttribute("home_id", num);
+	  		session.setAttribute("home_name", name);
 			%>
 			<script>
 			document.location.href="homepage.jsp";
