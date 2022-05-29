@@ -5,9 +5,7 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <script>alert("로그아웃 되었습니다!")</script>
 <%
-		session.setAttribute("page", "");
-		session.setAttribute("home_id", "");
-		session.setAttribute("home_name", "");
+	session.invalidate();
 %><script>document.location.href="homepage.jsp"</script><%
 %>
 <!-- 사용자 행동 정보 수집 코드 시작 - Meta, GA -->
