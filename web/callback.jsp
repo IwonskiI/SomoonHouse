@@ -149,12 +149,14 @@
         String gender = prof.get("gender").getAsString();
         String email = prof.get("email").getAsString();
         String name = prof.get("name").getAsString();
-        String mobile = prof.get("mobile").getAsString();
-  %><script>console.log("<%=respon%>")</script><%
+        String mobile = null;
+        if(prof.get("mobile") != null){mobile = prof.get("mobile").getAsString();}
+  %><script>console.log(`<%=respon%>`)</script><%
         //out.println(name);
   %>
   <script>
     var s = encodeURI("_"+"signup.jsp"+"?sns_id=<%=id%>&gender=<%=gender%>&email=<%=email%>&phone=<%=mobile%>&name=<%=name%>&age=<%=age%>&birthday=<%=birthday%>&birthyear=<%=birthyear%>&sns_type=naver");
+    console.log(s)
     document.location.href = s;
   </script>
   <%
