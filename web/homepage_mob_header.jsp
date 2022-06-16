@@ -89,29 +89,39 @@
         </div>
         <div class="underline"></div>
         <div class="header_lower">
-            <div id="area_header" onclick="area_click()">
+            <div id="area_header" onclick="area_click1()">
                 <span id="area_span">지역별 인테리어</span>
-                <div id="area_div">
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=141"><span>중구</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=142"><span>동구</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=143"><span>서구</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=144"><span>남구</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=145"><span>북구</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=146"><span>수성구</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=147"><span>달서구</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=148"><span>달성군</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=15"><span>경북</span></a>
+                <div class="div_mob" id="area_div">
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=141"><span>중구</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=142"><span>동구</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=143"><span>서구</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=144"><span>남구</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=145"><span>북구</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=146"><span>수성구</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=147"><span>달서구</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=148"><span>달성군</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=15"><span>경북</span></a>--%>
+                    <a href="https://somoonhouse.com/newindex.jsp"><span>대구</span></a>
+                    <span onclick="alert(`오픈 준비중입니다!`)"><span>서울</span></span>
                 </div>
             </div>
-            <a href="https://somoonhouse.com/newindex.jsp?theme_id=1">
-                <span>인기 인테리어</span>
-            </a>
+            <div id="popular_header" onclick="area_click2()">
+                <span id="popular_span">인기 인테리어</span>
+                <div class="div_mob" id="popular_div">
+                    <a href="https://somoonhouse.com/newindex.jsp?theme_id=1"><span>대구</span></a>
+                    <span onclick="alert(`오픈 준비중입니다!`)"><span>서울</span></span>
+                </div>
+            </div>
             <!-- a>
                 <span>시공 후기</span>
             </a-->
-            <a href="https://somoonhouse.com/interiors.jsp">
-                <span>파트너스</span>
-            </a>
+            <div id="partner_header" onclick="area_click3()">
+                <span id="partner_span">파트너스</span>
+                <div class="div_mob" id="partner_div">
+                    <a href="https://somoonhouse.com/interiors.jsp"><span>대구</span></a>
+                    <span onclick="alert(`오픈 준비중입니다!`)"><span>서울</span></span>
+                </div>
+            </div>
         </div>
         <div class="underline"></div>
     </div>
@@ -241,8 +251,26 @@
             menu_slide.style.transform = "translateX(0)";
         }
     }
-    const area_click = () => {
+    const area_click1 = () => {
         var div = document.getElementById("area_div");
+        if(div.style.display === "flex"){
+            div.style.display = "none";
+        }
+        else{
+            div.style.display = "flex";
+        }
+    }
+    const area_click2 = () => {
+        var div = document.getElementById("popular_div");
+        if(div.style.display === "flex"){
+            div.style.display = "none";
+        }
+        else{
+            div.style.display = "flex";
+        }
+    }
+    const area_click3 = () => {
+        var div = document.getElementById("partner_div_div");
         if(div.style.display === "flex"){
             div.style.display = "none";
         }

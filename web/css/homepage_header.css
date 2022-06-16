@@ -61,52 +61,7 @@
     cursor: default;
     filter:invert(0);
 }
-/*.body_container_header .header_pc .header_right .div_pc{*/
-/*    display:none;*/
-/*    align-items: center;*/
-/*    justify-content: space-around;*/
-/*    top:60px;*/
-/*    left:0;*/
-/*    position: absolute;*/
-/*    width: 150px;*/
-/*    height: 50px;*/
-/*    background-color: #fff;*/
-/*    border-radius: 0 0 5px 5px;*/
-/*    border: solid;*/
-/*    border-width: 1px;*/
-/*    border-color: #eee;*/
-/*}*/
-.body_container_header .header_pc .header_right #area_div_pc{
-    display:none;
-    align-items: center;
-    justify-content: space-around;
-    top:60px;
-    left:0;
-    position: absolute;
-    width: 150px;
-    height: 50px;
-    background-color: #fff;
-    border-radius: 0 0 5px 5px;
-    border: solid;
-    border-width: 1px;
-    border-color: #eee;
-}
-.body_container_header .header_pc .header_right #popular_div_pc{
-    display:none;
-    align-items: center;
-    justify-content: space-around;
-    top:60px;
-    left:0;
-    position: absolute;
-    width: 150px;
-    height: 50px;
-    background-color: #fff;
-    border-radius: 0 0 5px 5px;
-    border: solid;
-    border-width: 1px;
-    border-color: #eee;
-}
-.body_container_header .header_pc .header_right #partner_div_pc{
+.body_container_header .header_pc .header_right .div_pc{
     display:none;
     align-items: center;
     justify-content: space-around;
@@ -262,7 +217,7 @@
     font-size: 13px;
     font-weight: 550;
 }
-.body_container_header .header_mob .header_lower #area_div{
+.body_container_header .header_mob .header_lower .div_mob{
     display:none;
     align-items: center;
     justify-content: space-around;
@@ -277,6 +232,34 @@
     border-width: 1px;
     border-color: #eee;
     z-index: 2;
+}
+.body_container_header .header_mob .header_lower #popular_header{
+    display:flex;
+    height: 100%;
+    cursor: default;
+}
+.body_container_header .header_mob .header_lower #popular_header #popular_span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color:#000000;
+    font-size: 13px;
+    font-weight: 550;
+}
+.body_container_header .header_mob .header_lower #partner_header{
+    display:flex;
+    height: 100%;
+    cursor: default;
+}
+.body_container_header .header_mob .header_lower #partner_header #partner_span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color:#000000;
+    font-size: 13px;
+    font-weight: 550;
 }
 .menu_slide_container{
     display: none;
