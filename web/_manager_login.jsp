@@ -55,7 +55,7 @@
 		ResultSet rs = null;
 		Statement stmt = null;
 		query = "select * from ADMIN where Pw = password(\"" + guestpw + "\")";
-		stmt = conn.createStatement();
+		if(conn != null) stmt = conn.createStatement();
 		rs = stmt.executeQuery(query);
 		id = "";
 		while(rs.next()){

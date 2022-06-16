@@ -87,29 +87,39 @@
         <div class="header_right">
             <div id="area_header_pc">
                 <span>지역별 인테리어</span>
-                <div id="area_div_pc">
-                    <a href="newindex.jsp?Daegu=141"><span>중구</span></a>
-                    <a href="newindex.jsp?Daegu=142"><span>동구</span></a>
-                    <a href="newindex.jsp?Daegu=143"><span>서구</span></a>
-                    <a href="newindex.jsp?Daegu=144"><span>남구</span></a>
-                    <a href="newindex.jsp?Daegu=145"><span>북구</span></a>
-                    <a href="newindex.jsp?Daegu=146"><span>수성구</span></a>
-                    <a href="newindex.jsp?Daegu=147"><span>달서구</span></a>
-                    <a href="newindex.jsp?Daegu=148"><span>달성군</span></a>
-                    <a href="newindex.jsp?Daegu=15"><span>경북</span></a>
+                <div class="div_pc" id="area_div_pc">
+                        <a href="newindex.jsp"><span>대구</span></a>
+                        <span onclick="alert(`오픈 준비중입니다!`);"><span>서울</span></span>
+<%--                    <a href="newindex.jsp?Daegu=141"><span>중구</span></a>--%>
+<%--                    <a href="newindex.jsp?Daegu=142"><span>동구</span></a>--%>
+<%--                    <a href="newindex.jsp?Daegu=143"><span>서구</span></a>--%>
+<%--                    <a href="newindex.jsp?Daegu=144"><span>남구</span></a>--%>
+<%--                    <a href="newindex.jsp?Daegu=145"><span>북구</span></a>--%>
+<%--                    <a href="newindex.jsp?Daegu=146"><span>수성구</span></a>--%>
+<%--                    <a href="newindex.jsp?Daegu=147"><span>달서구</span></a>--%>
+<%--                    <a href="newindex.jsp?Daegu=148"><span>달성군</span></a>--%>
+<%--                    <a href="newindex.jsp?Daegu=15"><span>경북</span></a>--%>
                 </div>
             </div>
             <div class="sidebar"></div>
-            <a href="newindex.jsp?theme_id=1">
+            <div id="popular_header_pc">
                 <span>인기 인테리어</span>
-            </a>
+                <div class="div_pc" id="popular_div_pc">
+                    <a href="newindex.jsp?theme_id=1"><span>대구</span></a>
+                    <span onclick="alert(`오픈 준비중입니다!`);"><span>서울</span></span>
+                </div>
+            </div>
             <!--a>
                 <span>시공 후기</span>
             </a-->
             <div class="sidebar"></div>
-            <a href="interiors.jsp">
+            <div id="partner_header_pc">
                 <span>파트너스</span>
-            </a>
+                <div class="div_pc" id="partner_div_pc">
+                    <a href="interiors.jsp"><span>대구</span></a>
+                    <span onclick="alert(`오픈 준비중입니다!`);"><span>서울</span></span>
+                </div>
+            </div>
         </div>
         <div class="header_login" id="header_login">
             <%if (home_id == null || home_id.equals("") || home_id.equals("null")) {%>
@@ -141,6 +151,24 @@
     }
     area_header.onmouseleave = () => {
         area_div.style.display = "none";
+    }
+
+    const popular_header = document.getElementById("popular_header_pc"),
+        popular_div = document.getElementById("popular_div_pc");
+    popular_header.onmouseenter = () => {
+        popular_div.style.display = "flex";
+    }
+    popular_header.onmouseleave = () => {
+        popular_div.style.display = "none";
+    }
+
+    const partner_header = document.getElementById("partner_header_pc"),
+        partner_div = document.getElementById("partner_div_pc");
+    partner_header.onmouseenter = () => {
+        partner_div.style.display = "flex";
+    }
+    partner_header.onmouseleave = () => {
+        partner_div.style.display = "none";
     }
 
     const goToTop = () => {

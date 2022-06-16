@@ -597,9 +597,8 @@ conn.close();
     }
 
     function saveform(frm) {
-        console.log(<%=home_id%>)
         var home_id = document.getElementById("home_id").value
-        if(home_id == null || home_id === "null"){
+        if(home_id === "0"){
             alert("견적서 저장은 로그인이 필요한 서비스 입니다.");
             location.href='login.jsp'
         }
