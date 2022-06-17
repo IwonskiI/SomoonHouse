@@ -252,30 +252,42 @@
         }
     }
     const area_click1 = () => {
-        var div = document.getElementById("area_div");
-        if(div.style.display === "flex"){
-            div.style.display = "none";
+        var div1 = document.getElementById("area_div");
+        var div2 = document.getElementById("popular_div");
+        var div3 = document.getElementById("partner_div");
+        if(div1.style.display === "flex"){
+            div1.style.display = "none";
         }
         else{
-            div.style.display = "flex";
+            div1.style.display = "flex";
+            div2.style.display = "none";
+            div3.style.display = "none";
         }
     }
     const area_click2 = () => {
-        var div = document.getElementById("popular_div");
-        if(div.style.display === "flex"){
-            div.style.display = "none";
+        var div1 = document.getElementById("area_div");
+        var div2 = document.getElementById("popular_div");
+        var div3 = document.getElementById("partner_div");
+        if(div2.style.display === "flex"){
+            div2.style.display = "none";
         }
         else{
-            div.style.display = "flex";
+            div2.style.display = "flex";
+            div1.style.display = "none";
+            div3.style.display = "none";
         }
     }
     const area_click3 = () => {
-        var div = document.getElementById("partner_div_div");
-        if(div.style.display === "flex"){
-            div.style.display = "none";
+        var div1 = document.getElementById("area_div");
+        var div2 = document.getElementById("popular_div");
+        var div3 = document.getElementById("partner_div");
+        if(div3.style.display === "flex"){
+            div3.style.display = "none";
         }
         else{
-            div.style.display = "flex";
+            div3.style.display = "flex";
+            div1.style.display = "none";
+            div2.style.display = "none";
         }
     }
     const call = () => {
