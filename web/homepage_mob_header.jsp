@@ -154,7 +154,7 @@
         <span><button onclick="location.href = 'mypage.jsp'">마이페이지</button></span>
         <%} %>
     </div>
-    <span class="head">대구 경북 인테리어<br>전문가를 만나보세요.</span>
+    <span class="head">전국 인테리어<br>전문가를 만나보세요.</span>
     <a class="cons" href="https://somoonhouse.com/remodeling_form.jsp?item_num=0">견적 상담</a>
     <a class="cons b" href="https://somoonhouse.com/banner1.jsp?id=3">시공전문가 입점문의</a>
     <a class="insta_cont" href="https://www.instagram.com/somoonhouse/">
@@ -179,7 +179,7 @@
             <span>소문난집 전화문의</span>
         </div>
         <div class="menu_lower">
-            <span onclick="call()">053-290-5959</span>
+            <span onclick="call()">010-4399-7660</span>
         </div>
     </div>
 </div>
