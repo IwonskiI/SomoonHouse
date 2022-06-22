@@ -108,7 +108,7 @@ state = request.getParameter("state");
                     <dt>주소</dt>
                     <dd>대구광역시 북구 대현동 <span class="g_en">199-8</span>번지</dd>
                     <dt>전화</dt>
-                    <dd><a class="g_en" href="tel:053-290-5959">053-290-5959</a> (대표전화/고객센터)</dd>
+                    <dd><a class="g_en" href="tel:010-4399-7660">010-4399-7660</a> (대표전화/고객센터)</dd>
                     <dt>문의</dt>
                     <dd><a class="g_en" href="mail:somoonhouse@naver.com" target="_blank">somoonhouse@naver.com</a></dd>
                     <dt class="g_w2">사업자등록번호</dt>

@@ -102,14 +102,14 @@
 <%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=148"><span>달성군</span></a>--%>
 <%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=15"><span>경북</span></a>--%>
                     <a href="https://somoonhouse.com/newindex.jsp"><span>대구</span></a>
-                    <span onclick="alert(`오픈 준비중입니다!`)"><span>서울</span></span>
+                    <span onclick="alert(`오픈 준비중입니다!`)"><span>서울/경기/인천</span></span>
                 </div>
             </div>
             <div id="popular_header" onclick="area_click2()">
                 <span id="popular_span">인기 인테리어</span>
                 <div class="div_mob" id="popular_div">
                     <a href="https://somoonhouse.com/newindex.jsp?theme_id=1"><span>대구</span></a>
-                    <span onclick="alert(`오픈 준비중입니다!`)"><span>서울</span></span>
+                    <span onclick="alert(`오픈 준비중입니다!`)"><span>서울/경기/인천</span></span>
                 </div>
             </div>
             <!-- a>
@@ -119,7 +119,7 @@
                 <span id="partner_span">파트너스</span>
                 <div class="div_mob" id="partner_div">
                     <a href="https://somoonhouse.com/interiors.jsp"><span>대구</span></a>
-                    <span onclick="alert(`오픈 준비중입니다!`)"><span>서울</span></span>
+                    <span onclick="alert(`오픈 준비중입니다!`)"><span>서울/경기/인천</span></span>
                 </div>
             </div>
         </div>
@@ -154,7 +154,7 @@
         <span><button onclick="location.href = 'mypage.jsp'">마이페이지</button></span>
         <%} %>
     </div>
-    <span class="head">대구 경북 인테리어<br>전문가를 만나보세요.</span>
+    <span class="head">전국 인테리어<br>전문가를 만나보세요.</span>
     <a class="cons" href="https://somoonhouse.com/remodeling_form.jsp?item_num=0">견적 상담</a>
     <a class="cons b" href="https://somoonhouse.com/banner1.jsp?id=3">시공전문가 입점문의</a>
     <a class="insta_cont" href="https://www.instagram.com/somoonhouse/">
@@ -179,7 +179,7 @@
             <span>소문난집 전화문의</span>
         </div>
         <div class="menu_lower">
-            <span onclick="call()">053-290-5959</span>
+            <span onclick="call()">010-4399-7660</span>
         </div>
     </div>
 </div>
@@ -291,7 +291,7 @@
         }
     }
     const call = () => {
-        location.href = "tel:053-290-5959";
+        location.href = "tel:010-4399-7660";
     }
 </script>
 </body>
