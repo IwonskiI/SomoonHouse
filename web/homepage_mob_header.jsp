@@ -89,29 +89,39 @@
         </div>
         <div class="underline"></div>
         <div class="header_lower">
-            <div id="area_header" onclick="area_click()">
+            <div id="area_header" onclick="area_click1()">
                 <span id="area_span">지역별 인테리어</span>
-                <div id="area_div">
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=141"><span>중구</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=142"><span>동구</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=143"><span>서구</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=144"><span>남구</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=145"><span>북구</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=146"><span>수성구</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=147"><span>달서구</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=148"><span>달성군</span></a>
-                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=15"><span>경북</span></a>
+                <div class="div_mob" id="area_div">
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=141"><span>중구</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=142"><span>동구</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=143"><span>서구</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=144"><span>남구</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=145"><span>북구</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=146"><span>수성구</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=147"><span>달서구</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=148"><span>달성군</span></a>--%>
+<%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=15"><span>경북</span></a>--%>
+                    <a href="https://somoonhouse.com/newindex.jsp"><span>대구</span></a>
+                    <span onclick="alert(`오픈 준비중입니다!`)"><span>서울/경기/인천</span></span>
                 </div>
             </div>
-            <a href="https://somoonhouse.com/newindex.jsp?theme_id=1">
-                <span>인기 인테리어</span>
-            </a>
+            <div id="popular_header" onclick="area_click2()">
+                <span id="popular_span">인기 인테리어</span>
+                <div class="div_mob" id="popular_div">
+                    <a href="https://somoonhouse.com/newindex.jsp?theme_id=1"><span>대구</span></a>
+                    <span onclick="alert(`오픈 준비중입니다!`)"><span>서울/경기/인천</span></span>
+                </div>
+            </div>
             <!-- a>
                 <span>시공 후기</span>
             </a-->
-            <a href="https://somoonhouse.com/interiors.jsp">
-                <span>파트너스</span>
-            </a>
+            <div id="partner_header" onclick="area_click3()">
+                <span id="partner_span">파트너스</span>
+                <div class="div_mob" id="partner_div">
+                    <a href="https://somoonhouse.com/interiors.jsp"><span>대구</span></a>
+                    <span onclick="alert(`오픈 준비중입니다!`)"><span>서울/경기/인천</span></span>
+                </div>
+            </div>
         </div>
         <div class="underline"></div>
     </div>
@@ -144,7 +154,7 @@
         <span><button onclick="location.href = 'mypage.jsp'">마이페이지</button></span>
         <%} %>
     </div>
-    <span class="head">대구 경북 인테리어<br>전문가를 만나보세요.</span>
+    <span class="head">전국 인테리어<br>전문가를 만나보세요.</span>
     <a class="cons" href="https://somoonhouse.com/remodeling_form.jsp?item_num=0">견적 상담</a>
     <a class="cons b" href="https://somoonhouse.com/banner1.jsp?id=3">시공전문가 입점문의</a>
     <a class="insta_cont" href="https://www.instagram.com/somoonhouse/">
@@ -169,7 +179,7 @@
             <span>소문난집 전화문의</span>
         </div>
         <div class="menu_lower">
-            <span onclick="call()">053-290-5959</span>
+            <span onclick="call()">010-4399-7660</span>
         </div>
     </div>
 </div>
@@ -241,17 +251,47 @@
             menu_slide.style.transform = "translateX(0)";
         }
     }
-    const area_click = () => {
-        var div = document.getElementById("area_div");
-        if(div.style.display === "flex"){
-            div.style.display = "none";
+    const area_click1 = () => {
+        var div1 = document.getElementById("area_div");
+        var div2 = document.getElementById("popular_div");
+        var div3 = document.getElementById("partner_div");
+        if(div1.style.display === "flex"){
+            div1.style.display = "none";
         }
         else{
-            div.style.display = "flex";
+            div1.style.display = "flex";
+            div2.style.display = "none";
+            div3.style.display = "none";
+        }
+    }
+    const area_click2 = () => {
+        var div1 = document.getElementById("area_div");
+        var div2 = document.getElementById("popular_div");
+        var div3 = document.getElementById("partner_div");
+        if(div2.style.display === "flex"){
+            div2.style.display = "none";
+        }
+        else{
+            div2.style.display = "flex";
+            div1.style.display = "none";
+            div3.style.display = "none";
+        }
+    }
+    const area_click3 = () => {
+        var div1 = document.getElementById("area_div");
+        var div2 = document.getElementById("popular_div");
+        var div3 = document.getElementById("partner_div");
+        if(div3.style.display === "flex"){
+            div3.style.display = "none";
+        }
+        else{
+            div3.style.display = "flex";
+            div1.style.display = "none";
+            div2.style.display = "none";
         }
     }
     const call = () => {
-        location.href = "tel:053-290-5959";
+        location.href = "tel:010-4399-7660";
     }
 </script>
 </body>

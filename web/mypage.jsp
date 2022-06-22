@@ -394,13 +394,13 @@
                                         <div class="info house">
                                             <span>건물종류</span><span>평수</span><span>예정일</span>
                                             <select name="building_type">
-                                                <option selected>--선택하세요--</option>
+                                                <option value="" selected>--선택하세요--</option>
                                                 <% for (int i = 0; i < building_types.length; i++) { %>
                                                 <option value ="<%=i%>" <%if(hm.get("building") == building_types[i]){%>selected<%}%>><%=building_types[i]%><%}%>
                                             </select>
                                             <div><input type="text" id="area" name="area" class="text" value="<%out.println(hm.get("area"));%>" placeholder="ex)34">평</div>
                                             <select name="due">
-                                                <option selected>--선택하세요--</option>
+                                                <option value="" selected>--선택하세요--</option>
                                                 <% for (int i = 0; i < due_type.length; i++) { %>
                                                 <option value="<%=due_type[i]%>" <%if(hm.get("due").equals(due_type[i])){%>selected<%}%>><%=due_type[i]%></option><%}%>
                                             </select>
@@ -411,7 +411,7 @@
                                                 <span class="detail">
                                                     <input type="checkbox" id="<%=hm.get("number")%>rmdlin<%=r1%>" name="division1"  onclick="toggle_selbox(this)" value="<%=rmdls1.get("id")%>" <%for(int r1c =0; r1c < rmdl1.size(); r1c++){if (detail.get(rmdl1.get(r1c).get("name")) != null && Objects.equals(rmdl1.get(r1c).get("name"), rmdls1.get("name"))){%>checked<%break;}}%>><%=rmdls1.get("name")%>
                                                     <select id="<%=hm.get("number")%>rmdlsel<%=r1%>" name="division2-<%=r1%>" hidden>
-                                                        <option selected>--선택하세요--</option>
+                                                        <option value="" selected>--선택하세요--</option>
                                                         <%for(int r2 = 0; r2 < rmdl2.size(); r2++){HashMap<String, String> rmdls2 = rmdl2.get(r2); if(Objects.equals(rmdls2.get("pid"), rmdls1.get("id"))){%>
                                                         <option value="<%=rmdls2.get("id")%>" <%for(int r2c = 0; r2c < rmdl1.size(); r2c++){if(rmdls2.get("name").equals(detail.get(rmdl1.get(r2c).get("name"))) && rmdls2.get("pid").equals(rmdl1.get(r2c).get("id"))){%>selected<%break;}}%>><%=rmdls2.get("name")%></option><%}}%>
                                                     </select>
@@ -422,7 +422,7 @@
                                         <div class="info">
                                             <span>예산</span>
                                             <select name="budget">
-                                                <option selected>--선택하세요--</option>
+                                                <option value="" selected>--선택하세요--</option>
                                                 <% for (int i = 0; i < bud_type.length; i++) { %>
                                                 <option value="<%=bud_type[i]%>" <%if(hm.get("budget").equals(bud_type[i])){%>selected<%}%>><%=bud_type[i]%><%}%>
                                             </select>
