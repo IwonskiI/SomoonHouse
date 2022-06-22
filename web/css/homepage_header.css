@@ -231,13 +231,15 @@
     top:100px;
     position: absolute;
     width: 120px;
-    height: 50px;
+    flex-direction: column;
     background-color: #fff;
     border-radius: 0 0 5px 5px;
     border: solid;
     border-width: 1px;
     border-color: #eee;
     z-index: 2;
+    gap: 10px;
+    padding: 10px;
 }
 .body_container_header .header_mob .header_lower #popular_header{
     display:flex;
