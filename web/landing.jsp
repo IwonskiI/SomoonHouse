@@ -60,24 +60,24 @@
   <div class="img_contain" id="land_img6-1" onclick="location.href='remodeling_form.jsp?item_num=0'">
     <img src="https://somoonhouse.com/otherimg/랜딩페이지A버튼1-모바일.jpg">
   </div>
-  <div class="img_contain" id="land_img7-1" onclick="location.href='homepage.jsp'">
-    <img src="https://somoonhouse.com/otherimg/랜딩페이지A버튼2-모바일.jpg">
-  </div>
+<%--  <div class="img_contain" id="land_img7-1" onclick="location.href='homepage.jsp'">--%>
+<%--    <img src="https://somoonhouse.com/otherimg/랜딩페이지A버튼2-모바일.jpg">--%>
+<%--  </div>--%>
   <div class="img_contain" id="land_img1">
-    <img src="https://somoonhouse.com/otherimg/랜딩페이지A-모바일1.png">
+    <img src="https://somoonhouse.com/otherimg/랜딩페이지A-모바일1.jpg">
   </div>
   <div class="img_contain" id="land_img2">
-    <img src="https://somoonhouse.com/otherimg/랜딩페이지A-모바일2.png">
+    <img src="https://somoonhouse.com/otherimg/랜딩페이지A-모바일2.jpg">
   </div>
   <div class="img_contain" id="land_img3">
-    <img src="https://somoonhouse.com/otherimg/랜딩페이지A-모바일3.png">
+    <img src="https://somoonhouse.com/otherimg/랜딩페이지A-모바일3.jpg">
   </div>
   <div class="img_contain" id="land_img6" onclick="location.href='remodeling_form.jsp?item_num=0'">
     <img src="https://somoonhouse.com/otherimg/랜딩페이지A버튼1-모바일.jpg">
   </div>
-  <div class="img_contain" id="land_img7" onclick="location.href='homepage.jsp'">
-    <img src="https://somoonhouse.com/otherimg/랜딩페이지A버튼2-모바일.jpg">
-  </div>
+<%--  <div class="img_contain" id="land_img7" onclick="location.href='homepage.jsp'">--%>
+<%--    <img src="https://somoonhouse.com/otherimg/랜딩페이지A버튼2-모바일.jpg">--%>
+<%--  </div>--%>
 </div>
 <script>
   //새 스크립트 작성
