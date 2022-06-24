@@ -194,6 +194,12 @@
                 </div>
                 <div class="lower">
                     <div class="boxes" id="reviewBox">
+                        <div class="reviewBox sub pc">
+                            <img src="https://somoonhouse.com/img/reviewtest.png">
+                        </div>
+                        <div class="reviewBox sub mob">
+                            <img src="https://somoonhouse.com/img/reviewtest_mob.png">
+                        </div>
                         <!--div class="reviewBox sub">
                             <div class="top">
                                 <div class="star">
@@ -502,10 +508,10 @@
         })
         observer.observe(reviewBoxContainer);
     }
-    setTimeout(() => {
-        starSetting();
-        reviewBoxSetting();
-    }, 1500);
+    // setTimeout(() => {
+    //     starSetting();
+    //     reviewBoxSetting();
+    // }, 1500);
 
     let reviewMainBoxCount = 0;
     const makeNoImgReviewBox = (prop) => {

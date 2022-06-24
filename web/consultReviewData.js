@@ -24,5 +24,5 @@ const makeNoImgReview = () => {
 
 }
 
-getReviewData();
+// getReviewData();
 
