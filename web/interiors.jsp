@@ -34,6 +34,7 @@
 
     //파라미터 가져오기
     String param = request.getParameter("param");
+    String location = request.getParameter("location");
 
     //필요한 변수 선언
     String mylog = "";
@@ -265,38 +266,51 @@
     const makeInteriorsCompanyInfoBox = (prop) => {
         let interiorsContainer = document.getElementById("interior_body"),
             companyContainer, companyText, companyTextLeft,
-            leftName, leftAddr, titleSub, companyImgs;
+            leftName, leftAddr, titleSub, companyImgs, loc;
 
         const comName = prop.name,
             counseling = prop.counseling,
             construction = prop.construction,
+            location = prop.location,
             img = [prop.represent_img1, prop.represent_img2];
 
-        companyContainer = createEle("a", "company_container");
-        companyText = createEle("div", "company_text");
-        companyTextLeft = createEle("div", "left");
-        leftName = createEle("span", "name");
-        leftAddr = createEle("span", "addr");
-        titleSub = createEle("span", "title_sub");
-        companyImgs = createEle("div", "company_imgs");
+        if(141<=parseInt(location)&&parseInt(location)<=148){
+            console.log(parseInt(location))
+            loc = "1";
+        }
+        else {
+            console.log(parseInt(location))
+            loc = "2";
+        }
+        console.log(loc)
+        if(loc === "<%=location%>"){
+            companyContainer = createEle("a", "company_container");
+            companyText = createEle("div", "company_text");
+            companyTextLeft = createEle("div", "left");
+            leftName = createEle("span", "name");
+            leftAddr = createEle("span", "addr");
+            titleSub = createEle("span", "title_sub");
+            companyImgs = createEle("div", "company_imgs");
 
-        companyContainer.href = "https://somoonhouse.com/interior_info.jsp?id=" + prop.id;
-        leftName.innerHTML = comName;
-        leftAddr.innerHTML = "대구";
-        titleSub.innerHTML = "상담 " + counseling + "건";
-        interiorsContainer.appendChild(companyContainer);
-        companyContainer.appendChild(companyText);
-        companyContainer.appendChild(companyImgs);
-        companyText.appendChild(companyTextLeft);
-        companyTextLeft.appendChild(leftName);
-        companyTextLeft.appendChild(leftAddr);
-        companyText.appendChild(titleSub);
-        for(let i = 0; i < 2; i++){
-            let cImg = createEle("img"),
-                companyImg = createEle("div", "company_img");
-            cImg.src = img[i];
-            companyImg.appendChild(cImg);
-            companyImgs.appendChild(companyImg);
+            companyContainer.href = "https://somoonhouse.com/interior_info.jsp?id=" + prop.id;
+            leftName.innerHTML = comName;
+            if(loc === "1") leftAddr.innerHTML = "대구";
+            else leftAddr.innerHTML = "서울/경기/인천";
+            titleSub.innerHTML = "상담 " + counseling + "건";
+            interiorsContainer.appendChild(companyContainer);
+            companyContainer.appendChild(companyText);
+            companyContainer.appendChild(companyImgs);
+            companyText.appendChild(companyTextLeft);
+            companyTextLeft.appendChild(leftName);
+            companyTextLeft.appendChild(leftAddr);
+            companyText.appendChild(titleSub);
+            for(let i = 0; i < 2; i++){
+                let cImg = createEle("img"),
+                    companyImg = createEle("div", "company_img");
+                cImg.src = img[i];
+                companyImg.appendChild(cImg);
+                companyImgs.appendChild(companyImg);
+            }
         }
     }
 
