@@ -126,6 +126,7 @@
 			<tr><td>평당금액      		</td><td><input type="text"  style="width:500px;" id="price_area"  name="price_area" /></td></tr>
 			<tr><td>시공기간       		</td><td><input type="text"  style="width:500px;" id="period"  name="period" /></td></tr>
 			<tr><td>부분시공가능여부 		</td><td><input type="text"  style="width:500px;" id="part"  name="part" /></td></tr>
+			<tr><td>평수 		</td><td><input type="text"  style="width:500px;" id="area"  name="area" /></td></tr>
 		</table>
 		<div>※제목을 입력하지 않으면 등록한 URL의 제목으로 자동등록됩니다.</div>
 		<input type="submit" value="등록">
