@@ -3,10 +3,11 @@
     pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.text.*,java.sql.*,java.util.Calendar,java.util.*" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest,com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
-<%@ page language="java" import="myPackage.DBUtil" %> 
-<%@ page language="java" import="myPackage.Link" %> 
-<%@ page language="java" import="myPackage.GetImage" %>
-<%@ page language="java" import="myPackage.MessageSend2" %>
+<%@ page language="java" %>
+<%@ page language="java" %>
+<%@ page language="java" %>
+<%@ page language="java" %>
+<%@ page import="myPackage.*" %>
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
@@ -137,7 +138,7 @@
 	if(error == 0){
 		pstmt.executeUpdate();
 
-		MessageSend2 msg = new MessageSend2();
+		MessageSend3 msg = new MessageSend3();
 		String msg_str = "새로운 신청이 있습니다.\n이름:"+name+"\n연락처:"+phone;
 
 		String str = "";
@@ -145,7 +146,7 @@
 		if(name.contains("개발") || name.contains("테스트") || name.contains("test")) {
 		}
 		else{
-			msg.send("01043997660", msg_str, "lms");
+			msg.send("01043997660", msg_str, "sms");
 		}
 		%>
 
