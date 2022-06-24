@@ -363,6 +363,7 @@ body{
 .body_container .review .lower .boxes{
     display: flex;
     align-items: center;
+    justify-content: center;
     overflow: hidden;
     width:100%;
     min-height: 410px;
@@ -489,7 +490,13 @@ body{
 }
 .body_container .review .lower .boxes .sub{
     height: 300px;
-    box-shadow: 0 0 2px 1px rgba(100, 100, 100, 0.2);
+    /*box-shadow: 0 0 2px 1px rgba(100, 100, 100, 0.2);*/
+}
+.body_container .review .lower .boxes .pc{
+    display: flex;
+}
+.body_container .review .lower .boxes .mob{
+    display: none;
 }
 .body_container .review .lower .btn_container{
     display: flex;
@@ -1048,7 +1055,13 @@ body{
     }
     .body_container .review .lower .boxes .sub{
         height: 450px;
-        box-shadow: 1px 1px 4px 2px rgba(100, 100, 100, 0.2);
+        /*box-shadow: 1px 1px 4px 2px rgba(100, 100, 100, 0.2);*/
+    }
+    .body_container .review .lower .boxes .pc{
+        display: none;
+    }
+    .body_container .review .lower .boxes .mob{
+        display: flex;
     }
 }
 @media (max-width: 400px) {
