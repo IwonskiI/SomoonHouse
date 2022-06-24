@@ -30,6 +30,7 @@
 		String price_area = "";
 		String period = "";
 		String part = "";
+		String areasquare = "";
 		request.setCharacterEncoding("UTF-8");
 		String realFolder = "";
 		String filename1 = "";
@@ -69,6 +70,8 @@
 			if(period.equals("")) period = "NULL";
 			part = multi.getParameter("part")+"";
 			if(part.equals("")) part = "NULL";
+			areasquare = multi.getParameter("area")+"";
+			if(areasquare.equals("")) areasquare = "NULL";
 			Enumeration<?> files = multi.getFileNames();
 			file1[0] = (String)files.nextElement();
 			filename1 = multi.getFilesystemName(file1[0]);
@@ -121,7 +124,7 @@
 		out.println("행정구역을 못찾겠어요 ㅠㅠ");
 	}
 	pstmt = null;
-	sql = "INSERT INTO REMODELING VALUES(Default, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, ?, DEFAULT, ?, ?, 0, DEFAULT)";
+	sql = "INSERT INTO REMODELING VALUES(Default, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, ?, DEFAULT, ?, ?, 0, DEFAULT, ?)";
 
 	//현재날짜 받아오기
 	Calendar cal = Calendar.getInstance();
@@ -148,6 +151,7 @@
 	pstmt.setString(14, period);
 	pstmt.setInt(15, rootareanum);
 	pstmt.setInt(16, secondareanum);
+	pstmt.setInt(17, areasquare);
 	if(error == 0){
 		pstmt.executeUpdate();
 	}
