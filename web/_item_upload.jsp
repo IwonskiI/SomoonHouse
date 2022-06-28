@@ -151,7 +151,7 @@
 	pstmt.setString(14, period);
 	pstmt.setInt(15, rootareanum);
 	pstmt.setInt(16, secondareanum);
-	pstmt.setInt(17, areasquare);
+	pstmt.setInt(17, Integer.parseInt(areasquare));
 	if(error == 0){
 		pstmt.executeUpdate();
 	}
