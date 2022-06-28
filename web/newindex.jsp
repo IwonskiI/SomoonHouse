@@ -566,7 +566,10 @@ else{*/
                                 && item[i][4].indexOf("영") == -1
                                 && item[i][4].indexOf("상상") == -1
                                 && item[i][4].indexOf("나담") == -1
-                                && item[i][4].indexOf("온테리어") == -1)
+                                && item[i][4].indexOf("온테리어") == -1
+                                && item[i][4].indexOf("도월") == -1
+                                && item[i][4].indexOf("데코") == -1
+                                )
                             continue;
                         //거리계산//item[i][12] = String.valueOf(Math.sqrt(((x-Float.parseFloat(item[i][10]))*(x-Float.parseFloat(item[i][10])))+((y-Float.parseFloat(item[i][9]))*(y-Float.parseFloat(item[i][9])))));
                         //if(item[i][4].indexOf("오픈하우스") == -1) continue; 오픈하우스를 오픈함
