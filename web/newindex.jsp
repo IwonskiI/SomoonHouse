@@ -16,6 +16,8 @@
     response.setHeader("Cache-Control", "no-cache");
     response.setHeader("Pragma", "no-cache");
     response.setDateHeader("Expires", 31536000);
+
+    String rootloc = request.getParameter("rootloc");
 %>
 <!DOCTYPE html>
 <html>
@@ -161,11 +163,15 @@
                         recitem[i][3] = rs.getString("Path");
                         String imgstr = rs.getString("Rec_img");
                 %>
-                <div><div class="center_img"><div>
-                    <a href = "<%=recitem[i][3]%>" target="_self">
-                        <img src="<%=imgstr%>" class="eotkd">
-                    </a>
-                </div></div></div>
+                <div>
+                    <div class="center_img">
+                        <div>
+                            <a href = "<%=recitem[i][3]%>" target="_self">
+                                <img src="<%=imgstr%>" class="eotkd">
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <%
                         i++;
                     }
@@ -195,9 +201,6 @@
                 <%--	%>--%>
             </div>
         </div>
-        <form action="newindex.jsp" method="GET">
-
-        </form>
         <div id="somun_search">
             <!-- div class = "search_item" id="search_item1">
                 <input type="text" id="bdNm"  name="bdNm" placeholder = "아파트 명으로 찾기">
@@ -206,26 +209,44 @@
             <div class = "search_item" id="search_item2">
                 <form action="newindex.jsp" method="GET">
                     <%
-
-                        String[] request_areas = request.getParameterValues("Daegu");
-                        if(request_areas==null || request_areas[0].equals("undefined")){
-                            request_areas = new String[9];
-                            request_areas[0] = "all";
-                        }
+                        String[] request_areas = request.getParameterValues("secloc");
                     %>
                     <!-- input type="radio" name="Daegu" id="all" value="all"><label for="all" class="mylabel">대구전체</label-->
+                    <%
+                        if(Objects.equals(rootloc, "3")){
+                            if(request_areas==null || request_areas[0].equals("undefined")){
+                                request_areas = new String[9];
+                                request_areas[0] = "Daeguall";
+                            }
+                    %>
                     <div class="ajax_click">
-                        <input class="area1" onClick="ajax_click(this)" type="radio" name="Daegu" id="jung-gu" value="141"<%if(Arrays.asList(request_areas).contains("141")) out.println("checked");%>><label for="jung-gu" class="mylabel">중구</label>
-                        <input class="area1" onClick="ajax_click(this)" type="radio" name="Daegu" id="dong-gu" value="142"<%if(Arrays.asList(request_areas).contains("142")) out.println("checked");%>><label for="dong-gu" class="mylabel">동구</label>
-                        <input class="area1" onClick="ajax_click(this)" type="radio" name="Daegu" id="seo-gu" value="143"<%if(Arrays.asList(request_areas).contains("143")) out.println("checked");%>><label for="seo-gu" class="mylabel">서구</label>
-                        <input class="area1" onClick="ajax_click(this)" type="radio" name="Daegu" id="nam-gu" value="144"<%if(Arrays.asList(request_areas).contains("144")) out.println("checked");%>><label for="nam-gu" class="mylabel">남구</label>
-                        <input class="area1" onClick="ajax_click(this)" type="radio" name="Daegu" id="buk-gu" value="145"<%if(Arrays.asList(request_areas).contains("145")) out.println("checked");%>><label for="buk-gu" class="mylabel">북구</label>
-                        <input class="area1" onClick="ajax_click(this)" type="radio" name="Daegu" id="suseong-gu" value="146"<%if(Arrays.asList(request_areas).contains("146")) out.println("checked");%>><label for="suseong-gu" class="mylabel">수성구</label>
-                        <input class="area1" onClick="ajax_click(this)" type="radio" name="Daegu" id="dalseo-gu" value="147"<%if(Arrays.asList(request_areas).contains("147")) out.println("checked");%>><label for="dalseo-gu" class="mylabel">달서구</label>
-                        <input class="area1" onClick="ajax_click(this)" type="radio" name="Daegu" id="dalseong-gun" value="148"<%if(Arrays.asList(request_areas).contains("148")) out.println("checked");%>><label for="dalseong-gun" class="mylabel">달성군</label>
-                        <input class="area1" onClick="ajax_click(this)" type="radio" name="Daegu" id="kyeongbook" value="15"<%if(Arrays.asList(request_areas).contains("15")) out.println("checked");%>><label for="kyeongbook" class="mylabel">경북</label>
+                        <input class="area1" onClick="ajax_click(this)" type="radio" name="secloc" id="jung-gu" value="141"<%if(Arrays.asList(request_areas).contains("141")) out.println("checked");%>><label for="jung-gu" class="mylabel">중구</label>
+                        <input class="area1" onClick="ajax_click(this)" type="radio" name="secloc" id="dong-gu" value="142"<%if(Arrays.asList(request_areas).contains("142")) out.println("checked");%>><label for="dong-gu" class="mylabel">동구</label>
+                        <input class="area1" onClick="ajax_click(this)" type="radio" name="secloc" id="seo-gu" value="143"<%if(Arrays.asList(request_areas).contains("143")) out.println("checked");%>><label for="seo-gu" class="mylabel">서구</label>
+                        <input class="area1" onClick="ajax_click(this)" type="radio" name="secloc" id="nam-gu" value="144"<%if(Arrays.asList(request_areas).contains("144")) out.println("checked");%>><label for="nam-gu" class="mylabel">남구</label>
+                        <input class="area1" onClick="ajax_click(this)" type="radio" name="secloc" id="buk-gu" value="145"<%if(Arrays.asList(request_areas).contains("145")) out.println("checked");%>><label for="buk-gu" class="mylabel">북구</label>
+                        <input class="area1" onClick="ajax_click(this)" type="radio" name="secloc" id="suseong-gu" value="146"<%if(Arrays.asList(request_areas).contains("146")) out.println("checked");%>><label for="suseong-gu" class="mylabel">수성구</label>
+                        <input class="area1" onClick="ajax_click(this)" type="radio" name="secloc" id="dalseo-gu" value="147"<%if(Arrays.asList(request_areas).contains("147")) out.println("checked");%>><label for="dalseo-gu" class="mylabel">달서구</label>
+                        <input class="area1" onClick="ajax_click(this)" type="radio" name="secloc" id="dalseong-gun" value="148"<%if(Arrays.asList(request_areas).contains("148")) out.println("checked");%>><label for="dalseong-gun" class="mylabel">달성군</label>
+                        <input class="area1" onClick="ajax_click(this)" type="radio" name="secloc" id="kyeongbook" value="15"<%if(Arrays.asList(request_areas).contains("15")) out.println("checked");%>><label for="kyeongbook" class="mylabel">경북</label>
                         <!-- input class="area1" onClick="ajax_click(this)" type="submit" class="mylabel" style="width:48px; padding: 7px 0px; font-size:15px;" value="검색"-->
                     </div>
+                    <%
+                        }
+                        else if(Objects.equals(rootloc, "1")){
+                            if(request_areas==null || request_areas[0].equals("undefined")){
+                                request_areas = new String[3];
+                                request_areas[0] = "Seoulall";
+                            }
+                    %>
+                    <div class="ajax_click">
+                        <input class="area1" onClick="ajax_click(this)" type="radio" name="secloc" id="seoul" value="1"<%if(Arrays.asList(request_areas).contains("1")) out.println("checked");%>><label for="seoul" class="mylabel">서울</label>
+                        <input class="area1" onClick="ajax_click(this)" type="radio" name="secloc" id="gyung-gi" value="9"<%if(Arrays.asList(request_areas).contains("9")) out.println("checked");%>><label for="gyung-gi" class="mylabel">경기</label>
+                        <input class="area1" onClick="ajax_click(this)" type="radio" name="secloc" id="incheon" value="4"<%if(Arrays.asList(request_areas).contains("4")) out.println("checked");%>><label for="incheon" class="mylabel">인천</label>
+                    </div>
+                    <%
+                        }
+                    %>
                     <!--
 		<div style="width: 100%;margin: auto auto;left: 5%;position: relative;">
 		<div class="apartmen2" style="text-align: center; display: inline-block; width:79%; position: relative; float:left">
@@ -241,7 +262,7 @@
 			session.setAttribute("apartment", apartment);
 		}
 		if(!(request_areas==null || request_areas[0].equals("undefined"))){
-			if(request_areas[0].equals("15")){
+			if(request_areas[0].equals("15") || request_areas[0].equals("1") || request_areas[0].equals("4") || request_areas[0].equals("9")){
 				query = "Select distinct Apart_name from REMODELING where Root_area = ? order by Apart_name asc";
 			}
 			else{
@@ -264,42 +285,44 @@
 		<input type="submit" id="search" name="submit" alt="search" value="">
 		</div> -->
                 </form>
-                <script type="text/javascript">
-                    /*$(document).ready(function(){
-                        $(".mylabel").click(function(){
-                            alert("눌림");
-                            var areaArray = [];
-                            $('input[name="Daegu"]:checked').each(function(i){
-                                areaArray.push($(this).val());
-                            });
-                            $.ajax({
-                                url:'index.jsp',
-                                method:'post',
-                                //traditional : true,
-                                data: areaArray,
-                                success: function(data){
-                                    alert("완료!");
-                                },
-                                error: function(jqXHR, textStatus, errorThrown){
-                                    alert("에러발생 ~~\n" + textStatus + ":" + errorThrown);
-                                }
-                            })
-                            .done(function(result) {
-                                $(".content").html(result);
-                                function a (retVal){
-                                    if(retVal.code == "OK"){
-                                        alert(retVal.message);
-                                    } else{
-                                        alert(retVal.message);
-                                    }
-                                }
-                            })
-                            alert("hmm");
-                        });
-
-
-                    })*/
+                <script>
+                    console.log("<%=request_areas[0]%>")
                 </script>
+<%--                    /*$(document).ready(function(){--%>
+<%--                        $(".mylabel").click(function(){--%>
+<%--                            alert("눌림");--%>
+<%--                            var areaArray = [];--%>
+<%--                            $('input[name="Daegu"]:checked').each(function(i){--%>
+<%--                                areaArray.push($(this).val());--%>
+<%--                            });--%>
+<%--                            $.ajax({--%>
+<%--                                url:'index.jsp',--%>
+<%--                                method:'post',--%>
+<%--                                //traditional : true,--%>
+<%--                                data: areaArray,--%>
+<%--                                success: function(data){--%>
+<%--                                    alert("완료!");--%>
+<%--                                },--%>
+<%--                                error: function(jqXHR, textStatus, errorThrown){--%>
+<%--                                    alert("에러발생 ~~\n" + textStatus + ":" + errorThrown);--%>
+<%--                                }--%>
+<%--                            })--%>
+<%--                            .done(function(result) {--%>
+<%--                                $(".content").html(result);--%>
+<%--                                function a (retVal){--%>
+<%--                                    if(retVal.code == "OK"){--%>
+<%--                                        alert(retVal.message);--%>
+<%--                                    } else{--%>
+<%--                                        alert(retVal.message);--%>
+<%--                                    }--%>
+<%--                                }--%>
+<%--                            })--%>
+<%--                            alert("hmm");--%>
+<%--                        });--%>
+
+
+<%--                    })*/--%>
+<%--                </script>--%>
                 <!--
 			<div>
 				<input type="button" id="jusobtn" class="btn" onClick="goPopup();" value="주소찾기"/>
@@ -460,9 +483,15 @@
                         query += " or Title Like \"%"+build+"%\"";
                         query += " or Company Like \"%"+build+"%\"";
                     }
+                    else if(request_areas[0].equals("Daeguall")){
+                        query += " Where Root_area = 3 Or Root_area = 15";
+                    }
+                    else if(request_areas[0].equals("Seoulall")){
+                        query += " Where Root_area = 1 Or Root_area = 4 Or Root_area = 9";
+                    }
 
-                    else if(request_areas != null && !request_areas[0].equals("all")){
-                        if(request_areas[0].equals("15")){
+                    else if(request_areas != null && !request_areas[0].equals("Daeguall") && !request_areas[0].equals("Seoulall")){
+                        if(request_areas[0].equals("15") || request_areas[0].equals("1") || request_areas[0].equals("4") || request_areas[0].equals("9")){
                             query += " Where Root_area = " + request_areas[0];
                         }
                         else{
@@ -563,7 +592,7 @@ else{*/
                     <h2 id="user-input">"<%
                         out.println(build);
                     %>"</h2>
-                    정확한 아파트명/화사명으로 검색했나요?
+                    정확한 아파트명/회사명으로 검색했나요?
                 </div>
                 <% }
 //리모델링 사례 거리순정렬
@@ -932,20 +961,21 @@ for(i = 0; i < item.length; i++){
                     },
                 success : function(data){
                     $("body").html(data);
+                    secLoc
                 }
             });*/
             <%String ApArt = session.getAttribute("apartment") + "";%>
-            var Daegu = $("input[name='Daegu']:checked").val();
+            var secloc = $("input[name='secloc']:checked").val();
             var pagenumber = $(obj).attr("title");
             var apartment = "<%=build%>";
             var keyword = "<%=keyword%>";
             if(apartment == "null") apartment="";
             if(pagenumber == null) pagenumber=1;
             if(a=="pageidx"){
-                location.href = "newindex.jsp?Daegu="+Daegu+"&pagenumstr="+pagenumber+"&bdNm="+apartment;
+                location.href = "newindex.jsp?rootloc=<%=rootloc%>&secloc="+secloc+"&pagenumstr="+pagenumber+"&bdNm="+apartment;
             }
             else{
-                location.href = "newindex.jsp?Daegu="+Daegu+"&pagenumstr="+pagenumber;
+                location.href = "newindex.jsp?rootloc=<%=rootloc%>&secloc="+secloc+"&pagenumstr="+pagenumber;
             }
         }
         $('#attach_keyword').click(function(){

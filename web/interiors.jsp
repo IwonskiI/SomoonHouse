@@ -34,7 +34,7 @@
 
     //파라미터 가져오기
     String param = request.getParameter("param");
-    String location = request.getParameter("location");
+    String location = request.getParameter("rootloc");
 
     //필요한 변수 선언
     String mylog = "";
@@ -274,13 +274,13 @@
             location = prop.location,
             img = [prop.represent_img1, prop.represent_img2];
 
-        if(141<=parseInt(location)&&parseInt(location)<=148){
+        if((141<=parseInt(location)&&parseInt(location)<=148) || (305<=parseInt(location)&&parseInt(location)<=328)){
+            console.log(parseInt(location))
+            loc = "3";
+        }
+        else if((100<=parseInt(location)&&parseInt(location)<=124) || (150<=parseInt(location)&&parseInt(location)<=158) || (175<=parseInt(location)&&parseInt(location)<=219)){
             console.log(parseInt(location))
             loc = "1";
-        }
-        else {
-            console.log(parseInt(location))
-            loc = "2";
         }
         console.log(loc)
         if(loc === "<%=location%>"){
