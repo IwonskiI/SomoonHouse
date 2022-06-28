@@ -88,8 +88,8 @@
             <div id="area_header_pc">
                 <span>지역별 인테리어</span>
                 <div class="div_pc" id="area_div_pc">
-                        <a href="newindex.jsp"><span>대구</span></a>
-                        <span onclick="alert(`오픈 준비중입니다!`);"><span>서울/경기/인천</span></span>
+                    <a href="https://somoonhouse.com/newindex.jsp?rootloc=3"><span>대구/경북</span></a>
+                    <a href="https://somoonhouse.com/newindex.jsp?rootloc=1"><span>서울/경기/인천</span></a>
 <%--                    <a href="newindex.jsp?Daegu=141"><span>중구</span></a>--%>
 <%--                    <a href="newindex.jsp?Daegu=142"><span>동구</span></a>--%>
 <%--                    <a href="newindex.jsp?Daegu=143"><span>서구</span></a>--%>
@@ -105,8 +105,8 @@
             <div id="popular_header_pc">
                 <span>인기 인테리어</span>
                 <div class="div_pc" id="popular_div_pc">
-                    <a href="newindex.jsp?theme_id=1"><span>대구</span></a>
-                    <span onclick="alert(`오픈 준비중입니다!`);"><span>서울/경기/인천</span></span>
+                    <a href="https://somoonhouse.com/newindex.jsp?rootloc=3&theme_id=1"><span>대구/경북</span></a>
+                    <a href="https://somoonhouse.com/newindex.jsp?rootloc=1&theme_id=1"><span>서울/경기/인천</span></a>
                 </div>
             </div>
             <!--a>
@@ -116,8 +116,8 @@
             <div id="partner_header_pc">
                 <span>파트너스</span>
                 <div class="div_pc" id="partner_div_pc">
-                    <a href="https://somoonhouse.com/interiors.jsp?location=1"><span>대구</span></a>
-                    <a href="https://somoonhouse.com/interiors.jsp?location=2"><span>서울/경기/인천</span></a>
+                    <a href="https://somoonhouse.com/interiors.jsp?rootloc=3"><span>대구/경북</span></a>
+                    <a href="https://somoonhouse.com/interiors.jsp?rootloc=1"><span>서울/경기/인천</span></a>
                 </div>
             </div>
         </div>
