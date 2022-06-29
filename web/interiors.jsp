@@ -294,8 +294,8 @@
 
             companyContainer.href = "https://somoonhouse.com/interior_info.jsp?id=" + prop.id;
             leftName.innerHTML = comName;
-            if(loc === "1") leftAddr.innerHTML = "대구";
-            else leftAddr.innerHTML = "서울/경기/인천";
+            if(loc === "3") leftAddr.innerHTML = "대구/경북";
+            else if(loc === "1") leftAddr.innerHTML = "서울/경기/인천";
             titleSub.innerHTML = "상담 " + counseling + "건";
             interiorsContainer.appendChild(companyContainer);
             companyContainer.appendChild(companyText);
