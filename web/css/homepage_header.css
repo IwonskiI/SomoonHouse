@@ -76,7 +76,7 @@
 }
 .body_container_header .header_pc .header_right #area_header_pc{
     display:flex;
-    width: 150px;
+    width: 190px;
     align-items: center;
     justify-content: center;
     height: 100%;
@@ -94,7 +94,7 @@
 }
 .body_container_header .header_pc .header_right #popular_header_pc{
     display:flex;
-    width: 150px;
+    width: 190px;
     align-items: center;
     justify-content: center;
     height: 100%;
@@ -111,7 +111,7 @@
 }
 .body_container_header .header_pc .header_right #partner_header_pc{
     display:flex;
-    width: 150px;
+    width: 190px;
     align-items: center;
     justify-content: center;
     height: 100%;

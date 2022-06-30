@@ -55,7 +55,6 @@
     String name = session.getAttribute("name") + "";
     String home_id = session.getAttribute("home_id") + "";// 현재 사용자 current user
     String home_name = session.getAttribute("home_name") + "";
-    home_id=String.valueOf(1);
 
     String type = "";
 //정보 받아오기
