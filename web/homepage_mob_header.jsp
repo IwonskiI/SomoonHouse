@@ -118,7 +118,7 @@
             <div id="partner_header" onclick="area_click3()">
                 <span id="partner_span">파트너스</span>
                 <div class="div_mob" id="partner_div">
-                    <a href="https://somoonhouse.com/interiors.jsp?rootloc=3"><span>대구</span></a>
+                    <a href="https://somoonhouse.com/interiors.jsp?rootloc=3"><span>대구/경북</span></a>
                     <a href="https://somoonhouse.com/interiors.jsp?rootloc=1"><span>서울/경기/인천</span></a>
                 </div>
             </div>

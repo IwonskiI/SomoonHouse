@@ -658,7 +658,11 @@ for(i = 0; i < item.length; i++){
                 <div class="item">
                     <%
                         pstmt = null;
-                        query = "SELECT * FROM RMDL_IMG WHERE Number = ? order by Number2 Limit 1";
+                        query = "SELECT * FROM RMDL_IMG WHERE Number = ? ";
+//                        if(!(item[i][4].indexOf("도월") == -1)){
+//                            query += "and Number2 = 1";
+//                        }
+                        query += "order by Number2 Limit 1";
                         rs = null;
                         pstmt = conn.prepareStatement(query);
                         pstmt.setString(1, item[i][0]);
@@ -666,6 +670,9 @@ for(i = 0; i < item.length; i++){
                     %><div class="notslider<%=classes%>" style="overflow:hidden;height:100%;border-radius:7px;"><%
                     while(rs.next()){
                 %>
+                    <script>
+                        <%--console.log("<%=item[i][0]%>")--%>
+                    </script>
                     <div class="itemdiv">
                         <a href = "_hit1.jsp?num=<%=item[i][0]%>" target="_self">
                             <img src="<%

@@ -83,14 +83,14 @@
 	%><script>alert("제목,사진과 url중 하나를 입력해주시길 바랍니다"); window,history.back();</script><%
 		error++;
 	}
-	else if(title.equals("NULL") || filename1 == null){
+	else if(title.equals("NULL") || filename1 == null || areasquare.equals("null")){
 		Link MyLink = new Link(url);
 		out.println("url: "+url);
 		if(title.equals("NULL")){
 			title = MyLink.getTitle();
 			out.println("제목이없어요");
 		}
-		if(filename1 == null){
+		if(filename1 == null) {
 			file1 = MyLink.getImg();
 			out.println("파일이없어요\n");
 		}
@@ -113,6 +113,15 @@
 		area = new String[2];
 		area[1] = "recommend"; //out.println("지역을못찾겠어요ㅜㅜ");
 	}
+
+	sql = "SELECT * FROM COMPANY WHERE Name = " + "\"" + company + "\"";
+	pstmt = conn.prepareStatement(sql);
+	rs = pstmt.executeQuery(sql);
+	int companynum = 0;
+	while(rs.next()){
+		companynum = rs.getInt("Id");
+	}
+
 	sql = "SELECT * FROM SECOND_AREA WHERE Parent_Area = "+ rootareanum +" And Area_name LIKE " + "\""+area[1]+"\"";
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery(sql);
@@ -121,10 +130,18 @@
 		secondareanum = rs.getInt("Area_number");
 	}
 	if(secondareanum == -1){
-		out.println("행정구역을 못찾겠어요 ㅠㅠ");
+		sql = "SELECT * FROM SECOND_AREA WHERE Parent_Area = "+ rootareanum +" And Area_name LIKE " + "\""+area[1]+" "+area[2]+"\"";
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery(sql);
+		while(rs.next()){
+			secondareanum = rs.getInt("Area_number");
+		}
+		if(secondareanum == -1){
+			out.println("행정구역을 못찾겠어요 ㅠㅠ");
+		}
 	}
 	pstmt = null;
-	sql = "INSERT INTO REMODELING VALUES(Default, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, ?, DEFAULT, ?, ?, 0, DEFAULT, ?)";
+	sql = "INSERT INTO REMODELING VALUES(Default, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, ?, DEFAULT, ?, ?, 0, DEFAULT, ?)";
 
 	//현재날짜 받아오기
 	Calendar cal = Calendar.getInstance();
@@ -139,19 +156,20 @@
 	pstmt.setString(2, title);
 	pstmt.setDate(3, d);
 	pstmt.setString(4, company);
-	pstmt.setString(5, fee);
-	pstmt.setString(6, roadAddrPart1);
-	pstmt.setString(7, bdNm);
-	pstmt.setString(8, building);
-	pstmt.setString(9, entX);
-	pstmt.setString(10, entY);
-	pstmt.setString(11, etc);
-	pstmt.setString(12, content);
-	pstmt.setString(13, url);
-	pstmt.setString(14, period);
-	pstmt.setInt(15, rootareanum);
-	pstmt.setInt(16, secondareanum);
-	pstmt.setInt(17, areasquare);
+	pstmt.setInt(5, companynum);
+	pstmt.setString(6, fee);
+	pstmt.setString(7, roadAddrPart1);
+	pstmt.setString(8, bdNm);
+	pstmt.setString(9, building);
+	pstmt.setString(10, entX);
+	pstmt.setString(11, entY);
+	pstmt.setString(12, etc);
+	pstmt.setString(13, content);
+	pstmt.setString(14, url);
+	pstmt.setString(15, period);
+	pstmt.setInt(16, rootareanum);
+	pstmt.setInt(17, secondareanum);
+	pstmt.setInt(18, Integer.parseInt(areasquare));
 	if(error == 0){
 		pstmt.executeUpdate();
 	}
@@ -176,7 +194,7 @@
 		pstmt.setInt(1, max);
 		pstmt.setInt(2, i);
 		pstmt.setString(3, file1[i]);
-		if(error == 0){
+		if(error == 0 && !(companynum == 52 && i == 0)){
 			pstmt.executeUpdate();
 		}
 	}
