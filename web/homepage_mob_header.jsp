@@ -101,15 +101,15 @@
 <%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=147"><span>달서구</span></a>--%>
 <%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=148"><span>달성군</span></a>--%>
 <%--                    <a href="https://somoonhouse.com/newindex.jsp?Daegu=15"><span>경북</span></a>--%>
-                    <a href="https://somoonhouse.com/newindex.jsp"><span>대구</span></a>
-                    <span onclick="alert(`오픈 준비중입니다!`)"><span>서울/경기/인천</span></span>
+                    <a href="https://somoonhouse.com/newindex.jsp?rootloc=3"><span>대구/경북</span></a>
+                    <a href="https://somoonhouse.com/newindex.jsp?rootloc=1"><span>서울/경기/인천</span></a>
                 </div>
             </div>
             <div id="popular_header" onclick="area_click2()">
                 <span id="popular_span">인기 인테리어</span>
                 <div class="div_mob" id="popular_div">
-                    <a href="https://somoonhouse.com/newindex.jsp?theme_id=1"><span>대구</span></a>
-                    <span onclick="alert(`오픈 준비중입니다!`)"><span>서울/경기/인천</span></span>
+                    <a href="https://somoonhouse.com/newindex.jsp?rootloc=3&theme_id=1"><span>대구/경북</span></a>
+                    <a href="https://somoonhouse.com/newindex.jsp?rootloc=1&theme_id=1"><span>서울/경기/인천</span></a>
                 </div>
             </div>
             <!-- a>
@@ -118,8 +118,8 @@
             <div id="partner_header" onclick="area_click3()">
                 <span id="partner_span">파트너스</span>
                 <div class="div_mob" id="partner_div">
-                    <a href="https://somoonhouse.com/interiors.jsp?location=1"><span>대구</span></a>
-                    <a href="https://somoonhouse.com/interiors.jsp?location=2"><span>서울/경기/인천</span></a>
+                    <a href="https://somoonhouse.com/interiors.jsp?rootloc=3"><span>대구/경북</span></a>
+                    <a href="https://somoonhouse.com/interiors.jsp?rootloc=1"><span>서울/경기/인천</span></a>
                 </div>
             </div>
         </div>

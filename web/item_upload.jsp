@@ -114,19 +114,19 @@
 		<input type="hidden"  style="width:500px;" id="entX"  name="entX" />
 		<input type="hidden"  style="width:500px;" id="entY"  name="entY" />
 		<table>
-			<tr><td>URL				</td><td><input type="text"  style="width:500px;" id="url"  name="url" /></td></tr>
-			<tr><td>도로명주소			</td><td><input type="text"  style="width:500px;" id="roadAddrPart1"  name="roadAddrPart1" /></td></tr>
-			<tr><td>건물(아파트)명		</td><td><input type="text"  style="width:500px;" id="bdNm"  name="bdNm" /></td></tr>
+			<tr><td>*URL				</td><td><input type="text"  style="width:500px;" id="url"  name="url" /></td></tr>
+			<tr><td>*도로명주소			</td><td><input type="text"  style="width:500px;" id="roadAddrPart1"  name="roadAddrPart1" /></td></tr>
+			<tr><td>*건물(아파트)명		</td><td><input type="text"  style="width:500px;" id="bdNm"  name="bdNm" /></td></tr>
 			<tr><td>동      	  		</td><td><input type="text"  style="width:500px;" id="building"  name="building" /></td></tr>
-			<tr><td>글제목       			</td><td><input type="text"  style="width:500px;" id="title"  name="title" /></td></tr>
+			<tr><td>*글제목       			</td><td><input type="text"  style="width:500px;" id="title"  name="title" /></td></tr>
 			<tr><td>글내용       			</td><td><input type="text"  style="width:500px;" id="content"  name="content" /></td></tr>
-			<tr><td>시공사       			</td><td><input type="text"  style="width:500px;" id="company"  name="company" /></td></tr>
+			<tr><td>*시공사       			</td><td><input type="text"  style="width:500px;" id="company"  name="company" /></td></tr>
 			<tr><td>시공비용       		</td><td><input type="text"  style="width:500px;" id="fee"  name="fee" /></td></tr>
 			<tr><td>기타사항       		</td><td><input type="text"  style="width:500px;" id="etc"  name="etc" /></td></tr>
 			<tr><td>평당금액      		</td><td><input type="text"  style="width:500px;" id="price_area"  name="price_area" /></td></tr>
 			<tr><td>시공기간       		</td><td><input type="text"  style="width:500px;" id="period"  name="period" /></td></tr>
 			<tr><td>부분시공가능여부 		</td><td><input type="text"  style="width:500px;" id="part"  name="part" /></td></tr>
-			<tr><td>평수 		</td><td><input type="text"  style="width:500px;" id="area"  name="area" /></td></tr>
+			<tr><td>*평수 		</td><td><input type="text"  style="width:500px;" id="area"  name="area" /></td></tr>
 		</table>
 		<div>※제목을 입력하지 않으면 등록한 URL의 제목으로 자동등록됩니다.</div>
 		<input type="submit" value="등록">
