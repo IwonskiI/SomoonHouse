@@ -177,36 +177,14 @@
             </div>
         </div>
         <div class="form_mini" id="form4">
-            <!-- 인테리어 예산 -->
-            <div class="form_title">인테리어 예산을 알려주세요.</div>
-            <div class="form_content">
-                <input type="radio" name="budget" id="below1000" class="block" value="1천만원 이하">
-                <label for="below1000">1천만원 이하</label>
-                <input type="radio" name="budget" id="below2000" class="block" value="2천만원 이하">
-                <label for="below2000">2천만원 이하</label>
-                <input type="radio" name="budget" id="below3000" class="block" value="3천만원 이하">
-                <label for="below3000">3천만원 이하</label>
-                <input type="radio" name="budget" id="below4000" class="block" value="4천만원 이하">
-                <label for="below4000">4천만원 이하</label>
-                <input type="radio" name="budget" id="below5000" class="block" value="5천만원 이하">
-                <label for="below5000">5천만원 이하</label>
-                <input type="radio" name="budget" id="below6000" class="block" value="6천만원 이하">
-                <label for="below6000">6천만원 이하</label>
-                <input type="radio" name="budget" id="below8000" class="block" value="8천만원 이하">
-                <label for="below8000">8천만원 이하</label>
-                <input type="radio" name="budget" id="below10000" class="block" value="1억원 이하">
-                <label for="below10000">1억원 이하</label>
-                <input type="radio" name="budget" id="above10000" class="block" value="1억원 이상">
-                <label for="above10000">1억원 이상</label>
-                <input type="radio" name="budget" id="undefined" class="block" value="미정(상담 후 결정)">
-                <label for="undefined">미정</label>
-
-            </div>
-        </div>
-        <div class="form_mini" id="form5">
             <!-- 시공 대분류 -->
             <div class="form_title">원하는 시공을 모두 골라주세요.</div>
             <div class="form_content block">
+                <input type="checkbox" id="division1_all" class="block">
+                <label for="division1_all">
+                    <!-- <img src="otherimg/estimate/division<%=i%>.jpg"> -->
+                    전체 선택
+                </label>
                 <%
                     for (i = 1; i <= division1.size(); i++) {
                 %>
@@ -220,7 +198,7 @@
                 %>
             </div>
         </div>
-        <div class="form_mini" id="form6">
+        <div class="form_mini" id="form5">
             <!-- 시공 소분류 -->
             <div class="form_title"></div>
             <div class="form_content">
@@ -246,6 +224,33 @@
                 <%
                     }
                 %>
+            </div>
+        </div>
+        <div class="form_mini" id="form6">
+            <!-- 인테리어 예산 -->
+            <div class="form_title">인테리어 예산을 알려주세요.</div>
+            <div class="form_content">
+                <input type="radio" name="budget" id="below1000" class="block" value="1천만원 이하">
+                <label for="below1000">1천만원 이하</label>
+                <input type="radio" name="budget" id="below2000" class="block" value="2천만원 이하">
+                <label for="below2000">2천만원 이하</label>
+                <input type="radio" name="budget" id="below3000" class="block" value="3천만원 이하">
+                <label for="below3000">3천만원 이하</label>
+                <input type="radio" name="budget" id="below4000" class="block" value="4천만원 이하">
+                <label for="below4000">4천만원 이하</label>
+                <input type="radio" name="budget" id="below5000" class="block" value="5천만원 이하">
+                <label for="below5000">5천만원 이하</label>
+                <input type="radio" name="budget" id="below6000" class="block" value="6천만원 이하">
+                <label for="below6000">6천만원 이하</label>
+                <input type="radio" name="budget" id="below8000" class="block" value="8천만원 이하">
+                <label for="below8000">8천만원 이하</label>
+                <input type="radio" name="budget" id="below10000" class="block" value="1억원 이하">
+                <label for="below10000">1억원 이하</label>
+                <input type="radio" name="budget" id="above10000" class="block" value="1억원 이상">
+                <label for="above10000">1억원 이상</label>
+                <input type="radio" name="budget" id="undefined" class="block" value="미정(상담 후 결정)">
+                <label for="undefined">미정</label>
+
             </div>
         </div>
         <div class="form_mini" id="form7">
@@ -364,6 +369,21 @@ conn.close();
 
     var quit_num = 0;
 
+    $(document).ready(function() {
+        $("#division1_all").click(function() {
+            if($("#division1_all").is(":checked")) $("input[name=division1]").prop("checked", true);
+            else $("input[name=division1]").prop("checked", false);
+        });
+
+        $("input[name=division1]").click(function() {
+            var total = $("input[name=division1]").length;
+            var checked = $("input[name=division1]:checked").length;
+
+            if(total != checked) $("#division1_all").prop("checked", false);
+            else $("#division1_all").prop("checked", true);
+        });
+    });
+
     $('document').ready(function () {
         function nowform() {
             var num;
@@ -478,7 +498,7 @@ conn.close();
                     elem = $(this);
                 }
             })
-            if (num == 6)
+            if (num == 5)
                 partly();
             else if (num == 8) {
                 $(this).parent().css('display', 'none');
@@ -505,7 +525,7 @@ conn.close();
                     elem = $(this);
                 }
             })
-            if (num == 6)
+            if (num == 5)
                 partly();
             else if (num == 7) {
                 $(this).parent().css('display', 'none');
@@ -544,7 +564,7 @@ conn.close();
                 $('#navigator3').css('display', 'block');
             }
             else{
-                if (quit_num == 6)
+                if (quit_num == 5)
                     partly();
                 $('#navigator2').css('display', 'block');
             }
