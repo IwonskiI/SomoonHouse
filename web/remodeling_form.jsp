@@ -164,7 +164,7 @@
             <!-- 평수 -->
             <div class="form_title">평수(공급면적)을 입력해 주세요.</div>
             <div class="form_content">
-                <input type="number" name="area" pattern="\d*" class="block">평
+                <input type="number" id="area" name="area" pattern="\d*" class="block" onchange="area_cal(this)">평
             </div>
         </div>
         <div class="form_mini" id="form3">
@@ -250,7 +250,20 @@
                 <label for="above10000">1억원 이상</label>
                 <input type="radio" name="budget" id="undefined" class="block" value="미정(상담 후 결정)">
                 <label for="undefined">미정</label>
-
+            </div>
+            <div class="warning_cost" id="warning" style="display:none;">
+                <div class="warning_title">
+                    <img src="https://somoonhouse.com/otherimg/assets/warning.png">
+                    <span>예상 금액 범위 안내</span>
+                </div>
+                <div class="warning_content">
+                    <span>●</span>
+                    <span>해당 평수는 최소 <span class="cal_val" id="cal_val1"></span>만원 ~ <span class="cal_val" id="cal_val2"></span>만원 정도 예상 해 주셔야 합니다.</span>
+                    <span>●</span>
+                    <span>하자 없는 시공을 추구하므로 예산이 적을 경우 업체 매칭이 어려울 수 있습니다.</span>
+                    <span class="write_red">●</span>
+                    <span class="write_red">단, 제시된 예상 견적 금액은 현장 상황이나, 원하시는 자재에 따라 실제 공사 금액과 차이가 있을 수 있습니다.</span>
+                </div>
             </div>
         </div>
         <div class="form_mini" id="form7">
@@ -369,18 +382,41 @@ conn.close();
 
     var quit_num = 0;
 
+    function check_all(){
+        var chck_lst = "";
+        $("input[name=division1]:checked").each(function() {
+            var tmpVal = $(this).val();
+            console.log(tmpVal);
+            chck_lst += tmpVal
+        });
+        if(chck_lst.indexOf("1")!==-1 && chck_lst.indexOf("3")!==-1 && chck_lst.indexOf("4")!==-1 && chck_lst.indexOf("5")!==-1 && chck_lst.indexOf("6")!==-1){
+            $('#warning').css('display', 'inline-block');
+        }
+        else{
+            $('#warning').css('display', 'none');
+        }
+    }
+
     $(document).ready(function() {
         $("#division1_all").click(function() {
-            if($("#division1_all").is(":checked")) $("input[name=division1]").prop("checked", true);
-            else $("input[name=division1]").prop("checked", false);
+            if($("#division1_all").is(":checked")){
+                $("input[name=division1]").prop("checked", true);
+            }
+            else{
+                $("input[name=division1]").prop("checked", false);
+            }
         });
 
         $("input[name=division1]").click(function() {
             var total = $("input[name=division1]").length;
             var checked = $("input[name=division1]:checked").length;
 
-            if(total != checked) $("#division1_all").prop("checked", false);
-            else $("#division1_all").prop("checked", true);
+            if(total != checked){
+                $("#division1_all").prop("checked", false);
+            }
+            else{
+                $("#division1_all").prop("checked", true);
+            }
         });
     });
 
@@ -500,6 +536,8 @@ conn.close();
             })
             if (num == 5)
                 partly();
+            else if (num == 6)
+                check_all();
             else if (num == 8) {
                 $(this).parent().css('display', 'none');
                 $('#navigator3').css('display', 'block');
@@ -527,6 +565,8 @@ conn.close();
             })
             if (num == 5)
                 partly();
+            else if (num == 6)
+                check_all();
             else if (num == 7) {
                 $(this).parent().css('display', 'none');
                 $('#navigator2').css('display', 'block');
@@ -575,7 +615,7 @@ conn.close();
 
         function partly() {
             var num;
-            $('#form5 input').each(function () {
+            $('#form4 input').each(function () {
                 num = $(this).attr('id');
                 num = num.replaceAll('division1_', '');
                 num = parseInt(num);
@@ -627,6 +667,15 @@ conn.close();
             frm.submit();
             return true;
         }
+    }
+
+    function area_cal(val){
+        var area = val.value;
+        var value = 110;
+
+        document.getElementById("cal_val1").innerHTML = area * value;
+        document.getElementById("cal_val2").innerText = area * value + 500;
+
     }
 
 

@@ -65,6 +65,48 @@ body {
     display: inline-block;
 }
 
+.warning_cost {
+    display: inline-block;
+    width: 70%;
+    margin-top: 30px;
+    padding: 15px;
+    background-color: rgba(255, 181, 167, 0.38);
+}
+
+.warning_cost .warning_title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 10px;
+}
+
+.warning_cost .warning_title img {
+    display: flex;
+    width: 20px;
+    margin-right: 5px;
+}
+
+.warning_cost .warning_title span {
+    font-weight: bold;
+}
+
+.warning_cost .warning_content {
+    display: grid;
+    grid-template-columns: 10px 1fr;
+    margin: 20px 0;
+    column-gap: 10px;
+    row-gap: 10px;
+    text-align: left;
+}
+
+.warning_cost .warning_content .write_red{
+    color: red;
+}
+.warning_cost .warning_content .cal_val{
+    color: blue;
+}
+
 .block {
     text-align: left;
 }
