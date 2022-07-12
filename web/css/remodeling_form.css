@@ -37,6 +37,23 @@ body {
     background: white;
 }
 
+.level_bar{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    width: 100%;
+    height: 5px;
+}
+
+.level_bar .current_level {
+    display: none;
+    border-radius: 5px;
+    background-color: #3e70ff;
+}
+
+.level_bar #level1 {
+    display: block;
+}
+
 .form_mini {
     /*border: 1px solid black;*/
     padding: 50px;

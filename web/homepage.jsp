@@ -150,12 +150,12 @@
             <div class="partner_info">
                 <div class="upper">
                     <span>전국 인테리어 전문가를 만나보세요</span>
-                    <div>
-                        <a href="https://somoonhouse.com/newindex.jsp?theme_id=1">
-                            <span>자세히보기</span>
-                            <img src="https://somoonhouse.com/otherimg/assets/arrow.png?raw=true" />
-                        </a>
-                    </div>
+<%--                    <div>--%>
+<%--                        <a href="https://somoonhouse.com/newindex.jsp?theme_id=1">--%>
+<%--                            <span>자세히보기</span>--%>
+<%--                            <img src="https://somoonhouse.com/otherimg/assets/arrow.png?raw=true" />--%>
+<%--                        </a>--%>
+<%--                    </div>--%>
                 </div>
                 <div class="lower" id="partner_info_lower">
                     <!--a href="https://github.com" class="partner_info_container">

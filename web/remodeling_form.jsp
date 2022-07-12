@@ -97,6 +97,45 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <script language="javascript">
+        function goPopup(){
+            // 주소검색을 수행할 팝업 페이지를 호출합니다.
+            // 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrCoordUrl.do)를 호출하게 됩니다.
+            var pop = window.open("jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
+        }
+        function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo,entX,entY){
+            // 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+            document.form.roadFullAddr.value = roadFullAddr;
+            document.form.roadAddrPart1.value = roadAddrPart1;
+            document.form.roadAddrPart2.value = roadAddrPart2;
+            document.form.addrDetail.value = addrDetail;
+            document.form.engAddr.value = engAddr;
+            document.form.jibunAddr.value = jibunAddr;
+            document.form.zipNo.value = zipNo;
+            document.form.admCd.value = admCd;
+            document.form.rnMgtSn.value = rnMgtSn;
+            document.form.bdMgtSn.value = bdMgtSn;
+            document.form.detBdNmList.value = detBdNmList;
+            document.form.bdNm.value = bdNm;
+            document.form.bdKdcd.value = bdKdcd;
+            document.form.siNm.value = siNm;
+            document.form.sggNm.value = sggNm;
+            document.form.emdNm.value = emdNm;
+            document.form.liNm.value = liNm;
+            document.form.rn.value = rn;
+            document.form.udrtYn.value = udrtYn;
+            document.form.buldMnnm.value = buldMnnm;
+            document.form.buldSlno.value = buldSlno;
+            document.form.mtYn.value = mtYn;
+            document.form.lnbrMnnm.value = lnbrMnnm;
+            document.form.lnbrSlno.value = lnbrSlno;
+            document.form.emdNo.value = emdNo;
+            document.form.entX.value = entX;
+            document.form.entY.value = entY;
+
+
+        }
+    </script>
     <title>소문난집 - 리모델링 견적받기</title>
     <!-- 사용자 행동 정보 수집 코드 시작 - Meta, GA -->
     <!-- 모든 페이지에 하나씩만 포함되어 있어야 합니다. 위치는 </head> 바로 위로 통일 -->
@@ -141,6 +180,17 @@
 <!--div id="banner">
 </div-->
 <div id="container">
+    <div class="level_bar">
+        <div class="current_level" id="level1"></div>
+        <div class="current_level" id="level2"></div>
+        <div class="current_level" id="level3"></div>
+        <div class="current_level" id="level4"></div>
+        <div class="current_level" id="level5"></div>
+        <div class="current_level" id="level6"></div>
+        <div class="current_level" id="level7"></div>
+        <div class="current_level" id="level8"></div>
+        <div class="current_level" id="level9"></div>
+    </div>
     <!------------ 내용물  --------------->
     <form action="_remodeling_form.jsp" method="post" onSubmit="return formChk();">
         <input type="hidden" name="item_num" value="<%=item_num%>">
@@ -267,10 +317,46 @@
             </div>
         </div>
         <div class="form_mini" id="form7">
+            <!-- 인테리어 희망업체 -->
+            <div class="form_title">업체별 예상 시공 금액을 비교 해보세요!</div>
+            <div class="form_content">
+
+            </div>
+        </div>
+        <div class="form_mini" id="form8">
             <!-- 인테리어 지역주소 -->
             <div class="form_title">시공하시는 곳의 주소를 알려주세요.</div>
             <div class="form_content">
-                <input type="text" name="address" class="block">
+                <div id="callBackDiv">
+                    <input type="text" id="roadFullAddr" name="roadFullAddr" class="block">
+                    <input type="hidden"  style="width:500px;" id="roadAddrPart1"  name="roadAddrPart1" />
+                    <input type="hidden"  style="width:500px;" id="addrDetail"  name="addrDetail" />
+                    <input type="hidden"  style="width:500px;" id="roadAddrPart2"  name="roadAddrPart2" />
+                    <input type="hidden"  style="width:500px;" id="bdNm"  name="bdNm" />
+                    <input type="hidden"  style="width:500px;" id="engAddr"  name="engAddr" />
+                    <input type="hidden"  style="width:500px;" id="jibunAddr"  name="jibunAddr" />
+                    <input type="hidden"  style="width:500px;" id="zipNo"  name="zipNo" />
+                    <input type="hidden"  style="width:500px;" id="admCd"  name="admCd" />
+                    <input type="hidden"  style="width:500px;" id="rnMgtSn"  name="rnMgtSn" />
+                    <input type="hidden"  style="width:500px;" id="bdMgtSn"  name="bdMgtSn" />
+                    <input type="hidden"  style="width:500px;" id="detBdNmList"  name="detBdNmList" />
+                    <input type="hidden"  style="width:500px;" id="bdKdcd"  name="bdKdcd" />
+                    <input type="hidden"  style="width:500px;" id="siNm"  name="siNm" />
+                    <input type="hidden"  style="width:500px;" id="sggNm"  name="sggNm" />
+                    <input type="hidden"  style="width:500px;" id="emdNm"  name="emdNm" />
+                    <input type="hidden"  style="width:500px;" id="liNm"  name="liNm" />
+                    <input type="hidden"  style="width:500px;" id="rn"  name="rn" />
+                    <input type="hidden"  style="width:500px;" id="udrtYn"  name="udrtYn" />
+                    <input type="hidden"  style="width:500px;" id="buldMnnm"  name="buldMnnm" />
+                    <input type="hidden"  style="width:500px;" id="buldSlno"  name="buldSlno" />
+                    <input type="hidden"  style="width:500px;" id="mtYn"  name="mtYn" />
+                    <input type="hidden"  style="width:500px;" id="lnbrMnnm"  name="lnbrMnnm" />
+                    <input type="hidden"  style="width:500px;" id="lnbrSlno"  name="lnbrSlno" />
+                    <input type="hidden"  style="width:500px;" id="emdNo"  name="emdNo" />
+                    <input type="hidden"  style="width:500px;" id="entX"  name="entX" />
+                    <input type="hidden"  style="width:500px;" id="entY"  name="entY" />
+                </div>
+                <input type="button" onClick="goPopup();" value="주소찾기"/>
             </div>
         </div>
         <!--div class="form_mini" id="form8">
@@ -301,7 +387,7 @@
                 <label for="callwill"  class="will">전화 걸게요</label>
             </div>
         </div-->
-        <div class="form_mini" id="form8">
+        <div class="form_mini" id="form9">
             <!-- 이름, 연락처정보 + 개인정보동의 -->
             <div class="form_title">상담을 위해 정보를 입력해주세요.</div>
             <div class="form_content">
@@ -318,7 +404,7 @@
                 <a href="personal.html" target="_blank">전문보기</a>
             </div>
         </div>
-        <div class="form_mini" id="form9">
+        <div class="form_mini" id="form0">
             <!-- 중단사유 입력 -->
             <div class="form_title">중단 사유를 입력해주세요.</div>
             <div class="form_content" style="text-align: left">
@@ -515,6 +601,7 @@ conn.close();
 
             $(this).parent().css('display', 'none');
             $('#navigator2').css('display', 'block');
+            $('#level2').css('display', 'block');
             //$('#yesnext').css('display', 'none');
             //$('#notnext').css('display', 'inline-block');
 
@@ -538,12 +625,13 @@ conn.close();
                 partly();
             else if (num == 6)
                 check_all();
-            else if (num == 8) {
+            else if (num == 9) {
                 $(this).parent().css('display', 'none');
                 $('#navigator3').css('display', 'block');
             }
             elem.css('display', 'none');
             $('#form' + num).css('display', 'block');
+            level_chk(num)
             //$('#yesnext').css('display', 'none');
             //$('#notnext').css('display', 'inline-block');
             //form_vaild();
@@ -567,7 +655,7 @@ conn.close();
                 partly();
             else if (num == 6)
                 check_all();
-            else if (num == 7) {
+            else if (num == 8) {
                 $(this).parent().css('display', 'none');
                 $('#navigator2').css('display', 'block');
             } else if (num == 1) {
@@ -576,6 +664,7 @@ conn.close();
             }
             elem.css('display', 'none');
             $('#form' + num).css('display', 'block');
+            level_chk(num)
             //form_vaild($('#form'+num+' input'));
         })
 
@@ -588,7 +677,13 @@ conn.close();
                     $(this).css('display', 'none');
                 }
             })
-            $('#form9').css('display', 'block');
+            $('.current_level').each(function () {
+                if($(this).css('display') == 'block') {
+                    $(this).css('display', 'none');
+                }
+            })
+            console.log(quit_num)
+            $('#form0').css('display', 'block');
 
             $(this).parent().css('display', 'none');
             $('#navigator4').css('display', 'block');
@@ -608,8 +703,9 @@ conn.close();
                     partly();
                 $('#navigator2').css('display', 'block');
             }
-            $('#form9').css('display', 'none');
+            $('#form0').css('display', 'none');
             $('#form' + quit_num).css('display', 'block');
+            level_chk(quit_num);
         })
         $('#save').off()
 
@@ -633,6 +729,15 @@ conn.close();
             })
         }
     })
+
+    function level_chk(num){
+        for(var j= 1; j<=8; j++){
+            $('#level'+ j ).css('display','none');
+        }
+        for(var i=1; i<=num; i++){
+            $('#level'+ i ).css('display','block');
+        }
+    }
 
     function formChk() {
         //return confirm("");
