@@ -211,6 +211,7 @@
         </div>
         <%}%>
     </div>
+    <a href="company.html" style="text-align: center">이용약관</a>
     <jsp:include page="/newTestFooter.jsp" flush="false" />
 </div>
 
