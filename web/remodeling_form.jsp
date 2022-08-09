@@ -141,6 +141,17 @@
 <!--div id="banner">
 </div-->
 <div id="container">
+    <div class="level_bar">
+        <div class="current_level" id="level1"></div>
+        <div class="current_level" id="level2"></div>
+        <div class="current_level" id="level3"></div>
+        <div class="current_level" id="level4"></div>
+        <div class="current_level" id="level5"></div>
+        <div class="current_level" id="level6"></div>
+<%--        <div class="current_level" id="level7"></div>--%>
+        <div class="current_level" id="level8"></div>
+        <div class="current_level" id="level9"></div>
+    </div>
     <!------------ 내용물  --------------->
     <form action="_remodeling_form.jsp" method="post" onSubmit="return formChk();">
         <input type="hidden" name="item_num" value="<%=item_num%>">
@@ -164,7 +175,7 @@
             <!-- 평수 -->
             <div class="form_title">평수(공급면적)을 입력해 주세요.</div>
             <div class="form_content">
-                <input type="number" name="area" pattern="\d*" class="block">평
+                <input type="number" id="area" name="area" pattern="\d*" class="block" onchange="area_cal(this)">평
             </div>
         </div>
         <div class="form_mini" id="form3">
@@ -177,36 +188,14 @@
             </div>
         </div>
         <div class="form_mini" id="form4">
-            <!-- 인테리어 예산 -->
-            <div class="form_title">인테리어 예산을 알려주세요.</div>
-            <div class="form_content">
-                <input type="radio" name="budget" id="below1000" class="block" value="1천만원 이하">
-                <label for="below1000">1천만원 이하</label>
-                <input type="radio" name="budget" id="below2000" class="block" value="2천만원 이하">
-                <label for="below2000">2천만원 이하</label>
-                <input type="radio" name="budget" id="below3000" class="block" value="3천만원 이하">
-                <label for="below3000">3천만원 이하</label>
-                <input type="radio" name="budget" id="below4000" class="block" value="4천만원 이하">
-                <label for="below4000">4천만원 이하</label>
-                <input type="radio" name="budget" id="below5000" class="block" value="5천만원 이하">
-                <label for="below5000">5천만원 이하</label>
-                <input type="radio" name="budget" id="below6000" class="block" value="6천만원 이하">
-                <label for="below6000">6천만원 이하</label>
-                <input type="radio" name="budget" id="below8000" class="block" value="8천만원 이하">
-                <label for="below8000">8천만원 이하</label>
-                <input type="radio" name="budget" id="below10000" class="block" value="1억원 이하">
-                <label for="below10000">1억원 이하</label>
-                <input type="radio" name="budget" id="above10000" class="block" value="1억원 이상">
-                <label for="above10000">1억원 이상</label>
-                <input type="radio" name="budget" id="undefined" class="block" value="미정(상담 후 결정)">
-                <label for="undefined">미정</label>
-
-            </div>
-        </div>
-        <div class="form_mini" id="form5">
             <!-- 시공 대분류 -->
             <div class="form_title">원하는 시공을 모두 골라주세요.</div>
             <div class="form_content block">
+                <input type="checkbox" id="division1_all" class="block">
+                <label for="division1_all">
+                    <!-- <img src="otherimg/estimate/division<%=i%>.jpg"> -->
+                    전체 선택
+                </label>
                 <%
                     for (i = 1; i <= division1.size(); i++) {
                 %>
@@ -220,7 +209,7 @@
                 %>
             </div>
         </div>
-        <div class="form_mini" id="form6">
+        <div class="form_mini" id="form5">
             <!-- 시공 소분류 -->
             <div class="form_title"></div>
             <div class="form_content">
@@ -248,11 +237,58 @@
                 %>
             </div>
         </div>
-        <div class="form_mini" id="form7">
+        <div class="form_mini" id="form6">
+            <!-- 인테리어 예산 -->
+            <div class="form_title">인테리어 예산을 알려주세요.</div>
+            <div class="form_content">
+                <input type="radio" name="budget" id="below1000" class="block" value="1천만원 이하">
+                <label for="below1000">1천만원 이하</label>
+                <input type="radio" name="budget" id="below2000" class="block" value="2천만원 이하">
+                <label for="below2000">2천만원 이하</label>
+                <input type="radio" name="budget" id="below3000" class="block" value="3천만원 이하">
+                <label for="below3000">3천만원 이하</label>
+                <input type="radio" name="budget" id="below4000" class="block" value="4천만원 이하">
+                <label for="below4000">4천만원 이하</label>
+                <input type="radio" name="budget" id="below5000" class="block" value="5천만원 이하">
+                <label for="below5000">5천만원 이하</label>
+                <input type="radio" name="budget" id="below6000" class="block" value="6천만원 이하">
+                <label for="below6000">6천만원 이하</label>
+                <input type="radio" name="budget" id="below8000" class="block" value="8천만원 이하">
+                <label for="below8000">8천만원 이하</label>
+                <input type="radio" name="budget" id="below10000" class="block" value="1억원 이하">
+                <label for="below10000">1억원 이하</label>
+                <input type="radio" name="budget" id="above10000" class="block" value="1억원 이상">
+                <label for="above10000">1억원 이상</label>
+                <input type="radio" name="budget" id="undefined" class="block" value="미정(상담 후 결정)">
+                <label for="undefined">미정</label>
+            </div>
+            <div class="warning_cost" id="warning" style="display:none;">
+                <div class="warning_title">
+                    <img src="https://somoonhouse.com/otherimg/assets/warning.png">
+                    <span>예상 금액 범위 안내</span>
+                </div>
+                <div class="warning_content">
+                    <span>●</span>
+                    <span>해당 평수는 최소 <span class="cal_val" id="cal_val1"></span>만원 ~ <span class="cal_val" id="cal_val2"></span>만원 정도 예상 해 주셔야 합니다.</span>
+                    <span>●</span>
+                    <span>하자 없는 시공을 추구하므로 예산이 적을 경우 업체 매칭이 어려울 수 있습니다.</span>
+                    <span class="write_red">●</span>
+                    <span class="write_red">단, 제시된 예상 견적 금액은 현장 상황이나, 원하시는 자재에 따라 실제 공사 금액과 차이가 있을 수 있습니다.</span>
+                </div>
+            </div>
+        </div>
+<%--        <div class="form_mini" id="form7">--%>
+<%--            <!-- 인테리어 희망업체 -->--%>
+<%--            <div class="form_title">업체별 예상 시공 금액을 비교 해보세요!</div>--%>
+<%--            <div class="form_content">--%>
+
+<%--            </div>--%>
+<%--        </div>--%>
+        <div class="form_mini" id="form8">
             <!-- 인테리어 지역주소 -->
             <div class="form_title">시공하시는 곳의 주소를 알려주세요.</div>
             <div class="form_content">
-                <input type="text" name="address" class="block">
+               <input type="text" name="address" class="block">
             </div>
         </div>
         <!--div class="form_mini" id="form8">
@@ -283,7 +319,7 @@
                 <label for="callwill"  class="will">전화 걸게요</label>
             </div>
         </div-->
-        <div class="form_mini" id="form8">
+        <div class="form_mini" id="form9">
             <!-- 이름, 연락처정보 + 개인정보동의 -->
             <div class="form_title">상담을 위해 정보를 입력해주세요.</div>
             <div class="form_content">
@@ -300,7 +336,7 @@
                 <a href="personal.html" target="_blank">전문보기</a>
             </div>
         </div>
-        <div class="form_mini" id="form9">
+        <div class="form_mini" id="form0">
             <!-- 중단사유 입력 -->
             <div class="form_title">중단 사유를 입력해주세요.</div>
             <div class="form_content" style="text-align: left">
@@ -363,6 +399,43 @@ conn.close();
 <script>
 
     var quit_num = 0;
+
+    function check_all(){
+        var chck_lst = "";
+        $("input[name=division1]:checked").each(function() {
+            var tmpVal = $(this).val();
+            chck_lst += tmpVal
+        });
+        if(chck_lst.indexOf("1")!==-1 && chck_lst.indexOf("3")!==-1 && chck_lst.indexOf("4")!==-1 && chck_lst.indexOf("5")!==-1 && chck_lst.indexOf("6")!==-1){
+            $('#warning').css('display', 'inline-block');
+        }
+        else{
+            $('#warning').css('display', 'none');
+        }
+    }
+
+    $(document).ready(function() {
+        $("#division1_all").click(function() {
+            if($("#division1_all").is(":checked")){
+                $("input[name=division1]").prop("checked", true);
+            }
+            else{
+                $("input[name=division1]").prop("checked", false);
+            }
+        });
+
+        $("input[name=division1]").click(function() {
+            var total = $("input[name=division1]").length;
+            var checked = $("input[name=division1]:checked").length;
+
+            if(total != checked){
+                $("#division1_all").prop("checked", false);
+            }
+            else{
+                $("#division1_all").prop("checked", true);
+            }
+        });
+    });
 
     $('document').ready(function () {
         function nowform() {
@@ -459,6 +532,7 @@ conn.close();
 
             $(this).parent().css('display', 'none');
             $('#navigator2').css('display', 'block');
+            $('#level2').css({backgroundColor:'#3e70ff'});
             //$('#yesnext').css('display', 'none');
             //$('#notnext').css('display', 'inline-block');
 
@@ -478,14 +552,19 @@ conn.close();
                     elem = $(this);
                 }
             })
-            if (num == 6)
+            if (num == 5)
                 partly();
-            else if (num == 8) {
+            else if (num == 6)
+                check_all();
+            else if (num == 7)
+                num += 1;
+            else if (num == 9) {
                 $(this).parent().css('display', 'none');
                 $('#navigator3').css('display', 'block');
             }
             elem.css('display', 'none');
             $('#form' + num).css('display', 'block');
+            level_chk(num)
             //$('#yesnext').css('display', 'none');
             //$('#notnext').css('display', 'inline-block');
             //form_vaild();
@@ -505,9 +584,13 @@ conn.close();
                     elem = $(this);
                 }
             })
-            if (num == 6)
+            if (num == 5)
                 partly();
-            else if (num == 7) {
+            else if (num == 6)
+                check_all();
+            else if (num == 7)
+                num -= 1;
+            else if (num == 8) {
                 $(this).parent().css('display', 'none');
                 $('#navigator2').css('display', 'block');
             } else if (num == 1) {
@@ -516,6 +599,7 @@ conn.close();
             }
             elem.css('display', 'none');
             $('#form' + num).css('display', 'block');
+            level_chk(num)
             //form_vaild($('#form'+num+' input'));
         })
 
@@ -528,7 +612,13 @@ conn.close();
                     $(this).css('display', 'none');
                 }
             })
-            $('#form9').css('display', 'block');
+            $('.current_level').each(function () {
+                if($(this).css('display') == 'block') {
+                    $(this).css('display', 'none');
+                }
+            })
+            console.log(quit_num)
+            $('#form0').css('display', 'block');
 
             $(this).parent().css('display', 'none');
             $('#navigator4').css('display', 'block');
@@ -544,18 +634,19 @@ conn.close();
                 $('#navigator3').css('display', 'block');
             }
             else{
-                if (quit_num == 6)
+                if (quit_num == 5)
                     partly();
                 $('#navigator2').css('display', 'block');
             }
-            $('#form9').css('display', 'none');
+            $('#form0').css('display', 'none');
             $('#form' + quit_num).css('display', 'block');
+            level_chk(quit_num);
         })
         $('#save').off()
 
         function partly() {
             var num;
-            $('#form5 input').each(function () {
+            $('#form4 input').each(function () {
                 num = $(this).attr('id');
                 num = num.replaceAll('division1_', '');
                 num = parseInt(num);
@@ -573,6 +664,15 @@ conn.close();
             })
         }
     })
+
+    function level_chk(num){
+        for(var j= 1; j<=9; j++){
+            $('#level'+ j ).css({backgroundColor:'#cbcbcb'});
+        }
+        for(var i=1; i<=num; i++){
+            $('#level'+ i ).css({backgroundColor: '#3e70ff'});
+        }
+    }
 
     function formChk() {
         //return confirm("");
@@ -607,6 +707,15 @@ conn.close();
             frm.submit();
             return true;
         }
+    }
+
+    function area_cal(val){
+        var area = val.value;
+        var value = 110;
+
+        document.getElementById("cal_val1").innerHTML = area * value;
+        document.getElementById("cal_val2").innerText = area * value + 500;
+
     }
 
 
