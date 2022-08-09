@@ -241,53 +241,6 @@
                     </div>
                 </div>
             </div>
-            <!--div class="style">
-                <div class="upper">
-                    <div class="left">
-                        <span>공사 금액부터 시공까지 자세히 알아보세요</span>
-                    </div>
-                    <a class="right" href="https://somoonhouse.com/newindex.jsp?theme_id=1">
-                        <span>더보기</span>
-                        <img src="https://somoonhouse.com/otherimg/assets/arrow.png?raw=true" />
-                    </a>
-                </div>
-                <div class="lower">
-                    <div class="slider">
-                        <a href="https://github.com" class="style_container">
-                            <div class="box">
-                                <img src="https://somoonhouse.com/otherimg/assets/dog5.jpg?raw=true" />
-                            </div>
-                            <div class="text">
-                                <div class="txt fir">
-                                    <span class="fir_title">아이비디자인</span>
-                                    <div class="fir_box">
-                                        <span class="fir_sub">A/S 1년</span>
-                                    </div>
-                                    <div class="fir_box">
-                                        <span class="fir_sub">응답우수</span>
-                                    </div>
-                                </div>
-                                <span class="txt sec">서변동 서변월드메르디앙</span>
-                                <div class="txt thr">
-                                    <div class="thr_img">
-                                        <img src="https://somoonhouse.com/otherimg/assets/star.png?raw=true" />
-                                    </div>
-                                    <span>4.8</span>
-                                    <div class="thr_img">
-                                        <img src="https://somoonhouse.com/otherimg/assets/heart2.png?raw=true" />
-                                    </div>
-                                    <span>177</span>
-                                </div>
-                                <div class="txt fiv">
-                                    <span>33평</span>
-                                    <div class="sidebar"></div>
-                                    <span>600만원</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div-->
         </div>
         <div class="free">
             <a href="https://somoonhouse.com/remodeling_form.jsp?item_num=0">
@@ -392,8 +345,11 @@
         const reviewBoxContainer = document.getElementById("reviewBox"),
             boxes = document.getElementsByClassName("reviewBox");
         let mainBoxNum,
-            PCPos = Math.round(-660 + (reviewBoxContainer.clientWidth - 660) / 2),
+            PCPos = Math.round( -660 + (reviewBoxContainer.clientWidth - 660) / 2),
             MobPos = Math.round(-400 + (reviewBoxContainer.clientWidth - 400) / 2);
+        console.log(reviewBoxContainer.clientWidth)
+        console.log(PCPos)
+        console.log(MobPos)
         if(matchMedia("(max-width: 700px)").matches){
             for(let i = 0; i < boxes.length; i++){
                 if(boxes[i].className === "reviewBox main"){
@@ -404,6 +360,7 @@
         }
         else{
             for(let i = 0; i < boxes.length; i++){
+                console.log(PCPos)
                 if(boxes[i].className === "reviewBox main"){
                     mainBoxNum = i;
                 }
@@ -475,98 +432,159 @@
         reviewLeftBtn.onclick = goLeft;
         reviewRightBtn.onclick = goRight;
 
-        let isSmall = reviewBoxContainer.clientWidth >= 684 ? false : true;
-        const observer = new ResizeObserver((prop) => {
-            if(prop[0].contentRect.width >= 684){
-                if(isSmall){
-                    isSmall = false;
-                    for(let i = 0; i < boxes.length; i++){
-                        boxes[i].style.transform = "translateX(" + PCPos + "px)";
-                    }
-                }
-                else{
-                    PCPos = Math.round(-660 + (reviewBoxContainer.clientWidth - 660) / 2 - 660 * (mainBoxNum - 1));
-                    for(let i = 0; i < boxes.length; i++){
-                        boxes[i].style.transform = "translateX(" + PCPos + "px)";
-                    }
-                }
-            }
-            else{
-                if(!isSmall){
-                    isSmall = true;
-                    for(let i = 0; i < boxes.length; i++){
-                        boxes[i].style.transform = "translateX(" + MobPos + "px)";
-                    }
-                }
-                else{
-                    MobPos = Math.round(-400 + (reviewBoxContainer.clientWidth - 400) / 2 - 400 * (mainBoxNum - 1));
-                    for(let i = 0; i < boxes.length; i++){
-                        boxes[i].style.transform = "translateX(" + MobPos + "px)";
-                    }
-                }
-            }
-        })
-        observer.observe(reviewBoxContainer);
+        // let isSmall = reviewBoxContainer.clientWidth >= 684 ? false : true;
+        // const observer = new ResizeObserver((prop) => {
+        //     if(prop[0].contentRect.width >= 684){
+        //         if(isSmall){
+        //             isSmall = false;
+        //             for(let i = 0; i < boxes.length; i++){
+        //                 boxes[i].style.transform = "translateX(" + PCPos + "px)";
+        //             }
+        //         }
+        //         else{
+        //             PCPos = Math.round(-660 + (reviewBoxContainer.clientWidth - 660) / 2 - 660 * (mainBoxNum - 1));
+        //             for(let i = 0; i < boxes.length; i++){
+        //                 boxes[i].style.transform = "translateX(" + PCPos + "px)";
+        //             }
+        //         }
+        //     }
+        //     else{
+        //         if(!isSmall){
+        //             isSmall = true;
+        //             for(let i = 0; i < boxes.length; i++){
+        //                 boxes[i].style.transform = "translateX(" + MobPos + "px)";
+        //             }
+        //         }
+        //         else{
+        //             MobPos = Math.round(-400 + (reviewBoxContainer.clientWidth - 400) / 2 - 400 * (mainBoxNum - 1));
+        //             for(let i = 0; i < boxes.length; i++){
+        //                 boxes[i].style.transform = "translateX(" + MobPos + "px)";
+        //             }
+        //         }
+        //     }
+        // })
+        // observer.observe(reviewBoxContainer);
     }
-    // setTimeout(() => {
-    //     starSetting();
-    //     reviewBoxSetting();
-    // }, 1500);
+    setTimeout(() => {
+        starSetting();
+        // reviewBoxSetting();
+    }, 1500);
+
 
     let reviewMainBoxCount = 0;
+    // const makeNoImgReviewBox = (prop) => {
+    //     let reviewBox, reviewBoxTop, reviewBoxText, textPre, reviewBoxBot,
+    //         starDiv, starBlock, grade, reviewAddr, reviewName,
+    //         reviewUnder, comBox, coms,
+    //         reviewBoxContainer = document.getElementById("reviewBox");
+    //
+    //     reviewMainBoxCount++;
+    //     reviewBox = reviewMainBoxCount == 2 ? createEle("div", "reviewBox main") : createEle("div", "reviewBox sub");
+    //     reviewBoxTop = createEle("div", "top");
+    //     reviewBoxText = createEle("div", "text");
+    //     reviewBoxBot = createEle("div", "bot");
+    //     starDiv = createEle("div", "star");
+    //     starBlock = createEle("div", "block");
+    //     grade = createEle("span", "grade");
+    //     textPre = createEle("pre"); ,
+    //     reviewAddr = createEle("span", "address");
+    //     reviewName = createEle("span");
+    //     reviewUnder = createEle("div", "under");
+    //     comBox = createEle("div", "comBox");
+    //     coms = createEle("span");
+    //
+    //     let compArr = prop.remodeling_apply.companies.map((value) => {
+    //         return value.name;
+    //     }), compStr = compArr.join(", "),
+    //         customerAddrArr = prop.remodeling_apply.address.split(' '),
+    //         customerAddrStr = customerAddrArr[0] + " " + (customerAddrArr[1] ?? "");
+    //
+    //     grade.innerHTML = prop.point;
+    //     const str = prop.content.replaceAll('\\n', '<br/>');
+    //     textPre.innerHTML = str;
+    //     reviewAddr.innerHTML = customerAddrStr;
+    //     reviewName.innerHTML = "&nbsp " + prop.remodeling_apply.name[0] + "** 님";
+    //     comBox.innerHTML = "견적업체";
+    //     coms.innerHTML = compStr;
+    //
+    //     reviewBoxContainer.appendChild(reviewBox);
+    //     reviewBox.appendChild(reviewBoxTop);
+    //     reviewBox.appendChild(reviewBoxText);
+    //     reviewBox.appendChild(reviewBoxBot);
+    //     reviewBoxTop.appendChild(starDiv);
+    //     starDiv.appendChild(starBlock);
+    //     for(let i = 0; i < 5; i++){
+    //         let starImg = createEle("img");
+    //         starImg.src = "https://somoonhouse.com/otherimg/assets/star2.png?raw=true";
+    //         starDiv.appendChild(starImg);
+    //     }
+    //     reviewBoxTop.appendChild(grade);
+    //     reviewBoxText.appendChild(textPre);
+    //     reviewBoxBot.appendChild(reviewAddr);
+    //     reviewBoxBot.appendChild(reviewUnder);
+    //     reviewAddr.appendChild(reviewName);
+    //     reviewUnder.appendChild(comBox);
+    //     reviewUnder.appendChild(coms);
+    // }
+
     const makeNoImgReviewBox = (prop) => {
-        let reviewBox, reviewBoxTop, reviewBoxText, textPre, reviewBoxBot,
-            starDiv, starBlock, grade, reviewAddr, reviewName,
-            reviewUnder, comBox, coms,
+        let reviewBox, reviewBoxTop, reviewBoxBot, reviewOver, reviewUnder,
+            starDiv, starBlock, grade, reviewAddr, reviewName, reviewText,
+            midline, companies, img1, img2, img3,
             reviewBoxContainer = document.getElementById("reviewBox");
 
         reviewMainBoxCount++;
         reviewBox = reviewMainBoxCount == 2 ? createEle("div", "reviewBox main") : createEle("div", "reviewBox sub");
         reviewBoxTop = createEle("div", "top");
-        reviewBoxText = createEle("div", "text");
+        img1 = createEle("img","img1");
+        img2 = createEle("img","img2");
+        img3 = createEle("img","img3");
         reviewBoxBot = createEle("div", "bot");
+        reviewOver = createEle("div", "over");
+        reviewUnder = createEle("div", "under");
         starDiv = createEle("div", "star");
         starBlock = createEle("div", "block");
         grade = createEle("span", "grade");
-        textPre = createEle("pre");
         reviewAddr = createEle("span", "address");
-        reviewName = createEle("span");
-        reviewUnder = createEle("div", "under");
-        comBox = createEle("div", "comBox");
-        coms = createEle("span");
+        reviewName = createEle("span", "name");
+        reviewText = createEle("span", "text");
+        midline = createEle("hr");
+        companies = createEle("div");
 
         let compArr = prop.remodeling_apply.companies.map((value) => {
-            return value.name;
-        }), compStr = compArr.join(", "),
+                return value.name;
+            }), compStr = compArr.join(", "),
             customerAddrArr = prop.remodeling_apply.address.split(' '),
             customerAddrStr = customerAddrArr[0] + " " + (customerAddrArr[1] ?? "");
 
         grade.innerHTML = prop.point;
-        const str = prop.content.replaceAll('\\n', '<br/>');
-        textPre.innerHTML = str;
+        reviewText.innerHTML = prop.content.replaceAll('\\n', '<br/>');
         reviewAddr.innerHTML = customerAddrStr;
-        reviewName.innerHTML = "&nbsp " + prop.remodeling_apply.name[0] + "** 님";
-        comBox.innerHTML = "견적업체";
-        coms.innerHTML = compStr;
+        reviewName.innerHTML = prop.remodeling_apply.name[0] + "** 님";
+        companies.innerHTML = compStr;
 
         reviewBoxContainer.appendChild(reviewBox);
         reviewBox.appendChild(reviewBoxTop);
-        reviewBox.appendChild(reviewBoxText);
+        // reviewBoxTop.appendChild(img1);
+        // reviewBoxTop.appendChild(img2);
+        // reviewBoxTop.appendChild(img3);
         reviewBox.appendChild(reviewBoxBot);
-        reviewBoxTop.appendChild(starDiv);
+        reviewBoxBot.appendChild(reviewOver);
+        reviewBoxBot.appendChild(midline);
+        reviewBoxBot.appendChild(reviewUnder);
+        reviewOver.appendChild(starDiv);
         starDiv.appendChild(starBlock);
         for(let i = 0; i < 5; i++){
             let starImg = createEle("img");
-            starImg.src = "https://somoonhouse.com/otherimg/assets/star2.png?raw=true";
+            starImg.src = "https://somoonhouse.com/otherimg/assets/pstar_fill.png";
             starDiv.appendChild(starImg);
         }
-        reviewBoxTop.appendChild(grade);
-        reviewBoxText.appendChild(textPre);
-        reviewBoxBot.appendChild(reviewAddr);
-        reviewBoxBot.appendChild(reviewUnder);
-        reviewAddr.appendChild(reviewName);
-        reviewUnder.appendChild(comBox);
-        reviewUnder.appendChild(coms);
+        reviewOver.appendChild(grade);
+        reviewOver.appendChild(reviewAddr);
+        reviewOver.appendChild(reviewName);
+        reviewOver.appendChild(reviewText);
+        // reviewUnder.appendChild(img_icon);
+        reviewUnder.appendChild(companies);
     }
 
     const makeHomepageCompanyInfoBox = (prop) => {

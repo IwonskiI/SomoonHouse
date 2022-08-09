@@ -97,45 +97,6 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-    <script language="javascript">
-        function goPopup(){
-            // 주소검색을 수행할 팝업 페이지를 호출합니다.
-            // 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrCoordUrl.do)를 호출하게 됩니다.
-            var pop = window.open("jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
-        }
-        function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo,entX,entY){
-            // 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-            document.form.roadFullAddr.value = roadFullAddr;
-            document.form.roadAddrPart1.value = roadAddrPart1;
-            document.form.roadAddrPart2.value = roadAddrPart2;
-            document.form.addrDetail.value = addrDetail;
-            document.form.engAddr.value = engAddr;
-            document.form.jibunAddr.value = jibunAddr;
-            document.form.zipNo.value = zipNo;
-            document.form.admCd.value = admCd;
-            document.form.rnMgtSn.value = rnMgtSn;
-            document.form.bdMgtSn.value = bdMgtSn;
-            document.form.detBdNmList.value = detBdNmList;
-            document.form.bdNm.value = bdNm;
-            document.form.bdKdcd.value = bdKdcd;
-            document.form.siNm.value = siNm;
-            document.form.sggNm.value = sggNm;
-            document.form.emdNm.value = emdNm;
-            document.form.liNm.value = liNm;
-            document.form.rn.value = rn;
-            document.form.udrtYn.value = udrtYn;
-            document.form.buldMnnm.value = buldMnnm;
-            document.form.buldSlno.value = buldSlno;
-            document.form.mtYn.value = mtYn;
-            document.form.lnbrMnnm.value = lnbrMnnm;
-            document.form.lnbrSlno.value = lnbrSlno;
-            document.form.emdNo.value = emdNo;
-            document.form.entX.value = entX;
-            document.form.entY.value = entY;
-
-
-        }
-    </script>
     <title>소문난집 - 리모델링 견적받기</title>
     <!-- 사용자 행동 정보 수집 코드 시작 - Meta, GA -->
     <!-- 모든 페이지에 하나씩만 포함되어 있어야 합니다. 위치는 </head> 바로 위로 통일 -->
@@ -187,7 +148,7 @@
         <div class="current_level" id="level4"></div>
         <div class="current_level" id="level5"></div>
         <div class="current_level" id="level6"></div>
-        <div class="current_level" id="level7"></div>
+<%--        <div class="current_level" id="level7"></div>--%>
         <div class="current_level" id="level8"></div>
         <div class="current_level" id="level9"></div>
     </div>
@@ -316,47 +277,18 @@
                 </div>
             </div>
         </div>
-        <div class="form_mini" id="form7">
-            <!-- 인테리어 희망업체 -->
-            <div class="form_title">업체별 예상 시공 금액을 비교 해보세요!</div>
-            <div class="form_content">
+<%--        <div class="form_mini" id="form7">--%>
+<%--            <!-- 인테리어 희망업체 -->--%>
+<%--            <div class="form_title">업체별 예상 시공 금액을 비교 해보세요!</div>--%>
+<%--            <div class="form_content">--%>
 
-            </div>
-        </div>
+<%--            </div>--%>
+<%--        </div>--%>
         <div class="form_mini" id="form8">
             <!-- 인테리어 지역주소 -->
             <div class="form_title">시공하시는 곳의 주소를 알려주세요.</div>
             <div class="form_content">
-                <div id="callBackDiv">
-                    <input type="text" id="roadFullAddr" name="roadFullAddr" class="block">
-                    <input type="hidden"  style="width:500px;" id="roadAddrPart1"  name="roadAddrPart1" />
-                    <input type="hidden"  style="width:500px;" id="addrDetail"  name="addrDetail" />
-                    <input type="hidden"  style="width:500px;" id="roadAddrPart2"  name="roadAddrPart2" />
-                    <input type="hidden"  style="width:500px;" id="bdNm"  name="bdNm" />
-                    <input type="hidden"  style="width:500px;" id="engAddr"  name="engAddr" />
-                    <input type="hidden"  style="width:500px;" id="jibunAddr"  name="jibunAddr" />
-                    <input type="hidden"  style="width:500px;" id="zipNo"  name="zipNo" />
-                    <input type="hidden"  style="width:500px;" id="admCd"  name="admCd" />
-                    <input type="hidden"  style="width:500px;" id="rnMgtSn"  name="rnMgtSn" />
-                    <input type="hidden"  style="width:500px;" id="bdMgtSn"  name="bdMgtSn" />
-                    <input type="hidden"  style="width:500px;" id="detBdNmList"  name="detBdNmList" />
-                    <input type="hidden"  style="width:500px;" id="bdKdcd"  name="bdKdcd" />
-                    <input type="hidden"  style="width:500px;" id="siNm"  name="siNm" />
-                    <input type="hidden"  style="width:500px;" id="sggNm"  name="sggNm" />
-                    <input type="hidden"  style="width:500px;" id="emdNm"  name="emdNm" />
-                    <input type="hidden"  style="width:500px;" id="liNm"  name="liNm" />
-                    <input type="hidden"  style="width:500px;" id="rn"  name="rn" />
-                    <input type="hidden"  style="width:500px;" id="udrtYn"  name="udrtYn" />
-                    <input type="hidden"  style="width:500px;" id="buldMnnm"  name="buldMnnm" />
-                    <input type="hidden"  style="width:500px;" id="buldSlno"  name="buldSlno" />
-                    <input type="hidden"  style="width:500px;" id="mtYn"  name="mtYn" />
-                    <input type="hidden"  style="width:500px;" id="lnbrMnnm"  name="lnbrMnnm" />
-                    <input type="hidden"  style="width:500px;" id="lnbrSlno"  name="lnbrSlno" />
-                    <input type="hidden"  style="width:500px;" id="emdNo"  name="emdNo" />
-                    <input type="hidden"  style="width:500px;" id="entX"  name="entX" />
-                    <input type="hidden"  style="width:500px;" id="entY"  name="entY" />
-                </div>
-                <input type="button" onClick="goPopup();" value="주소찾기"/>
+               <input type="text" name="address" class="block">
             </div>
         </div>
         <!--div class="form_mini" id="form8">
@@ -472,7 +404,6 @@ conn.close();
         var chck_lst = "";
         $("input[name=division1]:checked").each(function() {
             var tmpVal = $(this).val();
-            console.log(tmpVal);
             chck_lst += tmpVal
         });
         if(chck_lst.indexOf("1")!==-1 && chck_lst.indexOf("3")!==-1 && chck_lst.indexOf("4")!==-1 && chck_lst.indexOf("5")!==-1 && chck_lst.indexOf("6")!==-1){
@@ -601,7 +532,7 @@ conn.close();
 
             $(this).parent().css('display', 'none');
             $('#navigator2').css('display', 'block');
-            $('#level2').css('display', 'block');
+            $('#level2').css({backgroundColor:'#3e70ff'});
             //$('#yesnext').css('display', 'none');
             //$('#notnext').css('display', 'inline-block');
 
@@ -625,6 +556,8 @@ conn.close();
                 partly();
             else if (num == 6)
                 check_all();
+            else if (num == 7)
+                num += 1;
             else if (num == 9) {
                 $(this).parent().css('display', 'none');
                 $('#navigator3').css('display', 'block');
@@ -655,6 +588,8 @@ conn.close();
                 partly();
             else if (num == 6)
                 check_all();
+            else if (num == 7)
+                num -= 1;
             else if (num == 8) {
                 $(this).parent().css('display', 'none');
                 $('#navigator2').css('display', 'block');
@@ -731,11 +666,11 @@ conn.close();
     })
 
     function level_chk(num){
-        for(var j= 1; j<=8; j++){
-            $('#level'+ j ).css('display','none');
+        for(var j= 1; j<=9; j++){
+            $('#level'+ j ).css({backgroundColor:'#cbcbcb'});
         }
         for(var i=1; i<=num; i++){
-            $('#level'+ i ).css('display','block');
+            $('#level'+ i ).css({backgroundColor: '#3e70ff'});
         }
     }
 

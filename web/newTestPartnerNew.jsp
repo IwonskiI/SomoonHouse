@@ -8,9 +8,12 @@
 <%
     //필요한 변수 선언
     String mylog = "";
+    String company_name = "";
 
     //파라미터 가져오기
     //String param = request.getParameter("param");
+    String errmsg = request.getParameter("message");
+    String s_id = session.getAttribute("s_id")+"";
 
     //DB 관련 객체 선언
     Connection conn = DBUtil.getMySQLConnection();
@@ -18,6 +21,15 @@
     PreparedStatement pstmt = null;
     String query = "";
     String sql = "";
+
+    if(s_id != null) {
+        query = "SELECT Name FROM COMPANY WHERE Id = " + s_id;
+        pstmt = conn.prepareStatement(query);
+        rs = pstmt.executeQuery();
+        while (rs.next()) {
+            company_name = rs.getString("Name");
+        }
+    }
 
     //DB 가져오기 예시
     query = "select * from COUPON where Id > 1"; // 이벤트 쿠폰은 제외한 상품
@@ -41,10 +53,11 @@
 <head>
     <link rel="SHORTCUT ICON" href="https://somoonhouse.com/img/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/newTestPartnerNew.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/newTestPartnerNewTemp.css"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <title>소문난집 - 쿠폰 구매</title>
+    <script src="https://js.tosspayments.com/v1"></script>
     <!-- 사용자 행동 정보 수집 코드 시작 - Meta, GA -->
     <!-- 모든 페이지에 하나씩만 포함되어 있어야 합니다. 위치는 </head> 바로 위로 통일 -->
     <!-- Meta Pixel Code -->
@@ -98,9 +111,9 @@
         <div class="main_container">
             <div class="partner_container">
                 <%
-                for(String key: coupon.keySet()){
-                    HashMap item = coupon.get(key);
-        %>
+                    for(String key: coupon.keySet()){
+                        HashMap item = coupon.get(key);
+                %>
                 <div class="goods_container">
                     <div class="goods_left_box">
                         <div class="text_area">
@@ -142,7 +155,7 @@
                     <span class="item_span">선택한 상품</span>
                     <div class="select_item">
                         <div class="text_area">
-                            <span class="upper_text"><%=item.get("name")%> (<%=item.get("origin")%>건)</span>
+                            <span class="upper_text" id="name<%=key%>"><%=item.get("name")%> (<%=item.get("origin")%>건)</span>
                         </div>
                         <div class="text_area">
                             <span class="mid_text">결제일로부터 <span class="mid_date_text"><%=item.get("period")%>일간</span></span>
@@ -150,25 +163,30 @@
                         <div class="text_area">
                             <span class="lower_text">전체 <%=item.get("quantity")%>건
                             <%
+                                //                                product_name = item.get("name") + " (기본 " + item.get("origin") + "건";
                                 if(!item.get("extra").equals("0")){//보완건이 0인 경우 설명 표시하지 않음
                             %>
                                 <span class="lower_text_inner">
                                     (기본<%=item.get("origin")%>건 + 보완 <%=item.get("extra")%>건)
                                 </span>
                             <%
+                                    //                                    product_name += " + 보완 " + item.get("extra") + "건)";
                                 }
+//                                else{
+//                                    product_name += ")";
+//                                    }
                             %>
                             </span>
                         </div>
                     </div>
-                    <span class="item_span">가격 : <%=item.get("price")%>원</span>
+                    <span class="item_span">가격 : <span id="amount<%=key%>"><%=item.get("price")%></span>원</span>
                     <span class="item_span">결제 방법 선택</span>
-                    <div class="choice_item">
-                        <input type="radio" checked/> <span class="item_span">계좌이체</span>
-                    </div>
                 </div>
                 <div class="btn_container">
-                    <button id="next<%=key%>" onclick="modal_next(this)"><span>신 청 하 기</span></button>
+                    <button id="card<%=key%>" onclick="card_pay(this)"><span>카드결제</span></button>
+                </div>
+                <div class="btn_container">
+                    <button id="next<%=key%>" onclick="modal_next(this)"><span>계좌이체</span></button>
                 </div>
                 <div class="modal_cancel" id="cancel<%=key%>" onclick="close_modal(this)">
                     <img src="https://somoonhouse.com/otherimg/assets/cancel.png?raw=true" />
@@ -184,7 +202,7 @@
                     <span class="item_span thr">입금자 명의 관련 문의 : 010-4399-7660</span>
                 </div>
                 <div class="btn_container">
-                    <button id="prev<%=key%>" onclick="modal_previous(this)"><span>신 청 취 소</span></button>
+                    <button id="prev<%=key%>" onclick="modal_previous(this)"><span>신청취소</span></button>
                 </div>
                 <div class="modal_cancel" id="close<%=key%>" onclick="close_modal(this)">
                     <img src="https://somoonhouse.com/otherimg/assets/cancel.png?raw=true" />
@@ -198,9 +216,23 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
+
+    var product_name = "";
+
+    if ("<%=errmsg%>" !== "null"){
+        alert("<%=errmsg%>");
+    }
+
+    function product_chk(id){
+        if(id === "2") product_name = "실버 티켓 - 전체 1건";
+        else if(id === "3") product_name = "그린 티켓 - 전체 13건 (기본 5건 + 보완 8건)";
+        else if(id === "4") product_name = "블루 티켓 - 전체 28건 (기본 10건 + 보완 18건)";
+    }
+
     function open_modal(obj){
         var key = $(obj).attr("id");
         var modal = document.getElementById("modal_container"+key);
+        product_chk(key)
         modal.style.display = "flex"
     }
     function close_modal(obj){
@@ -221,6 +253,33 @@
         var after_modal = document.getElementById("modal_box_after"+key);
         after_modal.style.display = "none";
         before_modal.style.display = "block";
+    }
+    function card_pay(obj){
+        let today = new Date();
+        let year = today.getFullYear();
+        let month = today.getMonth();
+        let date = today.getDate();
+        let uuid = uuidv4();
+        var key = $(obj).attr("id").replaceAll("card", "");
+        var name = product_name;
+        var amount = document.getElementById("amount"+key).innerText.replaceAll(",","");
+        var clientKey = 'live_ck_5GePWvyJnrK0EDz4QG18gLzN97Eo'
+        var tossPayments = TossPayments(clientKey) // 클라이언트 키로 초기화하기
+        tossPayments.requestPayment('카드', { // 결제 수단 파라미터
+            // 결제 정보 파라미터
+            amount: amount,
+            orderId: year+"_"+month+"_"+date+"_<%=s_id%>_"+uuid,
+            orderName: name,
+            customerName: "<%=company_name%>",
+            successUrl: 'http://somoonhouse.com/_newTestPartnerNew.jsp',
+            failUrl: 'http://somoonhouse.com/newTestPartnerNew.jsp',
+        })
+
+    }
+    function uuidv4() {
+        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        );
     }
 </script>
 </body>
