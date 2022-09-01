@@ -194,12 +194,12 @@
                 </div>
                 <div class="lower">
                     <div class="boxes" id="reviewBox">
-                        <div class="reviewBox sub pc">
-                            <img src="https://somoonhouse.com/img/reviewtest.png">
-                        </div>
-                        <div class="reviewBox sub mob">
-                            <img src="https://somoonhouse.com/img/reviewtest_mob.png">
-                        </div>
+<%--                        <div class="reviewBox sub pc">--%>
+<%--                            <img src="https://somoonhouse.com/img/reviewtest.png">--%>
+<%--                        </div>--%>
+<%--                        <div class="reviewBox sub mob">--%>
+<%--                            <img src="https://somoonhouse.com/img/reviewtest_mob.png">--%>
+<%--                        </div>--%>
                         <!--div class="reviewBox sub">
                             <div class="top">
                                 <div class="star">
@@ -232,10 +232,10 @@
                         </div-->
                     </div>
                     <div class="btn_container">
-                        <div class="left" id="reviewLeftBtn">
+                        <div class="left revturn" id="reviewLeftBtn" onclick="left()">
                             <img src="https://somoonhouse.com/otherimg/assets/arrow.png?raw=true" />
                         </div>
-                        <div class="right" id="reviewRightBtn">
+                        <div class="right revturn" id="reviewRightBtn" onclick="right()">
                             <img src="https://somoonhouse.com/otherimg/assets/arrow.png?raw=true" />
                         </div>
                     </div>
@@ -312,164 +312,258 @@
         return a >= 0 ? a : -1 * a;
     }
 
-    const starSetting = () => {
-        const block = document.getElementsByClassName("block"),
-            grade = document.getElementsByClassName("grade");
-        for(let i = 0; i < grade.length; i++){
-            let gdiffNum = (5 - grade[i].textContent[0]) * 40;
-            switch(10 - grade[i].textContent[2] * 1){
-                case 10: break;
-                case 1: gdiffNum -= 32;
-                    break;
-                case 2: gdiffNum -= 31;
-                    break;
-                case 3: gdiffNum -= 27;
-                    break;
-                case 4: gdiffNum -= 24;
-                    break;
-                case 5: gdiffNum -= 20;
-                    break;
-                case 6: gdiffNum -= 17;
-                    break;
-                case 7: gdiffNum -= 15;
-                    break;
-                case 8: gdiffNum -= 13;
-                    break;
-                case 9: gdiffNum -= 11;
-                    break;
-            }
-            block[i].style.width = gdiffNum + "px";
+    const reviewBoxContainer = document.getElementById("reviewBox"),
+        boxes = document.getElementsByClassName("reviewBox"),
+        rev_msg = document.getElementsByClassName("rev_msg");
+    let pos = 0, poss = 0,
+        mainBoxNum = 0;
+    for(let i = 0; i < boxes.length; i++){
+        if(boxes[i].className === "reviewBox main"){
+            mainBoxNum = i;
         }
     }
-    const reviewBoxSetting = () => {
-        const reviewBoxContainer = document.getElementById("reviewBox"),
-            boxes = document.getElementsByClassName("reviewBox");
-        let mainBoxNum,
-            PCPos = Math.round( -660 + (reviewBoxContainer.clientWidth - 660) / 2),
-            MobPos = Math.round(-400 + (reviewBoxContainer.clientWidth - 400) / 2);
-        console.log(reviewBoxContainer.clientWidth)
-        console.log(PCPos)
-        console.log(MobPos)
+    if(matchMedia("(max-width: 700px)").matches){
+        pos = Math.round(-400 + (reviewBoxContainer.clientWidth - 400) / 2);
+    }
+    else{
+        pos = Math.round( -660 + (reviewBoxContainer.clientWidth - 660) / 2);
+    }
+    for(let i = 0; i < boxes.length; i++){
+        boxes[i].style.transform = "translateX(" + pos + "px)";
+    }
+    window.onresize = function(event){
         if(matchMedia("(max-width: 700px)").matches){
-            for(let i = 0; i < boxes.length; i++){
-                if(boxes[i].className === "reviewBox main"){
-                    mainBoxNum = i;
+            pos = Math.round(-400 + (reviewBoxContainer.clientWidth - 400) / 2);
+            poss = pos + (-400 * (mainBoxNum - 1))
+            for(let i = 0; i < rev_msg.length; i++){
+                if (rev_msg[i].innerText.length > 55){
+                    rev_msg[i].innerText = rev_msg[i].innerText.slice(0,55) + "..."
                 }
-                boxes[i].style.transform = "translateX(" + MobPos + "px)";
             }
         }
         else{
-            for(let i = 0; i < boxes.length; i++){
-                console.log(PCPos)
-                if(boxes[i].className === "reviewBox main"){
-                    mainBoxNum = i;
+            pos = Math.round( -660 + (reviewBoxContainer.clientWidth - 660) / 2);
+            poss = pos + (-660 * (mainBoxNum -1))
+            for(let i = 0; i < rev_msg.length; i++){
+                if (rev_msg[i].innerText.length > 80){
+                    rev_msg[i].innerText = rev_msg[i].innerText.slice(0,80) + "..."
                 }
-                boxes[i].style.transform = "translateX(" + PCPos + "px)";
             }
         }
-        const goLeft = () => {
-            if(mainBoxNum === 0){
-                PCPos -= boxes.length * 660;
-                MobPos -= boxes.length * 400;
-            }
-            PCPos += 660;
-            MobPos += 400;
-            if(matchMedia("(max-width: 700px)").matches){
-                for(let i = 0; i < boxes.length; i++){
-                    if(boxes[i].className === "reviewBox main"){
-                        mainBoxNum = i;
-                    }
-                    boxes[i].style.transform = "translateX(" + MobPos + "px)";
-                }
-                boxes[mainBoxNum].className = "reviewBox sub";
-                mainBoxNum === 0 ? mainBoxNum = boxes.length - 1 : mainBoxNum--;
-                boxes[mainBoxNum].className = "reviewBox main";
-            }
-            else{
-                for(let i = 0; i < boxes.length; i++){
-                    if(boxes[i].className === "reviewBox main"){
-                        mainBoxNum = i;
-                    }
-                    boxes[i].style.transform = "translateX(" + PCPos + "px)";
-                }
-                boxes[mainBoxNum].className = "reviewBox sub";
-                mainBoxNum === 0 ? mainBoxNum = boxes.length - 1 : mainBoxNum--;
-                boxes[mainBoxNum].className = "reviewBox main";
-            }
+        for(let i = 0; i < boxes.length; i++){
+            boxes[i].style.transform = "translateX(" + poss + "px)";
         }
-        const goRight = () => {
-            if(mainBoxNum === boxes.length - 1){
-                MobPos += boxes.length * 400;
-                PCPos += boxes.length * 660;
-            }
-            MobPos -= 400;
-            PCPos -= 660;
-            if(matchMedia("(max-width: 700px)").matches){
-                for(let i = 0; i < boxes.length; i++){
-                    if(boxes[i].className === "reviewBox main"){
-                        mainBoxNum = i;
-                    }
-                    boxes[i].style.transform = "translateX(" + MobPos + "px)";
-                }
-                boxes[mainBoxNum].className = "reviewBox sub";
-                mainBoxNum === boxes.length - 1 ? mainBoxNum = 0 : mainBoxNum++;
-                boxes[mainBoxNum].className = "reviewBox main";
-            }
-            else{
-                for(let i = 0; i < boxes.length; i++){
-                    if(boxes[i].className === "reviewBox main"){
-                        mainBoxNum = i;
-                    }
-                    boxes[i].style.transform = "translateX(" + PCPos + "px)";
-                }
-                boxes[mainBoxNum].className = "reviewBox sub";
-                mainBoxNum === boxes.length - 1 ? mainBoxNum = 0 : mainBoxNum++;
-                boxes[mainBoxNum].className = "reviewBox main";
-            }
-        }
-        const reviewLeftBtn  = document.getElementById("reviewLeftBtn"),
-            reviewRightBtn  = document.getElementById("reviewRightBtn");
-        reviewLeftBtn.onclick = goLeft;
-        reviewRightBtn.onclick = goRight;
-
-        // let isSmall = reviewBoxContainer.clientWidth >= 684 ? false : true;
-        // const observer = new ResizeObserver((prop) => {
-        //     if(prop[0].contentRect.width >= 684){
-        //         if(isSmall){
-        //             isSmall = false;
-        //             for(let i = 0; i < boxes.length; i++){
-        //                 boxes[i].style.transform = "translateX(" + PCPos + "px)";
-        //             }
-        //         }
-        //         else{
-        //             PCPos = Math.round(-660 + (reviewBoxContainer.clientWidth - 660) / 2 - 660 * (mainBoxNum - 1));
-        //             for(let i = 0; i < boxes.length; i++){
-        //                 boxes[i].style.transform = "translateX(" + PCPos + "px)";
-        //             }
-        //         }
-        //     }
-        //     else{
-        //         if(!isSmall){
-        //             isSmall = true;
-        //             for(let i = 0; i < boxes.length; i++){
-        //                 boxes[i].style.transform = "translateX(" + MobPos + "px)";
-        //             }
-        //         }
-        //         else{
-        //             MobPos = Math.round(-400 + (reviewBoxContainer.clientWidth - 400) / 2 - 400 * (mainBoxNum - 1));
-        //             for(let i = 0; i < boxes.length; i++){
-        //                 boxes[i].style.transform = "translateX(" + MobPos + "px)";
-        //             }
-        //         }
-        //     }
-        // })
-        // observer.observe(reviewBoxContainer);
     }
-    setTimeout(() => {
-        starSetting();
-        // reviewBoxSetting();
-    }, 1500);
+    function left(){
+        var poss
+        var cnt
+        if(mainBoxNum === 0){
+            cnt = boxes.length - 2;
+        }
+        else{
+            cnt = mainBoxNum - 2;
+        }
+        if(matchMedia("(max-width: 700px)").matches){
+            poss = (cnt * - 400 + pos)
+        }
+        else{
+            poss = (cnt * - 660 + pos)
+        }
+        for(let i = 0; i < boxes.length; i++){
+            boxes[i].style.transform = "translateX(" + poss + "px)";
+        }
+        boxes[mainBoxNum].className = "reviewBox sub";
+        mainBoxNum = cnt + 1;
+        boxes[mainBoxNum].className = "reviewBox main";
+    }
+    function right(){
+        var poss
+        var cnt
+        if(mainBoxNum + 1 === boxes.length){
+            cnt = -1
+        }
+        else{
+            cnt = mainBoxNum;
+        }
+        if(matchMedia("(max-width: 700px)").matches){
+            poss = (cnt * - 400 + pos)
+        }
+        else{
+            poss = (cnt * - 660 + pos)
+        }
+        for(let i = 0; i < boxes.length; i++){
+            boxes[i].style.transform = "translateX(" + poss + "px)";
+        }
+        boxes[mainBoxNum].className = "reviewBox sub";
+        mainBoxNum = cnt + 1;
+        boxes[mainBoxNum].className = "reviewBox main";
+    }
 
+    let waits = -1;
+    const revturn = document.getElementsByClassName("revturn");
+    revturn[0].addEventListener("click", () => {
+        if(waits === reviewSlideTime) return;
+        clearInterval(reviewSlideTime);
+        waits = reviewSlideTime;
+        setTimeout(() => {
+            reviewSlideTime = setInterval(reviewAutoSlide, 3000);
+        }, 5000);
+    })
+    revturn[1].addEventListener("click", () => {
+        if(waits === reviewSlideTime) return;
+        clearInterval(reviewSlideTime);
+        waits = reviewSlideTime;
+        setTimeout(() => {
+            reviewSlideTime = setInterval(reviewAutoSlide, 3000);
+        }, 5000);
+    })
+    const reviewAutoSlide = () => {
+        var poss
+        var cnt
+        if(mainBoxNum + 1 === boxes.length){
+            cnt = -1
+        }
+        else{
+            cnt = mainBoxNum;
+        }
+        if(matchMedia("(max-width: 700px)").matches){
+            poss = (cnt * - 400 + pos)
+        }
+        else{
+            poss = (cnt * - 660 + pos)
+        }
+        for(let i = 0; i < boxes.length; i++){
+            boxes[i].style.transform = "translateX(" + poss + "px)";
+        }
+        boxes[mainBoxNum].className = "reviewBox sub";
+        mainBoxNum = cnt + 1;
+        boxes[mainBoxNum].className = "reviewBox main";
+    }
+    let reviewSlideTime = setInterval(reviewAutoSlide, 3000);
+
+    // const reviewBoxSetting = () => {
+    //     const reviewBoxContainer = document.getElementById("reviewBox"),
+    //         boxes = document.getElementsByClassName("reviewBox");
+    //     let mainBoxNum,
+    //         PCPos = Math.round( -660 + (reviewBoxContainer.clientWidth - 660) / 2),
+    //         MobPos = Math.round(-400 + (reviewBoxContainer.clientWidth - 400) / 2);
+    //     if(matchMedia("(max-width: 700px)").matches){
+    //         for(let i = 0; i < boxes.length; i++){
+    //             if(boxes[i].className === "reviewBox main"){
+    //                 mainBoxNum = i;
+    //             }
+    //             boxes[i].style.transform = "translateX(" + MobPos + "px)";
+    //         }
+    //     }
+    //     else{
+    //         for(let i = 0; i < boxes.length; i++){
+    //             console.log(PCPos)
+    //             if(boxes[i].className === "reviewBox main"){
+    //                 mainBoxNum = i;
+    //             }
+    //             boxes[i].style.transform = "translateX(" + PCPos + "px)";
+    //         }
+    //     }
+    //     const goLeft = () => {
+    //         if(mainBoxNum === 0){
+    //             PCPos -= boxes.length * 660;
+    //             MobPos -= boxes.length * 400;
+    //         }
+    //         PCPos += 660;
+    //         MobPos += 400;
+    //         if(matchMedia("(max-width: 700px)").matches){
+    //             for(let i = 0; i < boxes.length; i++){
+    //                 if(boxes[i].className === "reviewBox main"){
+    //                     mainBoxNum = i;
+    //                 }
+    //                 boxes[i].style.transform = "translateX(" + MobPos + "px)";
+    //             }
+    //             boxes[mainBoxNum].className = "reviewBox sub";
+    //             mainBoxNum === 0 ? mainBoxNum = boxes.length - 1 : mainBoxNum--;
+    //             boxes[mainBoxNum].className = "reviewBox main";
+    //         }
+    //         else{
+    //             for(let i = 0; i < boxes.length; i++){
+    //                 if(boxes[i].className === "reviewBox main"){
+    //                     mainBoxNum = i;
+    //                 }
+    //                 boxes[i].style.transform = "translateX(" + PCPos + "px)";
+    //             }
+    //             boxes[mainBoxNum].className = "reviewBox sub";
+    //             mainBoxNum === 0 ? mainBoxNum = boxes.length - 1 : mainBoxNum--;
+    //             boxes[mainBoxNum].className = "reviewBox main";
+    //         }
+    //     }
+    //     const goRight = () => {
+    //         if(mainBoxNum === boxes.length - 1){
+    //             MobPos += boxes.length * 400;
+    //             PCPos += boxes.length * 660;
+    //         }
+    //         MobPos -= 400;
+    //         PCPos -= 660;
+    //         if(matchMedia("(max-width: 700px)").matches){
+    //             for(let i = 0; i < boxes.length; i++){
+    //                 if(boxes[i].className === "reviewBox main"){
+    //                     mainBoxNum = i;
+    //                 }
+    //                 boxes[i].style.transform = "translateX(" + MobPos + "px)";
+    //             }
+    //             boxes[mainBoxNum].className = "reviewBox sub";
+    //             mainBoxNum === boxes.length - 1 ? mainBoxNum = 0 : mainBoxNum++;
+    //             boxes[mainBoxNum].className = "reviewBox main";
+    //         }
+    //         else{
+    //             for(let i = 0; i < boxes.length; i++){
+    //                 if(boxes[i].className === "reviewBox main"){
+    //                     mainBoxNum = i;
+    //                 }
+    //                 boxes[i].style.transform = "translateX(" + PCPos + "px)";
+    //             }
+    //             boxes[mainBoxNum].className = "reviewBox sub";
+    //             mainBoxNum === boxes.length - 1 ? mainBoxNum = 0 : mainBoxNum++;
+    //             boxes[mainBoxNum].className = "reviewBox main";
+    //         }
+    //     }
+    //     const reviewLeftBtn  = document.getElementById("reviewLeftBtn"),
+    //         reviewRightBtn  = document.getElementById("reviewRightBtn");
+    //     reviewLeftBtn.onclick = goLeft;
+    //     reviewRightBtn.onclick = goRight;
+    //
+    //     // let isSmall = reviewBoxContainer.clientWidth >= 684 ? false : true;
+    //     // const observer = new ResizeObserver((prop) => {
+    //     //     if(prop[0].contentRect.width >= 684){
+    //     //         if(isSmall){
+    //     //             isSmall = false;
+    //     //             for(let i = 0; i < boxes.length; i++){
+    //     //                 boxes[i].style.transform = "translateX(" + PCPos + "px)";
+    //     //             }
+    //     //         }
+    //     //         else{
+    //     //             PCPos = Math.round(-660 + (reviewBoxContainer.clientWidth - 660) / 2 - 660 * (mainBoxNum - 1));
+    //     //             for(let i = 0; i < boxes.length; i++){
+    //     //                 boxes[i].style.transform = "translateX(" + PCPos + "px)";
+    //     //             }
+    //     //         }
+    //     //     }
+    //     //     else{
+    //     //         if(!isSmall){
+    //     //             isSmall = true;
+    //     //             for(let i = 0; i < boxes.length; i++){
+    //     //                 boxes[i].style.transform = "translateX(" + MobPos + "px)";
+    //     //             }
+    //     //         }
+    //     //         else{
+    //     //             MobPos = Math.round(-400 + (reviewBoxContainer.clientWidth - 400) / 2 - 400 * (mainBoxNum - 1));
+    //     //             for(let i = 0; i < boxes.length; i++){
+    //     //                 boxes[i].style.transform = "translateX(" + MobPos + "px)";
+    //     //             }
+    //     //         }
+    //     //     }
+    //     // })
+    //     // observer.observe(reviewBoxContainer);
+    // }
+    // setTimeout(() => {reviewBoxSetting();}, 1500);
+    // // setInterval(reviewBoxSetting, 3000);
 
     let reviewMainBoxCount = 0;
     // const makeNoImgReviewBox = (prop) => {
@@ -527,18 +621,20 @@
     //     reviewUnder.appendChild(coms);
     // }
 
-    const makeNoImgReviewBox = (prop) => {
+    const makeImgReviewBox = (prop) => {
         let reviewBox, reviewBoxTop, reviewBoxBot, reviewOver, reviewUnder,
             starDiv, starBlock, grade, reviewAddr, reviewName, reviewText,
-            midline, companies, img1, img2, img3,
+            midline, companies, reviewBoxRight, img1, img2, img3,
+            img_icon_pc, img_icon_mob, grader, star_cnt,
             reviewBoxContainer = document.getElementById("reviewBox");
 
         reviewMainBoxCount++;
         reviewBox = reviewMainBoxCount == 2 ? createEle("div", "reviewBox main") : createEle("div", "reviewBox sub");
         reviewBoxTop = createEle("div", "top");
-        img1 = createEle("img","img1");
-        img2 = createEle("img","img2");
-        img3 = createEle("img","img3");
+        reviewBoxRight = createEle("div","right");
+        img1 = createEle("img","img1")
+        img2 = createEle("img","img2")
+        img3 = createEle("img","img3")
         reviewBoxBot = createEle("div", "bot");
         reviewOver = createEle("div", "over");
         reviewUnder = createEle("div", "under");
@@ -547,43 +643,74 @@
         grade = createEle("span", "grade");
         reviewAddr = createEle("span", "address");
         reviewName = createEle("span", "name");
-        reviewText = createEle("span", "text");
-        midline = createEle("hr");
-        companies = createEle("div");
+        reviewText = createEle("span", "text rev_msg");
+        midline = createEle("img","midline");
+        img_icon_pc = createEle("img","img_icon_pc");
+        img_icon_mob = createEle("img","img_icon_mob");
+        companies = createEle("div", "company");
 
         let compArr = prop.remodeling_apply.companies.map((value) => {
                 return value.name;
             }), compStr = compArr.join(", "),
             customerAddrArr = prop.remodeling_apply.address.split(' '),
-            customerAddrStr = customerAddrArr[0] + " " + (customerAddrArr[1] ?? "");
+            customerAddrStr = customerAddrArr[0] + " " + (customerAddrArr[1] ?? ""),
+            imgArr = prop.review_imgs.map((value) => {
+                return value.img_path;
+            });
 
+        let contents = prop.content.replaceAll('\\n', '<br/>');
+        if(matchMedia("(max-width: 700px)").matches){
+            if (contents.length > 55){
+                contents = contents.slice(0,55) + "..."
+            }
+        }
+        else{
+            if (contents.length > 80){
+                contents = contents.slice(0,80) + "..."
+            }
+        }
         grade.innerHTML = prop.point;
-        reviewText.innerHTML = prop.content.replaceAll('\\n', '<br/>');
+        reviewText.innerHTML = contents;
         reviewAddr.innerHTML = customerAddrStr;
         reviewName.innerHTML = prop.remodeling_apply.name[0] + "** 님";
+        img1.src = imgArr[0];
+        img2.src = imgArr[1];
+        img3.src = imgArr[2];
         companies.innerHTML = compStr;
+        midline.src = 'https://somoonhouse.com/otherimg/assets/pline.png'
+        img_icon_pc.src = 'https://somoonhouse.com/otherimg/assets/plabel.png'
+        img_icon_mob.src = 'https://somoonhouse.com/otherimg/assets/mlabel_line.png'
 
         reviewBoxContainer.appendChild(reviewBox);
         reviewBox.appendChild(reviewBoxTop);
-        // reviewBoxTop.appendChild(img1);
-        // reviewBoxTop.appendChild(img2);
-        // reviewBoxTop.appendChild(img3);
+        reviewBoxTop.appendChild(img1);
+        reviewBoxTop.appendChild(reviewBoxRight);
+        reviewBoxRight.appendChild(img2);
+        reviewBoxRight.appendChild(img3);
         reviewBox.appendChild(reviewBoxBot);
         reviewBoxBot.appendChild(reviewOver);
         reviewBoxBot.appendChild(midline);
         reviewBoxBot.appendChild(reviewUnder);
         reviewOver.appendChild(starDiv);
         starDiv.appendChild(starBlock);
-        for(let i = 0; i < 5; i++){
+        grader = parseInt(prop.point);
+
+        for(star_cnt = 0; star_cnt < grader; star_cnt++){
             let starImg = createEle("img");
             starImg.src = "https://somoonhouse.com/otherimg/assets/pstar_fill.png";
+            starDiv.appendChild(starImg);
+        }
+        for(let i = star_cnt; i < 5; i++){
+            let starImg = createEle("img");
+            starImg.src = "https://somoonhouse.com/otherimg/assets/pstar_line.png";
             starDiv.appendChild(starImg);
         }
         reviewOver.appendChild(grade);
         reviewOver.appendChild(reviewAddr);
         reviewOver.appendChild(reviewName);
         reviewOver.appendChild(reviewText);
-        // reviewUnder.appendChild(img_icon);
+        reviewUnder.appendChild(img_icon_pc);
+        reviewUnder.appendChild(img_icon_mob);
         reviewUnder.appendChild(companies);
     }
 
@@ -629,7 +756,6 @@
             firSub[count] = createEle("span", "fir_sub");
             firSub[count].innerHTML = "A/S " + war + "년";
             count++;
-            console.log(count)
         }
 
         partnerInfoContainer.href = "https://somoonhouse.com/interior_info.jsp?id=" + prop.id;
