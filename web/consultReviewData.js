@@ -10,19 +10,19 @@ const getReviewData = async () => {
         })
         .then((res) => {
             reviewData = res;
-            makeNoImgReview();
+            makeImgReview();
         })
         .catch((err) => {
             console.log(err);
         })
 }
 
-const makeNoImgReview = () => {
+const makeImgReview = () => {
     for(let i = 0; i < reviewData.length; i++){
-        makeNoImgReviewBox(reviewData[i]);
+        makeImgReviewBox(reviewData[i]);
     }
 
 }
 
-// getReviewData();
+getReviewData();
 

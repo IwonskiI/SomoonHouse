@@ -125,9 +125,9 @@
             <%if (home_id == null || home_id.equals("") || home_id.equals("null")) {%>
             <a id="loginplz" href="login.jsp">로그인</a>해주세요.
             <%} else {%>
-            <span><button onclick="location.href = 'mypage.jsp'">마이페이지</button></span>
             <span><b><%=home_name%></b>님 환영합니다!</span>
-            <span><a href="_logout.jsp">로그아웃</a></span>
+            <span><button onclick="location.href = 'mypage.jsp'">마이페이지</button></span>
+            <span><button onclick="location.href = '_logout.jsp'">로그아웃</button></span>
             <%} %>
         </div>
     </div>
