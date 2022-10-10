@@ -223,6 +223,9 @@ input::-webkit-inner-spin-button {
 input[type="radio"], #form4 input[type="checkbox"], #form4 input[type="button"] {
     display: none;
 }
+#form0 input[type="radio"]{
+    display: inline-block !important;
+}
 
 input[type="radio"]:checked + label {
     color: white;
