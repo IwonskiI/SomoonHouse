@@ -795,6 +795,11 @@ conn.close();
             }
             $('#form0').css('display', 'none');
             $('#form' + quit_num).css('display', 'block');
+            $('.current_level').each(function () {
+                if($(this).css('display') === 'none') {
+                    $(this).css('display', 'block');
+                }
+            })
             level_chk(quit_num);
         })
         $('#save').off()
