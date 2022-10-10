@@ -7,6 +7,7 @@
 <%@ page language="java" import="myPackage.DBUtil" %>
 <%@ page language="java" import="myPackage.Link" %>
 <%@ page language="java" import="myPackage.GetImage" %>
+<%@ page import="myPackage.MessageSend3" %>
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
@@ -62,6 +63,31 @@
                     sql = "update REMODELING_APPLY set State = 1 where Number = " + number;
                     pstmt = conn.prepareStatement(sql);
                     pstmt.executeUpdate();
+
+                    //모든 업체가 거절을 할 경우 문자메세지 전송
+                    if(okay == 0){
+                        ResultSet rs_msg;
+                        String phone = "";
+                        String msg_str = "";
+                        int msg_send = 1;
+
+                        query = "select * from REMODELING_APPLY where Number = " + number;
+                        pstmt = conn.prepareStatement(query);
+                        rs_msg = pstmt.executeQuery();
+                        while (rs_msg.next()){
+                            phone = rs_msg.getString("Phone");
+                            msg_send = rs_msg.getInt("msg_send");
+                        }
+                        if (msg_send == 0){
+                            MessageSend3 msg = new MessageSend3();
+                            msg_str = "[소문난집 매칭 결과 안내] 소문난집에는 종합 인테리어 업체 위주로 입점되어 있습니다. 시공 항목이나 시공 예산이 적을 경우, 업체 매칭이 어렵습니다. 재매칭을 원하신다면, 회신 부탁드립니다.";
+                            // 고객에게 문자 보내기
+                            msg.send(phone, msg_str, "lms");
+                            sql = "update REMODELING_APPLY set msg_send = true where Number = " + number;
+                            pstmt = conn.prepareStatement(sql);
+                            pstmt.executeUpdate();
+                        }
+                    }
 
                     //만약 모든 회사에 배분 되었고 수락한 회사가 4개이하라면 배분 테이블에 해당 신청건에 대해 거절한 열들을 다 지움
                     ResultSet rs2;

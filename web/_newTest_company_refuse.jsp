@@ -44,6 +44,44 @@
 
 
     pstmt.executeUpdate();
+
+
+    //해당 거절건에 대하여 다른 업체들의 수락 상태를 확인하고 모든 업체가 거절했다면 메세지 전송
+
+    //거절되지 않은 건(수락건)이 4개이상일 시, 신청을 전체 수락 상태로 바꾸어주기
+    query = "select count(*) from ASSIGNED where State != 1 and Apply_num = " + apply_num;
+    pstmt = conn.prepareStatement(query);
+    rs = pstmt.executeQuery();
+    while(rs.next()){
+        int okay = rs.getInt("count(*)");
+        //모든 업체가 거절을 할 경우 문자메세지 전송
+        if(okay == 0){
+            ResultSet rs_msg;
+            String phone = "";
+            String msg_str = "";
+            int msg_send = 1;
+
+            query = "select * from REMODELING_APPLY where Number = " + apply_num;
+            pstmt = conn.prepareStatement(query);
+            rs_msg = pstmt.executeQuery();
+            while (rs_msg.next()){
+                phone = rs_msg.getString("Phone");
+                msg_send = rs_msg.getInt("msg_send");
+            }
+            if (msg_send == 0){
+                MessageSend3 msg = new MessageSend3();
+                msg_str = "[소문난집 매칭 결과 안내] 소문난집에는 종합 인테리어 업체 위주로 입점되어 있습니다. 시공 항목이나 시공 예산이 적을 경우, 업체 매칭이 어렵습니다. 재매칭을 원하신다면, 회신 부탁드립니다.";
+                // 고객에게 문자 보내기
+                msg.send(phone, msg_str, "lms");
+                sql = "update REMODELING_APPLY set msg_send = true where Number = " + apply_num;
+                pstmt = conn.prepareStatement(sql);
+                pstmt.executeUpdate();
+            }
+        }
+    }
+
+
+
     //pstmt.close();
 %>
 <!DOCTYPE html>

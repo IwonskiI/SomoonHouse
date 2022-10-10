@@ -215,7 +215,7 @@ conn.close();
 <script>
 	$('.mybox').click(function(){
 		if($(this).attr('id') == "check")
-			location.href='manage_request.jsp';
+			location.href='_refresh_request.jsp?state=0';
 		else if($(this).attr('id') == "stop")
 			location.href='show_stop_reason.jsp';
 		else if($(this).attr('id') == "refuse")

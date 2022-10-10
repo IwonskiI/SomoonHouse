@@ -160,6 +160,30 @@
 	<%
 		}
 
+		//메세지 전송상태 업데이트
+		sql = "Update REMODELING_APPLY set msg_send = false where Number = ?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, apply_num);
+
+
+		//실행
+		if(error == 0){
+			pstmt.executeUpdate();
+	%>
+	<script>
+		alert('등록을 완료했습니다.');
+		location.href = "manage_request.jsp";
+	</script>
+	<%
+	}
+	else{
+	%>
+	<script>
+		history.back();
+	</script>
+	<%
+		}
+
 	//확인
 	//out.println(pstmt);
 
