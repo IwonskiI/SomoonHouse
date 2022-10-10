@@ -5,6 +5,7 @@
 <%@ page import="com.sun.xml.internal.ws.developer.ValidationErrorHandler" %>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <% request.setCharacterEncoding("UTF-8"); %>
+<%String b_page = session.getAttribute("b_page")+"";%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -143,7 +144,14 @@
         session.setAttribute("home_id", index);
         session.setAttribute("home_name", username);
         error++;
+    if (b_page.equals("remodeling_form.jsp")){
+        session.setAttribute("b_page","");
+        String item_num = session.getAttribute("rf_inum")+"";
+%><script>document.location.href="remodeling_form.jsp?item_num=<%=item_num%>"</script><%
+}
+else{
 %><script>document.location.href="homepage.jsp"</script><%
+        }
     }
     else if(gender == "" || gender == null){
         gender = "NULL";
@@ -275,10 +283,15 @@ else{
     session.setAttribute("page", "");
     session.setAttribute("s_id", "");
     session.setAttribute("name", "");
+    if (b_page.equals("remodeling_form.jsp")){
+        session.setAttribute("b_page","");
+        String item_num = session.getAttribute("rf_inum")+"";
+%><script>document.location.href="remodeling_form.jsp?item_num=<%=item_num%>"</script><%
+}
+else{
+%><script>document.location.href="homepage.jsp"</script><%
+        }
 %>
-<script>
-    document.location.href="homepage.jsp";
-</script>
 <script>
     }
     else{

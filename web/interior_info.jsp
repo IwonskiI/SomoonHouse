@@ -360,7 +360,7 @@
         lowerTitle = createEle("span", "title");
         lowerSub = createEle("span", "sub");
 
-        caseContainer.href = "https://somoonhouse.com/interior_detail.jsp" + urlSub + "&cid=" + index;
+        caseContainer.href = "interior_detail.jsp" + urlSub + "&cid=" + index;
         upperImg.src = data.remodeling_imgs[0].img_path;
         lowerTitle.innerHTML = data.apartment_name;
         const caseArea = data.area;

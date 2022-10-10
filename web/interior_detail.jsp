@@ -114,7 +114,7 @@
     <div class="interior_detail_info">
         <div class="info_title" id="info_title">
             <span class="title_name" id="title_name"><span class="title_sub" id="title_sub"></span></span>
-            <span class="title_submit"><a href="https://somoonhouse.com/remodeling_form.jsp?item_num=0">상담 신청</a></span>
+            <span class="title_submit"><a href="remodeling_form.jsp?item_num=0">상담 신청</a></span>
         </div>
         <div class="main_title" id="main_title"></div>
         <div class="info_detail" id="info_detail_detail"></div>
@@ -295,7 +295,7 @@
         lowerTitle = createEle("span", "title");
         lowerSub = createEle("span", "sub");
 
-        caseContainer.href = "https://somoonhouse.com/interior_detail.jsp?id=" + comID +
+        caseContainer.href = "interior_detail.jsp?id=" + comID +
             "&cid=" + index;
         upperImg.src = data.remodeling_imgs[0].img_path;
         lowerTitle.innerHTML = data.apartment_name;
@@ -321,7 +321,7 @@
         caseUpperSpan.innerHTML = data[0].name + "의 다른 시공 사례";
         titleName.innerHTML = data[0].name;
         titleName.onclick = () => {
-            location.href="https://somoonhouse.com/interior_info.jsp?id=" + comID;
+            location.href="interior_info.jsp?id=" + comID;
         }
     }
 

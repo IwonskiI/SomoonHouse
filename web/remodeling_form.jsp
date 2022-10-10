@@ -6,6 +6,7 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=utf-8"); %>
 <% session.setAttribute("page", "remodeling_form.jsp"); %>
+<% session.setAttribute("rf_inum", ""); %>
 <%
     Connection conn = DBUtil.getMySQLConnection();
     ResultSet rs = null;
@@ -21,6 +22,45 @@
     String name = session.getAttribute("name") + "";
     String home_id = "0";
     if (session.getAttribute("home_id") != null) {home_id = session.getAttribute("home_id")+"";}
+
+// 로그인 전 정보 세션에서 가져오기
+    String rf_bt = session.getAttribute("rf_bt") + "";
+    String rf_area = session.getAttribute("rf_area") + "";
+    String rf_due = session.getAttribute("rf_due") + "";
+    String rf_budget = session.getAttribute("rf_budget") + "";
+    String rf_add = session.getAttribute("rf_add") + "";
+    String rf_name = session.getAttribute("rf_name") + "";
+    String rf_phone = session.getAttribute("rf_phone") + "";
+    String rf_reason = session.getAttribute("rf_reason") + "";
+    String cur_form = session.getAttribute("cur_form")+"";
+    ArrayList<Integer> div_tmp = (ArrayList) session.getAttribute("div_tmp");
+//
+// div1 정보 받아오기
+    ArrayList<Integer> div1_tmp = new ArrayList<>();
+    if(div_tmp != null){
+        if (div_tmp.contains(1) || div_tmp.contains(2) || div_tmp.contains(3) || div_tmp.contains(4) || div_tmp.contains(5)){
+            div1_tmp.add(1);
+        }
+        if (div_tmp.contains(6) || div_tmp.contains(7) || div_tmp.contains(8) || div_tmp.contains(9)){
+            div1_tmp.add(2);
+        }
+        if (div_tmp.contains(10) || div_tmp.contains(12) || div_tmp.contains(13) || div_tmp.contains(11)){
+            div1_tmp.add(3);
+        }
+        if (div_tmp.contains(14) || div_tmp.contains(20) || div_tmp.contains(15) || div_tmp.contains(16) || div_tmp.contains(17) || div_tmp.contains(18) || div_tmp.contains(19)){
+            div1_tmp.add(4);
+        }
+        if (div_tmp.contains(21) || div_tmp.contains(22) || div_tmp.contains(23)){
+            div1_tmp.add(5);
+        }
+        if (div_tmp.contains(24) || div_tmp.contains(25) || div_tmp.contains(26) || div_tmp.contains(27)){
+            div1_tmp.add(6);
+        }
+        if (div_tmp.contains(31) || div_tmp.contains(32) || div_tmp.contains(33)){
+            div1_tmp.add(7);
+        }
+    }
+
 
 //DB개체들 가져오기
     conn = DBUtil.getMySQLConnection();
@@ -155,13 +195,16 @@
     <!------------ 내용물  --------------->
     <form action="_remodeling_form.jsp" method="post" onSubmit="return formChk();">
         <input type="hidden" name="item_num" value="<%=item_num%>">
+        <input type="hidden" id="cur_form" name="cur_form" value="">
         <div class="form_mini" id="form1" style="display:block;">
             <!-- 건물 유형 선택 -->
             <div class="form_title">어떤 건물을 인테리어 하실건가요?</div>
             <div class="form_content center">
                 <% for (i = 0; i < resident.size(); i++) {
                 %>
-                <input type="radio" name="building_type" value="<%=i%>" id="resident<%=i%>" class="block">
+                <input type="radio" name="building_type" value="<%=i%>" id="resident<%=i%>" class="block"
+                       <%if(Integer.toString(i).equals(rf_bt)){%>checked<% session.setAttribute("rf_bt","");}%>
+                >
                 <label for="resident<%=i%>">
                     <img src="https://somoonhouse.com/otherimg/estimate/resident_<%=i+1%>.png">
                     <div class="_txt"><%=resident.get(i)%>
@@ -175,16 +218,24 @@
             <!-- 평수 -->
             <div class="form_title">평수(공급면적)을 입력해 주세요.</div>
             <div class="form_content">
-                <input type="number" id="area" name="area" pattern="\d*" class="block" onchange="area_cal(this)">평
+                <input type="number" id="area" name="area" pattern="\d*" class="block" onchange="area_cal(this)"
+                       <%if(!rf_area.equals("") && !rf_area.equals("null")){%>value="<%=rf_area%>"<%session.setAttribute("rf_area","");}%>
+                >평
             </div>
         </div>
         <div class="form_mini" id="form3">
             <!-- 시공예정일 -->
             <div class="form_title">공사 예정일이 언제인가요?</div>
             <div class="form_content block">
-                <input type="radio" name="due" value="1개월 이내" id="due1" class="block"><label for="due1">1개월 이내</label>
-                <input type="radio" name="due" value="2개월 이내" id="due2" class="block"><label for="due2">2개월 이내 </label>
-                <input type="radio" name="due" value="2개월 이후" id="due3" class="block"><label for="due3">2개월 이후</label>
+                <input type="radio" name="due" value="1개월 이내" id="due1" class="block"
+                       <%if("1개월 이내".equals(rf_due)){%>checked<%session.setAttribute("rf_due","");}%>
+                ><label for="due1">1개월 이내</label>
+                <input type="radio" name="due" value="2개월 이내" id="due2" class="block"
+                       <%if("2개월 이내".equals(rf_due)){%>checked<%session.setAttribute("rf_due","");}%>
+                ><label for="due2">2개월 이내</label>
+                <input type="radio" name="due" value="2개월 이후" id="due3" class="block"
+                       <%if("2개월 이후".equals(rf_due)){%>checked<%session.setAttribute("rf_due","");}%>
+                ><label for="due3">2개월 이후</label>
             </div>
         </div>
         <div class="form_mini" id="form4">
@@ -199,7 +250,9 @@
                 <%
                     for (i = 1; i <= division1.size(); i++) {
                 %>
-                <input type="checkbox" name="division1" id="division1_<%=i%>" class="block" value="<%=i%>">
+                <input type="checkbox" name="division1" id="division1_<%=i%>" class="block" value="<%=i%>"
+                       <%if(div1_tmp!=null){if(div1_tmp.contains(i)){%>checked<%}}%>
+                >
                 <label for="division1_<%=i%>">
                     <!-- <img src="otherimg/estimate/division<%=i%>.jpg"> -->
                     <%=division1.get(i)%>
@@ -225,12 +278,17 @@
                             for (Integer key : hm.keySet()) {
                         %>
                         <input type="radio" name="division2-<%=i%>" id="division2-<%=key%>" class="block"
-                               value="<%=key%>">
+                               value="<%=key%>"
+                               <%if(div_tmp != null){if(div_tmp.contains(key)){%>checked<%}}%>
+                        >
                         <label for="division2-<%=key%>"><%
                             out.println(hm.get(key));
                         %></label><%
                         }%>
                     </div>
+                    <%
+                        session.setAttribute("div_tmp",null);
+                    %>
                 </div>
                 <%
                     }
@@ -241,25 +299,45 @@
             <!-- 인테리어 예산 -->
             <div class="form_title">인테리어 예산을 알려주세요.</div>
             <div class="form_content">
-                <input type="radio" name="budget" id="below1000" class="block" value="1천만원 이하">
+                <input type="radio" name="budget" id="below1000" class="block" value="1천만원 이하"
+                       <%if("1천만원 이하".equals(rf_budget)){%>checked<%session.setAttribute("rf_budget","");}%>
+                >
                 <label for="below1000">1천만원 이하</label>
-                <input type="radio" name="budget" id="below2000" class="block" value="2천만원 이하">
+                <input type="radio" name="budget" id="below2000" class="block" value="2천만원 이하"
+                       <%if("2천만원 이하".equals(rf_budget)){%>checked<%session.setAttribute("rf_budget","");}%>
+                >
                 <label for="below2000">2천만원 이하</label>
-                <input type="radio" name="budget" id="below3000" class="block" value="3천만원 이하">
+                <input type="radio" name="budget" id="below3000" class="block" value="3천만원 이하"
+                       <%if("3천만원 이하".equals(rf_budget)){%>checked<%session.setAttribute("rf_budget","");}%>
+                >
                 <label for="below3000">3천만원 이하</label>
-                <input type="radio" name="budget" id="below4000" class="block" value="4천만원 이하">
+                <input type="radio" name="budget" id="below4000" class="block" value="4천만원 이하"
+                       <%if("4천만원 이하".equals(rf_budget)){%>checked<%session.setAttribute("rf_budget","");}%>
+                >
                 <label for="below4000">4천만원 이하</label>
-                <input type="radio" name="budget" id="below5000" class="block" value="5천만원 이하">
+                <input type="radio" name="budget" id="below5000" class="block" value="5천만원 이하"
+                       <%if("5천만원 이하".equals(rf_budget)){%>checked<%session.setAttribute("rf_budget","");}%>
+                >
                 <label for="below5000">5천만원 이하</label>
-                <input type="radio" name="budget" id="below6000" class="block" value="6천만원 이하">
+                <input type="radio" name="budget" id="below6000" class="block" value="6천만원 이하"
+                       <%if("6천만원 이하".equals(rf_budget)){%>checked<%session.setAttribute("rf_budget","");}%>
+                >
                 <label for="below6000">6천만원 이하</label>
-                <input type="radio" name="budget" id="below8000" class="block" value="8천만원 이하">
+                <input type="radio" name="budget" id="below8000" class="block" value="8천만원 이하"
+                       <%if("8천만원 이하".equals(rf_budget)){%>checked<%session.setAttribute("rf_budget","");}%>
+                >
                 <label for="below8000">8천만원 이하</label>
-                <input type="radio" name="budget" id="below10000" class="block" value="1억원 이하">
+                <input type="radio" name="budget" id="below10000" class="block" value="1억원 이하"
+                       <%if("1억원 이하".equals(rf_budget)){%>checked<%session.setAttribute("rf_budget","");}%>
+                >
                 <label for="below10000">1억원 이하</label>
-                <input type="radio" name="budget" id="above10000" class="block" value="1억원 이상">
+                <input type="radio" name="budget" id="above10000" class="block" value="1억원 이상"
+                       <%if("1억원 이상".equals(rf_budget)){%>checked<%session.setAttribute("rf_budget","");}%>
+                >
                 <label for="above10000">1억원 이상</label>
-                <input type="radio" name="budget" id="undefined" class="block" value="미정(상담 후 결정)">
+                <input type="radio" name="budget" id="undefined" class="block" value="미정(상담 후 결정)"
+                       <%if("미정(상담 후 결정)".equals(rf_budget)){%>checked<%session.setAttribute("rf_budget","");}%>
+                >
                 <label for="undefined">미정</label>
             </div>
             <div class="warning_cost" id="warning" style="display:none;">
@@ -288,7 +366,9 @@
             <!-- 인테리어 지역주소 -->
             <div class="form_title">시공하시는 곳의 주소를 알려주세요.</div>
             <div class="form_content">
-               <input type="text" name="address" class="block">
+               <input type="text" name="address" class="block"
+                      <%if(!rf_add.equals("") && !rf_add.equals("null")){%>value="<%=rf_add%>"<%session.setAttribute("rf_add","");}%>
+               >
             </div>
         </div>
         <!--div class="form_mini" id="form8">
@@ -323,13 +403,20 @@
             <!-- 이름, 연락처정보 + 개인정보동의 -->
             <div class="form_title">상담을 위해 정보를 입력해주세요.</div>
             <div class="form_content">
-                <div class="item"><span class="nametag">성함</span><input type="text" name="name" class="block"
-                    <%if(user.get("name")!=null){%> value="<%=user.get("name")%>"<%}%>
+                <div class="item"><span class="nametag">성함</span>
+                    <input type="text" name="name" class="block"
+                        <%if(user.get("name")!=null){%> value="<%=user.get("name")%>"<%}%>
+                           <%if(!rf_name.equals("") && !rf_name.equals("null")){%>value="<%=rf_name%>"<%session.setAttribute("rf_name","");}%>
                 ></div>
-                <div class="item"><span class="nametag">휴대폰</span><input type="number" name="phone" class="block"
-                    <%if(user.get("phone")!=null){%> value="<%=user.get("phone")%>"<%}%>
+                <div class="item"><span class="nametag">휴대폰</span>
+                    <input type="number" name="phone" class="block"
+                        <%if(user.get("phone")!=null){%> value="<%=user.get("phone")%>"<%}%>
+                           <%if(!rf_phone.equals("") && !rf_phone.equals("null")){%>value="<%=rf_phone%>"<%session.setAttribute("rf_phone","");}%>
                 ></div>
-                <div class="item"><span class="nametag">신청 이유(선택 사항)</span><input type="text" name="reason" class="block"></div>
+                <div class="item"><span class="nametag">신청 이유(선택 사항)</span>
+                    <input type="text" name="reason" class="block"
+                           <%if(!rf_reason.equals("") && !rf_reason.equals("null")){%>value="<%=rf_reason%>"<%session.setAttribute("rf_reason","");}%>
+                ></div>
                 <!-- div class="item"><span class="nametag">휴대폰</span><input type="text" class="cert_input" name="phone"><input type="button" class="cert_btn" id="cert_start" value="인증"></div>
                 <div class="item"><span class="nametag">인증번호</span><input type="text" class="cert_input" name="certificate_num"><input type="button" class="cert_btn" id="cert_ok" value="확인"></div-->
                 <input type="checkbox" name="agree" class="block"> 개인정보 활용동의
@@ -396,9 +483,8 @@ query="";
 conn.close();
 */
 %>
-<script>
 
-    var quit_num = 0;
+<script>
 
     function check_all(){
         var chck_lst = "";
@@ -413,6 +499,70 @@ conn.close();
             $('#warning').css('display', 'none');
         }
     }
+
+    function partly() {
+        var num;
+        $('#form4 input').each(function () {
+            num = $(this).attr('id');
+            num = num.replaceAll('division1_', '');
+            num = parseInt(num);
+            if ($(this).is(':checked')) {
+                $('#division2_' + num).css('display', 'block');
+                $('#division2_' + num + ' input').each(function () {
+                    $(this).attr('class', 'block');
+                })
+            } else {
+                $('#division2_' + num).css('display', 'none');
+                $('#division2_' + num + ' input').each(function () {
+                    $(this).attr('class', 'none');
+                })
+            }
+        })
+    }
+
+    function area_cal(val){
+        var area = val.value;
+        var value = 110;
+
+        document.getElementById("cal_val1").innerHTML = area * value;
+        document.getElementById("cal_val2").innerText = area * value + 500;
+
+    }
+
+    function level_chk(num){
+        for(var j= 1; j<=9; j++){
+            $('#level'+ j ).css({backgroundColor:'#cbcbcb'});
+        }
+        for(var i=1; i<=num; i++){
+            $('#level'+ i ).css({backgroundColor: '#3e70ff'});
+        }
+    }
+
+    <%if (!cur_form.equals("null") && !cur_form.equals("")){%>
+    var num = parseInt("<%=cur_form%>");
+    var area = document.getElementById("area");
+    $('#form1').css('display', 'none');
+    $('#navigator1').css('display', 'none');
+    $('#form' + num).css('display', 'block');
+    if(num === 1){
+        $('#navigator1').css('display', 'block');
+    }
+    else if(num === 9){
+        $('#navigator3').css('display', 'block');
+    }
+    else{
+        $('#navigator2').css('display', 'block');
+    }
+    partly();
+    check_all();
+    area_cal(area);
+    level_chk(num)
+    <%}%>
+</script>
+
+<script>
+
+    var quit_num = 0;
 
     $(document).ready(function() {
         $("#division1_all").click(function() {
@@ -543,6 +693,7 @@ conn.close();
         $('.next').click(function () {
             var elem;
             var num;
+            var area = document.getElementById("area");
 
             $('.form_mini').each(function () {
                 if ($(this).css('display') == 'block') {
@@ -552,7 +703,9 @@ conn.close();
                     elem = $(this);
                 }
             })
-            if (num == 5)
+            if(num == 3)
+                area_cal(area);
+            else if (num == 5)
                 partly();
             else if (num == 6)
                 check_all();
@@ -575,7 +728,7 @@ conn.close();
         $('.prev').click(function () {
             var elem;
             var num;
-
+            var area = document.getElementById("area");
             $('.form_mini').each(function () {
                 if ($(this).css('display') == 'block') {
                     num = $(this).attr('id').replace(/form/g, '');
@@ -584,7 +737,9 @@ conn.close();
                     elem = $(this);
                 }
             })
-            if (num == 5)
+            if(num == 3)
+                area_cal(area);
+            else if (num == 5)
                 partly();
             else if (num == 6)
                 check_all();
@@ -643,36 +798,7 @@ conn.close();
             level_chk(quit_num);
         })
         $('#save').off()
-
-        function partly() {
-            var num;
-            $('#form4 input').each(function () {
-                num = $(this).attr('id');
-                num = num.replaceAll('division1_', '');
-                num = parseInt(num);
-                if ($(this).is(':checked')) {
-                    $('#division2_' + num).css('display', 'block');
-                    $('#division2_' + num + ' input').each(function () {
-                        $(this).attr('class', 'block');
-                    })
-                } else {
-                    $('#division2_' + num).css('display', 'none');
-                    $('#division2_' + num + ' input').each(function () {
-                        $(this).attr('class', 'none');
-                    })
-                }
-            })
-        }
     })
-
-    function level_chk(num){
-        for(var j= 1; j<=9; j++){
-            $('#level'+ j ).css({backgroundColor:'#cbcbcb'});
-        }
-        for(var i=1; i<=num; i++){
-            $('#level'+ i ).css({backgroundColor: '#3e70ff'});
-        }
-    }
 
     function formChk() {
         //return confirm("");
@@ -698,24 +824,27 @@ conn.close();
 
     function saveform(frm) {
         var home_id = document.getElementById("home_id").value
+        var num;
+
         if(home_id === "0"){
+            $('.form_mini').each(function () {
+                if ($(this).css('display') == 'block') {
+                    num = $(this).attr('id').replace(/form/g, '');
+                    num = parseInt(num);
+                }
+            })
+            document.getElementById("cur_form").value = num
             alert("견적서 저장은 로그인이 필요한 서비스 입니다.");
-            location.href='login.jsp'
+            <%session.setAttribute("b_page","remodeling_form.jsp");%>
+            frm.action='_login_temp.jsp';
+            frm.submit();
+            return true;
         }
         else {
             frm.action = '_remodeling_form_save.jsp';
             frm.submit();
             return true;
         }
-    }
-
-    function area_cal(val){
-        var area = val.value;
-        var value = 110;
-
-        document.getElementById("cal_val1").innerHTML = area * value;
-        document.getElementById("cal_val2").innerText = area * value + 500;
-
     }
 
 

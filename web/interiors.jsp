@@ -292,7 +292,7 @@
             titleSub = createEle("span", "title_sub");
             companyImgs = createEle("div", "company_imgs");
 
-            companyContainer.href = "https://somoonhouse.com/interior_info.jsp?id=" + prop.id;
+            companyContainer.href = "interior_info.jsp?id=" + prop.id;
             leftName.innerHTML = comName;
             if(loc === "3") leftAddr.innerHTML = "대구/경북";
             else if(loc === "1") leftAddr.innerHTML = "서울/경기/인천";
